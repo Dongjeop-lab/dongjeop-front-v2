@@ -2,7 +2,7 @@ name: 🔍 코드 품질 검사
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, dev ]
   pull_request:
     types: [opened, synchronize, reopened]
 
