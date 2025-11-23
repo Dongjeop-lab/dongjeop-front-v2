@@ -1,0 +1,54 @@
+# GitHub Auto-Labeler workflow
+#
+# 📝 목적:
+# - PR에서 변경된 파일 경로를 분석하여 자동으로 적절한 라벨을 부여
+# - 코드 리뷰와 이슈 관리 효율성 향상
+# - 팀원들이 변경 사항의 범위를 한눈에 파악 가능
+#
+# 🎯 동작 방식:
+# 1. PR이 생성되거나 새 커밋이 푸시될 때 자동 실행
+# 2. .github/labeler.yml 파일의 규칙에 따라 라벨 분석
+# 3. 변경된 파일 경로와 매칭되는 라벨들을 자동 부여
+# 4. 기존 라벨은 유지하고 새로운 라벨만 추가
+#
+# 📁 연동 파일:
+# - .github/labeler.yml: 파일 경로 → 라벨 매핑 규칙 정의
+# - .github/pull_request_template.md: 변경사항 체크리스트와 일치
+
+name: 🏷️ 자동 라벨링
+
+on:
+  pull_request:
+    types: [opened, synchronize]  # PR 생성 또는 새 커밋 푸시 시
+
+permissions:
+  contents: read
+  pull-requests: write  # 라벨 추가/수정 권한
+
+jobs:
+  auto-label:
+    name: 📋 PR 라벨 자동 분류
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: 📥 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 🏷️ 파일 변경사항 기반 자동 라벨링
+        uses: actions/labeler@v5
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/labeler.yml
+          sync-labels: true  # 파일 변경 시 라벨 동기화
+
+      - name: 📊 라벨링 결과 요약
+        if: always()
+        run: |
+          echo "## 🏷️ 자동 라벨링 완료" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ 변경된 파일 경로 분석 완료" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ 관련 라벨 자동 부여 완료" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📁 **라벨링 규칙:** [.github/labeler.yml](/.github/labeler.yml) 파일 참조" >> $GITHUB_STEP_SUMMARY
+          echo "🔧 **라벨 수정:** PR 페이지에서 수동으로 라벨 추가/제거 가능" >> $GITHUB_STEP_SUMMARY
+
