@@ -1,4 +1,5 @@
 import { css } from 'styled-system/css';
+
 import { QueryProvider } from './lib/query-provider';
 
 const App = () => {
