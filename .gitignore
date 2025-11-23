@@ -30,3 +30,7 @@ dist-ssr
 
 # TypeScript
 *.tsbuildinfo
+
+## Panda
+styled-system
+styled-system-studio
