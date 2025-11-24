@@ -1,0 +1,40 @@
+import type { ReactNode } from 'react';
+import { css } from 'styled-system/css';
+
+interface BadgeProps {
+  variant?: 'primary' | 'gray' | 'red' | 'orange' | 'green' | 'blue' | 'purple';
+  label: ReactNode;
+}
+
+const variantStyles = {
+  primary: { color: '#FFFFFF', backgroundColor: '#3182F7' },
+  gray: { color: '#495058', backgroundColor: '#E7EDF3' },
+  red: { color: '#E74444', backgroundColor: '#FF626229' },
+  orange: { color: '#D87000', backgroundColor: '#FFB65133' },
+  green: { color: '#2DA962', backgroundColor: '#26D07033' },
+  blue: { color: '#1C6EE4', backgroundColor: '#3182F724' },
+  purple: { color: '#8844E7', backgroundColor: '#7762FF29' },
+};
+
+const Badge = ({ variant = 'primary', label }: BadgeProps) => {
+  const { color, backgroundColor } = variantStyles[variant];
+
+  return (
+    <p
+      className={css({
+        py: '2px',
+        px: '6px',
+        width: 'fit-content',
+        borderRadius: '.375rem',
+        fontSize: '.75rem',
+        fontWeight: '500',
+        lineHeight: '140%',
+      })}
+      style={{ color, backgroundColor }}
+    >
+      {label}
+    </p>
+  );
+};
+
+export default Badge;
