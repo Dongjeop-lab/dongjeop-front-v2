@@ -4,7 +4,7 @@ import { circle, flex } from 'styled-system/patterns';
 
 interface StatusDotProps {
   variant: 'normal' | 'pending' | 'error';
-  label: ReactNode;
+  label?: ReactNode;
   labelClassName?: string;
 }
 
@@ -14,7 +14,15 @@ const variantColors = {
   error: '#F36E6E',
 } as const;
 
+const defaultLabels = {
+  normal: '정상',
+  pending: '보류',
+  error: '삭제 대상',
+} as const;
+
 const StatusDot = ({ variant, label, labelClassName }: StatusDotProps) => {
+  const displayLabel = label ?? defaultLabels[variant];
+
   return (
     <div className={flex({ direction: 'row', gap: '6px', align: 'center' })}>
       <div
@@ -32,7 +40,7 @@ const StatusDot = ({ variant, label, labelClassName }: StatusDotProps) => {
           labelClassName
         )}
       >
-        {label}
+        {displayLabel}
       </span>
     </div>
   );
