@@ -3,7 +3,8 @@ import { css } from 'styled-system/css';
 
 interface BadgeProps {
   variant?: 'primary' | 'gray' | 'red' | 'orange' | 'green' | 'blue' | 'purple';
-  label: ReactNode;
+  label?: ReactNode;
+  level?: 1 | 2 | 3 | 4 | 5;
 }
 
 const variantStyles = {
@@ -16,8 +17,18 @@ const variantStyles = {
   purple: { color: '#8844E7', backgroundColor: '#7762FF29' },
 };
 
-const Badge = ({ variant = 'primary', label }: BadgeProps) => {
-  const { color, backgroundColor } = variantStyles[variant];
+const levelToVariant = {
+  1: 'red',
+  2: 'orange',
+  3: 'green',
+  4: 'blue',
+  5: 'purple',
+} as const;
+
+const Badge = ({ variant = 'primary', label, level }: BadgeProps) => {
+  const colorVariant = level ? levelToVariant[level] : variant;
+  const { color, backgroundColor } = variantStyles[colorVariant];
+  const displayLabel = label ?? (level ? `Lv.${level}` : undefined);
 
   return (
     <p
@@ -32,7 +43,7 @@ const Badge = ({ variant = 'primary', label }: BadgeProps) => {
       })}
       style={{ color, backgroundColor }}
     >
-      {label}
+      {displayLabel}
     </p>
   );
 };
