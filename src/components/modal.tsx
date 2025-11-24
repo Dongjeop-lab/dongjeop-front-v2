@@ -1,14 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { css } from '../../styled-system/css';
 
-interface ModalProps {
+interface ModalProps extends PropsWithChildren {
   open: boolean;
   title: string;
-  children: ReactNode;
   width?: string | number;
   height?: string | number;
+  gap?: string | number;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -18,6 +18,7 @@ const Modal = ({
   children,
   width = 'auto',
   height = 'auto',
+  gap = '2rem',
   onOpenChange,
 }: ModalProps) => {
   return (
@@ -47,12 +48,11 @@ const Modal = ({
             zIndex: 101,
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px',
             maxWidth: '90vw',
             maxHeight: '90vh',
             overflow: 'auto',
           })}
-          style={{ width, height }}
+          style={{ width, height, gap }}
         >
           <div
             className={css({
@@ -63,7 +63,7 @@ const Modal = ({
           >
             <Dialog.Title
               className={css({
-                fontSize: '20px',
+                fontSize: '1.25rem',
                 fontWeight: 'bold',
                 color: '#333',
               })}
@@ -74,13 +74,10 @@ const Modal = ({
               <button
                 className={css({
                   cursor: 'pointer',
-                  color: '#666',
-                  _hover: { color: '#333' },
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 })}
-                aria-label='Close'
               >
                 <img
                   src='/icons/clear.svg'
