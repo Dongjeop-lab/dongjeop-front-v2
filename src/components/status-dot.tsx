@@ -32,7 +32,7 @@ const StatusDot = ({ variant, label, labelClassName }: StatusDotProps) => {
       <span
         className={cx(
           css({
-            fontSize: '13px',
+            fontSize: '.8125rem',
             fontWeight: '500',
             lineHeight: '140%',
             color: '#121619',
