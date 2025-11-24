@@ -3,135 +3,159 @@
 
 # 🎨 UI/컴포넌트
 ui:
-  - "src/components/**"
-  - "src/pages/**/components/**"
-  - "**/*.module.css"
-  - "**/*.module.scss"
-  - "src/styles/**"
-  - "**/*.styled.ts"
-  - "**/*.styled.tsx"
-  - "src/index.css"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/components/**"
+      - "src/pages/**/components/**"
+      - "**/*.module.css"
+      - "**/*.module.scss"
+      - "src/styles/**"
+      - "**/*.styled.ts"
+      - "**/*.styled.tsx"
+      - "src/index.css"
 
 # 🔗 API/데이터
 api:
-  - "src/apis/**"
-  - "src/pages/**/apis/**"
-  - "src/lib/api/**"
-  - "src/utils/api/**"
-  - "src/hooks/**/use*Query.ts"
-  - "src/hooks/**/use*Query.tsx"
-  - "src/hooks/**/use*Mutation.ts"
-  - "src/hooks/**/use*Mutation.tsx"
-  - "src/pages/**/hooks/**/use*Query.ts"
-  - "src/pages/**/hooks/**/use*Query.tsx"
-  - "src/pages/**/hooks/**/use*Mutation.ts"
-  - "src/pages/**/hooks/**/use*Mutation.tsx"
-  - "src/queries/**"
-  - "src/mutations/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/apis/**"
+      - "src/pages/**/apis/**"
+      - "src/lib/api/**"
+      - "src/utils/api/**"
+      - "src/hooks/**/use*Query.ts"
+      - "src/hooks/**/use*Query.tsx"
+      - "src/hooks/**/use*Mutation.ts"
+      - "src/hooks/**/use*Mutation.tsx"
+      - "src/pages/**/hooks/**/use*Query.ts"
+      - "src/pages/**/hooks/**/use*Query.tsx"
+      - "src/pages/**/hooks/**/use*Mutation.ts"
+      - "src/pages/**/hooks/**/use*Mutation.tsx"
+      - "src/queries/**"
+      - "src/mutations/**"
 
 # 📄 페이지/라우팅
 pages:
-  - "src/pages/**/*.tsx"
-  - "src/pages/**/*.ts"
-  - "!src/pages/**/components/**"
-  - "!src/pages/**/hooks/**"
-  - "!src/pages/**/apis/**"
-  - "!src/pages/**/types/**"
-  - "!src/pages/**/utils/**"
-  - "src/routes/**"
-  - "src/App.tsx"
-  - "src/Router.tsx"
-  - "src/router.tsx"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/pages/**/*.tsx"
+      - "src/pages/**/*.ts"
+      - "!src/pages/**/components/**"
+      - "!src/pages/**/hooks/**"
+      - "!src/pages/**/apis/**"
+      - "!src/pages/**/types/**"
+      - "!src/pages/**/utils/**"
+      - "src/routes/**"
+      - "src/App.tsx"
+      - "src/Router.tsx"
+      - "src/router.tsx"
 
 # 🎯 타입 정의
 types:
-  - "src/types/**"
-  - "src/pages/**/types/**"
-  - "**/*.d.ts"
-  - "**/*types.ts"
-  - "**/*.types.ts"
-  - "src/models/**"
-  - "src/interfaces/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/types/**"
+      - "src/pages/**/types/**"
+      - "**/*.d.ts"
+      - "**/*types.ts"
+      - "**/*.types.ts"
+      - "src/models/**"
+      - "src/interfaces/**"
 
 # 🪝 커스텀 훅
 hooks:
-  - "src/hooks/**"
-  - "src/pages/**/hooks/**"
-  - "!src/hooks/**/use*Query.ts"
-  - "!src/hooks/**/use*Query.tsx"
-  - "!src/hooks/**/use*Mutation.ts"
-  - "!src/hooks/**/use*Mutation.tsx"
-  - "!src/pages/**/hooks/**/use*Query.ts"
-  - "!src/pages/**/hooks/**/use*Query.tsx"
-  - "!src/pages/**/hooks/**/use*Mutation.ts"
-  - "!src/pages/**/hooks/**/use*Mutation.tsx"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/hooks/**"
+      - "src/pages/**/hooks/**"
+      - "!src/hooks/**/use*Query.ts"
+      - "!src/hooks/**/use*Query.tsx"
+      - "!src/hooks/**/use*Mutation.ts"
+      - "!src/hooks/**/use*Mutation.tsx"
+      - "!src/pages/**/hooks/**/use*Query.ts"
+      - "!src/pages/**/hooks/**/use*Query.tsx"
+      - "!src/pages/**/hooks/**/use*Mutation.ts"
+      - "!src/pages/**/hooks/**/use*Mutation.tsx"
 
 # 🛠️ 유틸리티
 utils:
-  - "src/utils/**"
-  - "src/pages/**/utils/**"
-  - "src/lib/**"
-  - "!src/lib/api/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/utils/**"
+      - "src/pages/**/utils/**"
+      - "src/lib/**"
+      - "!src/lib/api/**"
 
 # 🗄️ 상태관리
 store:
-  - "src/stores/**"
-  - "src/pages/**/stores/**"
-  - "src/store/**"
-  - "src/contexts/**"
-  - "src/pages/**/contexts/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/stores/**"
+      - "src/pages/**/stores/**"
+      - "src/store/**"
+      - "src/contexts/**"
+      - "src/pages/**/contexts/**"
 
 # 🎨 레이아웃
 layout:
-  - "src/layouts/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/layouts/**"
 
 # 📦 에셋
 assets:
-  - "src/assets/**"
-  - "public/**"
-  - "**/*.svg"
-  - "**/*.png"
-  - "**/*.jpg"
-  - "**/*.jpeg"
-  - "**/*.gif"
-  - "**/*.webp"
-  - "**/*.ico"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "src/assets/**"
+      - "public/**"
+      - "**/*.svg"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "**/*.jpeg"
+      - "**/*.gif"
+      - "**/*.webp"
+      - "**/*.ico"
 
 # ⚙️ 설정/빌드
 config:
-  - "package*.json"
-  - "tsconfig*.json"
-  - "eslint.config.*"
-  - ".env*"
-  - "!.env.example"
-  - ".prettierrc*"
-  - ".prettierignore"
-  - ".gitignore"
-  - "*.config.js"
-  - "*.config.ts"
-  - "vite.config.*"
-  - ".github/workflows/**"
-  - "Dockerfile*"
-  - "docker-compose*"
-  - "tailwind.config.*"
-  - "postcss.config.*"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "package*.json"
+      - "tsconfig*.json"
+      - "eslint.config.*"
+      - ".env*"
+      - "!.env.example"
+      - ".prettierrc*"
+      - ".prettierignore"
+      - ".gitignore"
+      - "*.config.js"
+      - "*.config.ts"
+      - "vite.config.*"
+      - ".github/workflows/**"
+      - "Dockerfile*"
+      - "docker-compose*"
+      - "tailwind.config.*"
+      - "postcss.config.*"
 
 # 📚 문서
 documentation:
-  - "README.md"
-  - "CHANGELOG*.md"
-  - "docs/**"
-  - "**/*.md"
-  - "!.github/**/*.md"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "README.md"
+      - "CHANGELOG*.md"
+      - "docs/**"
+      - "**/*.md"
+      - "!.github/**/*.md"
 
 # 🧪 테스트
 test:
-  - "**/*.test.*"
-  - "**/*.spec.*"
-  - "**/__tests__/**"
-  - "**/__mocks__/**"
-  - "test/**"
-  - "tests/**"
-  - "jest.config.*"
-  - "vitest.config.*"
-  - "setupTests.*"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.test.*"
+      - "**/*.spec.*"
+      - "**/__tests__/**"
+      - "**/__mocks__/**"
+      - "test/**"
+      - "tests/**"
+      - "jest.config.*"
+      - "vitest.config.*"
+      - "setupTests.*"
