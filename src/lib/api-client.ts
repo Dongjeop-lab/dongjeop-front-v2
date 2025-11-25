@@ -3,7 +3,7 @@ import axios, { type AxiosRequestConfig } from 'axios';
 import { handleApiError } from './api-error';
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

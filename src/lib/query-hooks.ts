@@ -12,9 +12,6 @@ import type { ApiError } from './api-error';
 
 /**
  * useQuery 래퍼
- * - 타입 안전성 강화
- * - 에러 처리 자동화
- * - 공통 옵션 적용
  */
 export function useApiQuery<
   TData = unknown,
@@ -27,7 +24,6 @@ export function useApiQuery<
   }
 ) {
   return useQuery<TData, TError, TData, TQueryKey>({
-    // 기본 옵션
     staleTime: 1000 * 60 * 5, // 5분
     gcTime: 1000 * 60 * 10, // 10분
     retry: (failureCount, error) => {
@@ -51,9 +47,6 @@ export function useApiQuery<
 
 /**
  * useSuspenseQuery 래퍼
- * - Suspense 모드로 데이터 로딩
- * - ErrorBoundary와 함께 사용
- * - 타입 안전성 강화
  *
  * @example
  * ```tsx
@@ -82,7 +75,6 @@ export function useSuspenseApiQuery<
   }
 ) {
   return useSuspenseQuery<TData, TError, TData, TQueryKey>({
-    // 기본 옵션
     staleTime: 1000 * 60 * 5, // 5분
     gcTime: 1000 * 60 * 10, // 10분
     ...options,
@@ -91,8 +83,6 @@ export function useSuspenseApiQuery<
 
 /**
  * useMutation 래퍼
- * - 타입 안전성 강화
- * - 에러 처리 자동화
  */
 export function useApiMutation<
   TData = unknown,
@@ -106,24 +96,3 @@ export function useApiMutation<
 ) {
   return useMutation<TData, TError, TVariables, TContext>(options);
 }
-
-/**
- * Query Key Factory
- * 일관된 쿼리 키 생성을 위한 헬퍼
- *
- * @example
- * projects: {
- *   all: ['projects'] as const,
- *   list: (filters?: Record<string, unknown>) => ['projects', 'list', filters] as const,
- *   detail: (id: string) => ['projects', 'detail', id] as const,
- * }
- */
-export const queryKeys = {
-  /** 프로젝트 관련 쿼리 */
-  projects: {
-    all: ['projects'] as const,
-    list: () => [...queryKeys.projects.all, 'list'] as const,
-    detail: (id: string) =>
-      [...queryKeys.projects.all, 'detail', { id }] as const,
-  },
-};

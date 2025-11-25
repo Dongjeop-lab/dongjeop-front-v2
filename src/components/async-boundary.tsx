@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode, SuspenseProps } from 'react';
 import { Suspense } from 'react';
+import { css } from 'styled-system/css';
 
 import { ErrorBoundary } from './error-boundary';
 
@@ -46,30 +47,26 @@ export function AsyncBoundary({
 function DefaultLoadingFallback() {
   return (
     <div
-      style={{
-        padding: '2rem',
+      className={css({
+        padding: '8',
         textAlign: 'center',
         minHeight: '200px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
+      })}
     >
       <div
-        style={{
-          width: '2rem',
-          height: '2rem',
-          border: '3px solid #e5e7eb',
-          borderTopColor: '#3b82f6',
-          borderRadius: '50%',
+        className={css({
+          width: '8',
+          height: '8',
+          border: '3px solid',
+          borderColor: 'gray.200',
+          borderTopColor: 'blue.500',
+          borderRadius: 'full',
           animation: 'spin 0.6s linear infinite',
-        }}
+        })}
       />
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

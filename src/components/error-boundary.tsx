@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { ReactNode } from 'react';
 import { Component } from 'react';
+import { css } from 'styled-system/css';
 
 import type { ApiError } from '@/lib/api-error';
 
@@ -67,7 +68,6 @@ function DefaultErrorFallback({
   error: Error;
   reset: () => void;
 }) {
-  // ApiError인 경우 사용자 친화적 메시지 표시
   const errorMessage =
     'getUserMessage' in error && typeof error.getUserMessage === 'function'
       ? (error as ApiError).getUserMessage()
@@ -75,32 +75,46 @@ function DefaultErrorFallback({
 
   return (
     <div
-      style={{
-        padding: '2rem',
+      className={css({
+        padding: '8',
         textAlign: 'center',
         minHeight: '200px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
+      })}
     >
       <h2
-        style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}
+        className={css({
+          fontSize: '2xl',
+          fontWeight: 'bold',
+          marginBottom: '4',
+        })}
       >
         오류가 발생했습니다
       </h2>
-      <p style={{ color: '#666', marginBottom: '1.5rem' }}>{errorMessage}</p>
+      <p
+        className={css({
+          color: 'gray.600',
+          marginBottom: '6',
+        })}
+      >
+        {errorMessage}
+      </p>
       <button
         onClick={reset}
-        style={{
-          padding: '0.5rem 1rem',
-          backgroundColor: '#3b82f6',
+        className={css({
+          padding: '2 4',
+          backgroundColor: 'blue.500',
           color: 'white',
           border: 'none',
-          borderRadius: '0.375rem',
+          borderRadius: 'md',
           cursor: 'pointer',
-        }}
+          _hover: {
+            backgroundColor: 'blue.600',
+          },
+        })}
       >
         다시 시도
       </button>
