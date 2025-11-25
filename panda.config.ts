@@ -1,18 +1,37 @@
 import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
-  // Whether to use css reset
   preflight: true,
-
-  // Where to look for your css declarations
   include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,jsx,ts,tsx}'],
-
-  // Files to exclude
   exclude: [],
-
-  // Generates JSX utilities with options of React, Preact, Qwik, Solid, Vue
   jsxFramework: 'react',
-
-  // The output directory for your css system
   outdir: 'styled-system',
+
+  theme: {
+    extend: {
+      tokens: {
+        colors: {
+          button: {
+            primary: { value: '#3182F7' },
+            pressed: { value: '#1462D3' },
+            disabled: { value: '#E7EDF3' },
+            text: {
+              primary: { value: '#FFFFFF' },
+              pressed: { value: '#99BEF5' },
+              disabled: { value: '#B3BFCE' },
+            },
+          },
+        },
+        fonts: {
+          body: { value: 'Pretendard, ui-sans-serif, system-ui, sans-serif' },
+        },
+      },
+    },
+  },
+
+  globalCss: {
+    body: {
+      fontFamily: 'Pretendard, ui-sans-serif, system-ui, sans-serif',
+    },
+  },
 });
