@@ -39,15 +39,16 @@ pages:
     - any-glob-to-any-file:
       - "src/pages/**/*.tsx"
       - "src/pages/**/*.ts"
+      - "src/routes/**"
+      - "src/App.tsx"
+      - "src/Router.tsx"
+      - "src/router.tsx"
+    - all-globs-to-all-files:
       - "!src/pages/**/components/**"
       - "!src/pages/**/hooks/**"
       - "!src/pages/**/apis/**"
       - "!src/pages/**/types/**"
       - "!src/pages/**/utils/**"
-      - "src/routes/**"
-      - "src/App.tsx"
-      - "src/Router.tsx"
-      - "src/router.tsx"
 
 # 🎯 타입 정의
 types:
@@ -67,6 +68,7 @@ hooks:
     - any-glob-to-any-file:
       - "src/hooks/**"
       - "src/pages/**/hooks/**"
+    - all-globs-to-all-files:
       - "!src/hooks/**/use*Query.ts"
       - "!src/hooks/**/use*Query.tsx"
       - "!src/hooks/**/use*Mutation.ts"
@@ -83,6 +85,7 @@ utils:
       - "src/utils/**"
       - "src/pages/**/utils/**"
       - "src/lib/**"
+    - all-globs-to-all-files:
       - "!src/lib/api/**"
 
 # 🗄️ 상태관리
@@ -123,7 +126,6 @@ config:
       - "tsconfig*.json"
       - "eslint.config.*"
       - ".env*"
-      - "!.env.example"
       - ".prettierrc*"
       - ".prettierignore"
       - ".gitignore"
@@ -135,6 +137,8 @@ config:
       - "docker-compose*"
       - "tailwind.config.*"
       - "postcss.config.*"
+    - all-globs-to-all-files:
+      - "!.env.example"
 
 # 📚 문서
 documentation:
@@ -144,6 +148,7 @@ documentation:
       - "CHANGELOG*.md"
       - "docs/**"
       - "**/*.md"
+    - all-globs-to-all-files:
       - "!.github/**/*.md"
 
 # 🧪 테스트
