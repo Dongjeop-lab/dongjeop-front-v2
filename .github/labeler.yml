@@ -6,32 +6,26 @@ ui:
   - changed-files:
     - any-glob-to-any-file:
       - "src/components/**"
-      - "src/pages/**/components/**"
-      - "**/*.module.css"
-      - "**/*.module.scss"
-      - "src/styles/**"
-      - "**/*.styled.ts"
-      - "**/*.styled.tsx"
+      - "src/pages/**/_components/**"
       - "src/index.css"
+      - "styled-system/**"
 
 # 🔗 API/데이터
 api:
   - changed-files:
     - any-glob-to-any-file:
       - "src/apis/**"
-      - "src/pages/**/apis/**"
-      - "src/lib/api/**"
-      - "src/utils/api/**"
+      - "src/pages/**/_apis/**"
+      - "src/lib/api-*.ts"
+      - "src/lib/api-*.tsx"
       - "src/hooks/**/use*Query.ts"
       - "src/hooks/**/use*Query.tsx"
       - "src/hooks/**/use*Mutation.ts"
       - "src/hooks/**/use*Mutation.tsx"
-      - "src/pages/**/hooks/**/use*Query.ts"
-      - "src/pages/**/hooks/**/use*Query.tsx"
-      - "src/pages/**/hooks/**/use*Mutation.ts"
-      - "src/pages/**/hooks/**/use*Mutation.tsx"
-      - "src/queries/**"
-      - "src/mutations/**"
+      - "src/pages/**/_hooks/**/use*Query.ts"
+      - "src/pages/**/_hooks/**/use*Query.tsx"
+      - "src/pages/**/_hooks/**/use*Mutation.ts"
+      - "src/pages/**/_hooks/**/use*Mutation.tsx"
 
 # 📄 페이지/라우팅
 pages:
@@ -39,64 +33,63 @@ pages:
     - any-glob-to-any-file:
       - "src/pages/**/*.tsx"
       - "src/pages/**/*.ts"
-      - "src/routes/**"
-      - "src/App.tsx"
-      - "src/Router.tsx"
-      - "src/router.tsx"
+      - "src/routes.tsx"
+      - "src/main.tsx"
     - all-globs-to-all-files:
-      - "!src/pages/**/components/**"
-      - "!src/pages/**/hooks/**"
-      - "!src/pages/**/apis/**"
-      - "!src/pages/**/types/**"
-      - "!src/pages/**/utils/**"
+      - "!src/pages/**/_components/**"
+      - "!src/pages/**/_hooks/**"
+      - "!src/pages/**/_apis/**"
+      - "!src/pages/**/_types/**"
+      - "!src/pages/**/_utils/**"
+      - "!src/pages/**/_stores/**"
 
 # 🎯 타입 정의
 types:
   - changed-files:
     - any-glob-to-any-file:
       - "src/types/**"
-      - "src/pages/**/types/**"
+      - "src/pages/**/_types/**"
       - "**/*.d.ts"
       - "**/*types.ts"
       - "**/*.types.ts"
-      - "src/models/**"
-      - "src/interfaces/**"
 
 # 🪝 커스텀 훅
 hooks:
   - changed-files:
     - any-glob-to-any-file:
       - "src/hooks/**"
-      - "src/pages/**/hooks/**"
+      - "src/pages/**/_hooks/**"
     - all-globs-to-all-files:
       - "!src/hooks/**/use*Query.ts"
       - "!src/hooks/**/use*Query.tsx"
       - "!src/hooks/**/use*Mutation.ts"
       - "!src/hooks/**/use*Mutation.tsx"
-      - "!src/pages/**/hooks/**/use*Query.ts"
-      - "!src/pages/**/hooks/**/use*Query.tsx"
-      - "!src/pages/**/hooks/**/use*Mutation.ts"
-      - "!src/pages/**/hooks/**/use*Mutation.tsx"
+      - "!src/pages/**/_hooks/**/use*Query.ts"
+      - "!src/pages/**/_hooks/**/use*Query.tsx"
+      - "!src/pages/**/_hooks/**/use*Mutation.ts"
+      - "!src/pages/**/_hooks/**/use*Mutation.tsx"
 
 # 🛠️ 유틸리티
 utils:
   - changed-files:
     - any-glob-to-any-file:
       - "src/utils/**"
-      - "src/pages/**/utils/**"
+      - "src/pages/**/_utils/**"
       - "src/lib/**"
     - all-globs-to-all-files:
-      - "!src/lib/api/**"
+      - "!src/lib/api-client.ts"
+      - "!src/lib/api-error.ts"
+      - "!src/lib/query-*.ts"
+      - "!src/lib/query-*.tsx"
 
 # 🗄️ 상태관리
 store:
   - changed-files:
     - any-glob-to-any-file:
       - "src/stores/**"
-      - "src/pages/**/stores/**"
-      - "src/store/**"
-      - "src/contexts/**"
-      - "src/pages/**/contexts/**"
+      - "src/pages/**/_stores/**"
+      - "src/lib/query-*.ts"
+      - "src/lib/query-*.tsx"
 
 # 🎨 레이아웃
 layout:
@@ -116,6 +109,10 @@ assets:
       - "**/*.jpeg"
       - "**/*.gif"
       - "**/*.webp"
+      - "**/*.woff"
+      - "**/*.woff2"
+      - "**/*.ttf"
+      - "**/*.otf"
       - "**/*.ico"
 
 # ⚙️ 설정/빌드
@@ -131,12 +128,13 @@ config:
       - ".gitignore"
       - "*.config.js"
       - "*.config.ts"
+      - "*.config.cjs"
+      - "*.config.mjs"
       - "vite.config.*"
-      - ".github/workflows/**"
-      - "Dockerfile*"
-      - "docker-compose*"
-      - "tailwind.config.*"
+      - "panda.config.*"
       - "postcss.config.*"
+      - ".github/workflows/**"
+      - "index.html"
     - all-globs-to-all-files:
       - "!.env.example"
 
