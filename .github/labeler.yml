@@ -133,7 +133,9 @@ config:
       - "vite.config.*"
       - "panda.config.*"
       - "postcss.config.*"
-      - ".github/workflows/**"
+      - ".github/**/*.yml"
+      - ".github/**/*.yaml"
+      - ".github/CODEOWNERS"
       - "index.html"
     - all-globs-to-all-files:
       - "!.env.example"
