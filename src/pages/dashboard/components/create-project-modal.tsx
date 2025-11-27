@@ -7,12 +7,15 @@ import { TextField } from './text-field';
 const MAX_PROJECT_NAME_LENGTH = 15;
 const MAX_PERSON_NAME_LENGTH = 15;
 
-interface CSVUploadModalProps {
+interface CreateProjectModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const CSVUploadModal = ({ open, onOpenChange }: CSVUploadModalProps) => {
+export const CreateProjectModal = ({
+  open,
+  onOpenChange,
+}: CreateProjectModalProps) => {
   return (
     <Modal
       open={open}
