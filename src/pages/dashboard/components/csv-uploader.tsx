@@ -39,6 +39,70 @@ export const CSVUploader = () => {
     }
   };
 
+  const renderUploadContent = () => {
+    if (isDragging) {
+      return (
+        <div
+          className={css({
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.625rem',
+          })}
+        >
+          <img
+            src='/icons/upload-blue.svg'
+            alt=''
+          />
+          <span
+            className={css({
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: '#374151',
+            })}
+          >
+            파일을 여기에 놓으세요
+          </span>
+        </div>
+      );
+    }
+
+    if (!isDragging) {
+      return (
+        <div
+          className={css({
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.625rem',
+          })}
+        >
+          <img
+            src='/icons/upload.svg'
+            alt=''
+          />
+          <span
+            className={css({
+              flex: 1,
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: '#374151',
+            })}
+          >
+            검수할 CSV 파일을 드래그해서 선택해주세요
+          </span>
+          <Button
+            size='sm'
+            onClick={handleButtonClick}
+          >
+            파일 선택
+          </Button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div
       onDragOver={handleDragOver}
@@ -46,9 +110,6 @@ export const CSVUploader = () => {
       onDrop={handleDrop}
       className={css({
         width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.625rem',
         padding: '1.25rem',
         borderRadius: '0.5rem',
         border: '1.2px dashed',
@@ -56,6 +117,9 @@ export const CSVUploader = () => {
         backgroundColor: isDragging ? '#3182F724' : '#3182F708',
         cursor: 'default',
         transition: 'all 0.2s ease-in-out',
+        height: '72px',
+        display: 'flex',
+        alignItems: 'center',
       })}
     >
       <input
@@ -67,26 +131,7 @@ export const CSVUploader = () => {
         accept='.csv'
         onChange={handleFileChange}
       />
-      <img
-        src='/icons/upload.svg'
-        alt=''
-      />
-      <span
-        className={css({
-          flex: 1,
-          fontSize: '0.875rem',
-          fontWeight: 500,
-          color: '#374151',
-        })}
-      >
-        검수할 CSV 파일을 드래그해서 선택해주세요
-      </span>
-      <Button
-        size='sm'
-        onClick={handleButtonClick}
-      >
-        파일 선택
-      </Button>
+      {renderUploadContent()}
     </div>
   );
 };
