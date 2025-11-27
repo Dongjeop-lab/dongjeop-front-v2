@@ -9,6 +9,13 @@ export default defineConfig({
 
   theme: {
     extend: {
+      keyframes: {
+        spin: {
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
+      },
       tokens: {
         colors: {
           button: {
