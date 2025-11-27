@@ -15,23 +15,16 @@ export default defineConfig({
             primary: { value: '#3182F7' },
             pressed: { value: '#1462D3' },
             disabled: { value: '#E7EDF3' },
+            gray: { value: '#697077' },
             text: {
               primary: { value: '#FFFFFF' },
               pressed: { value: '#99BEF5' },
               disabled: { value: '#B3BFCE' },
+              gray: { value: '#FFFFFF' },
             },
           },
         },
-        fonts: {
-          body: { value: 'Pretendard, ui-sans-serif, system-ui, sans-serif' },
-        },
       },
-    },
-  },
-
-  globalCss: {
-    body: {
-      fontFamily: 'Pretendard, ui-sans-serif, system-ui, sans-serif',
     },
   },
 });
