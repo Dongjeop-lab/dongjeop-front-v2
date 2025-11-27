@@ -139,6 +139,7 @@ export const CSVUploadModal = ({ open, onOpenChange }: CSVUploadModalProps) => {
             justifyContent: 'center',
           })}
         >
+          {/* TODO: 공용 버튼 컴포넌트 개발 후 수정 필요 */}
           <button
             className={css({
               width: '320px',
