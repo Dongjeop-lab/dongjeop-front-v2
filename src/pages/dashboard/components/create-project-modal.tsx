@@ -31,7 +31,6 @@ export const CreateProjectModal = ({
           gap: '3rem',
         })}
       >
-        <CSVUploader />
         <div
           className={css({
             display: 'flex',
@@ -39,6 +38,7 @@ export const CreateProjectModal = ({
             gap: '2rem',
           })}
         >
+          <CSVUploader />
           <label
             className={css({
               display: 'flex',

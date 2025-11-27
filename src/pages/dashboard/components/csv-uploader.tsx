@@ -11,6 +11,7 @@ export const CSVUploader = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const handleButtonClick = () => {
     inputRef.current?.click();
@@ -33,6 +34,7 @@ export const CSVUploader = () => {
     setUploadProgress(0);
     setIsDragging(false);
     setFileName(file.name);
+    setUploadedFile(null);
 
     if (uploadIntervalRef.current) {
       clearInterval(uploadIntervalRef.current);
@@ -46,7 +48,7 @@ export const CSVUploader = () => {
           setTimeout(() => {
             setIsUploading(false);
             setUploadProgress(0);
-            setFileName(null);
+            setUploadedFile(file);
           }, 500);
           return 100;
         }
@@ -64,6 +66,7 @@ export const CSVUploader = () => {
     setIsUploading(false);
     setUploadProgress(0);
     setFileName(null);
+    setUploadedFile(null);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -84,6 +87,53 @@ export const CSVUploader = () => {
   };
 
   const renderUploadContent = () => {
+    if (uploadedFile) {
+      return (
+        <div
+          className={css({
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.625rem',
+          })}
+        >
+          <div
+            className={css({
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.625rem',
+              overflow: 'hidden',
+            })}
+          >
+            <img
+              src='/icons/file.svg'
+              alt='file'
+            />
+            <span
+              className={css({
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#374151',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              })}
+            >
+              {fileName}
+            </span>
+          </div>
+          <Button
+            variant='gray'
+            size='sm'
+            onClick={handleButtonClick}
+          >
+            파일수정
+          </Button>
+        </div>
+      );
+    }
+
     if (isUploading) {
       return (
         <div
@@ -219,7 +269,7 @@ export const CSVUploader = () => {
         border: '1.2px dashed',
         borderColor: isDragging ? '#3182F7' : '#3182F724',
         backgroundColor: isDragging ? '#3182F710' : '#3182F708',
-        cursor: isUploading ? 'default' : 'default',
+        cursor: isUploading ? 'default' : 'pointer',
         transition: 'all 0.2s ease-in-out',
         height: '72px',
         display: 'flex',
