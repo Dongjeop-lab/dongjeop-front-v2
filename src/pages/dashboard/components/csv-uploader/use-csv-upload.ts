@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react';
 
-export const useCSVUpload = () => {
+interface UseCSVUploadProps {
+  onFileSelect?: (file: File | null) => void;
+}
+
+export const useCSVUpload = ({ onFileSelect }: UseCSVUploadProps = {}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -31,6 +35,7 @@ export const useCSVUpload = () => {
     setIsDragging(false);
     setFileName(file.name);
     setUploadedFile(null);
+    onFileSelect?.(null);
 
     if (uploadIntervalRef.current) {
       clearInterval(uploadIntervalRef.current);
@@ -45,6 +50,7 @@ export const useCSVUpload = () => {
             setIsUploading(false);
             setUploadProgress(0);
             setUploadedFile(file);
+            onFileSelect?.(file);
           }, 500);
           return 100;
         }
@@ -63,6 +69,7 @@ export const useCSVUpload = () => {
     setUploadProgress(0);
     setFileName(null);
     setUploadedFile(null);
+    onFileSelect?.(null);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {

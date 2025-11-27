@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { css } from 'styled-system/css';
 
+import { Button } from '@/components/button';
 import Modal from '@/components/modal';
 
 import { CSVUploader } from './csv-uploader';
@@ -17,6 +19,21 @@ export const CreateProjectModal = ({
   open,
   onOpenChange,
 }: CreateProjectModalProps) => {
+  const [projectName, setProjectName] = useState('');
+  const [reviewerName, setReviewerName] = useState('');
+  const [csvFile, setCsvFile] = useState<File | null>(null);
+
+  const handleCreateProject = () => {
+    console.log({
+      name: projectName,
+      reviewer: reviewerName,
+      csv_file: csvFile,
+    });
+    onOpenChange(false);
+  };
+
+  const isButtonEnabled = projectName && reviewerName && csvFile;
+
   return (
     <Modal
       open={open}
@@ -38,7 +55,7 @@ export const CreateProjectModal = ({
             gap: '2rem',
           })}
         >
-          <CSVUploader />
+          <CSVUploader onFileSelect={setCsvFile} />
           <label
             className={css({
               display: 'flex',
@@ -58,6 +75,7 @@ export const CreateProjectModal = ({
             <TextField
               placeholder='프로젝트 명을 입력해주세요 (최대 15자)'
               maxLength={MAX_PROJECT_NAME_LENGTH}
+              onChange={e => setProjectName(e.target.value)}
             />
           </label>
           <label
@@ -79,6 +97,7 @@ export const CreateProjectModal = ({
             <TextField
               placeholder='검수할 사람 이름을 입력해주세요 (최대 15자)'
               maxLength={MAX_PERSON_NAME_LENGTH}
+              onChange={e => setReviewerName(e.target.value)}
             />
           </label>
         </div>
@@ -88,25 +107,17 @@ export const CreateProjectModal = ({
             justifyContent: 'center',
           })}
         >
-          {/* TODO: 공용 버튼 컴포넌트 개발 후 수정 필요 */}
-          <button
-            className={css({
+          <Button
+            disabled={!isButtonEnabled}
+            size='lg'
+            style={{
               width: '320px',
               height: '50px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#3182F7',
-              color: 'white',
-              borderRadius: '0.375rem',
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              padding: '0.875rem 0.75rem',
-              cursor: 'pointer',
-            })}
+            }}
+            onClick={handleCreateProject}
           >
             프로젝트 만들기
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>

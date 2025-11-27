@@ -8,7 +8,11 @@ import {
 } from './upload-views';
 import { useCSVUpload } from './use-csv-upload';
 
-export const CSVUploader = () => {
+interface CSVUploaderProps {
+  onFileSelect?: (file: File | null) => void;
+}
+
+export const CSVUploader = ({ onFileSelect }: CSVUploaderProps) => {
   const {
     inputRef,
     isDragging,
@@ -22,7 +26,7 @@ export const CSVUploader = () => {
     handleDrop,
     handleFileChange,
     handleCancelUpload,
-  } = useCSVUpload();
+  } = useCSVUpload({ onFileSelect });
 
   const renderUploadContent = () => {
     if (uploadedFile) {
