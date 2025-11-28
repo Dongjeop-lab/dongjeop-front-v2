@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { CreateProjectModal } from './components/create-project-modal';
+import { CreateProjectModal } from './_components/create-project-modal';
 
 /**
  * 대시보드 페이지
