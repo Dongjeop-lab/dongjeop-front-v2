@@ -9,4 +9,9 @@
 
 body {
   font-family: 'Pretendard', ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--colors-bg-page);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 140%;
+  color: var(--colors-text-base);
 }
