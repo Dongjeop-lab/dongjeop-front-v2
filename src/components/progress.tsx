@@ -26,7 +26,7 @@ export const Progress = ({
     >
       <ProgressPrimitive.Indicator
         className={css({
-          backgroundColor: '#3182F7',
+          backgroundColor: 'button.primary',
           width: '100%',
           height: '100%',
           transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
