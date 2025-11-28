@@ -1,5 +1,5 @@
 export interface Project {
-  project_id: string;
+  id: string;
   name: string;
   reviewer: string;
   csv_file_name: string;
