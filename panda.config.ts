@@ -18,6 +18,17 @@ export default defineConfig({
       },
       tokens: {
         colors: {
+          bg: {
+            page: { value: '#F4F6F8' },
+          },
+          text: {
+            base: { value: '#121619' },
+            sub: { value: '#697077' },
+            dashboard: {
+              secondary: { value: '#374151' },
+              sub: { value: '#6B7280' },
+            },
+          },
           button: {
             primary: { value: '#3182F7' },
             pressed: { value: '#1462D3' },
