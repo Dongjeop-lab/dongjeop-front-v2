@@ -9,4 +9,5 @@
 
 body {
   font-family: 'Pretendard', ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--colors-bg-page);
 }

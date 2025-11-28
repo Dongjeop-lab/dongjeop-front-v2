@@ -18,6 +18,9 @@ export default defineConfig({
       },
       tokens: {
         colors: {
+          bg: {
+            page: { value: '#F4F6F8' },
+          },
           button: {
             primary: { value: '#3182F7' },
             pressed: { value: '#1462D3' },
