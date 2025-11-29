@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 
+import { Card } from './card';
 import { CreateProjectModal } from './create-project-modal';
 
 export const CreateProjectButton = () => {
@@ -8,24 +9,16 @@ export const CreateProjectButton = () => {
 
   return (
     <>
-      <button
+      <Card
+        as='button'
         className={css({
           width: '246px',
           height: '302px',
-          padding: '2rem',
-          backgroundColor: 'white',
-          border: '1px solid #6B728012',
-          borderRadius: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
           alignItems: 'center',
+          justifyContent: 'center',
           gap: '0.75rem',
-          cursor: 'pointer',
-          transition: 'all 0.2s ease-in-out',
-          _hover: {
-            border: '1px solid #6B728040',
-          },
         })}
         onClick={() => setOpen(true)}
       >
@@ -52,7 +45,7 @@ export const CreateProjectButton = () => {
           </span>
           <span>새 프로젝트를 추가해보세요</span>
         </div>
-      </button>
+      </Card>
       <CreateProjectModal
         open={open}
         onOpenChange={setOpen}
