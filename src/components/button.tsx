@@ -11,23 +11,12 @@ const buttonVariants = cva({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '6px',
-    fontFamily: 'Pretendard',
     fontWeight: '500',
     lineHeight: '140%',
     cursor: 'pointer',
     transition: 'all 0.2s',
     border: 'none',
     outline: 'none',
-    backgroundColor: 'button.primary',
-    color: 'button.text.primary',
-    _hover: {
-      backgroundColor: 'button.pressed',
-      color: 'button.text.pressed',
-    },
-    _active: {
-      backgroundColor: 'button.pressed',
-      color: 'button.text.pressed',
-    },
     _disabled: {
       backgroundColor: 'button.disabled',
       color: 'button.text.disabled',
@@ -39,6 +28,30 @@ const buttonVariants = cva({
     },
   },
   variants: {
+    variant: {
+      primary: {
+        backgroundColor: 'button.primary',
+        color: 'button.text.primary',
+        _hover: {
+          backgroundColor: 'button.pressed',
+          color: 'button.text.pressed',
+        },
+        _active: {
+          backgroundColor: 'button.pressed',
+          color: 'button.text.pressed',
+        },
+      },
+      gray: {
+        backgroundColor: 'button.gray',
+        color: 'button.text.gray',
+        _hover: {
+          opacity: 0.8,
+        },
+        _active: {
+          opacity: 0.7,
+        },
+      },
+    },
     size: {
       sm: {
         height: '32px',
@@ -59,15 +72,27 @@ const buttonVariants = cva({
         gap: '6px',
       },
     },
+    fullWidth: {
+      true: {
+        width: '100%',
+      },
+      false: {
+        width: 'auto',
+      },
+    },
   },
   defaultVariants: {
+    variant: 'primary',
     size: 'md',
+    fullWidth: false,
   },
 });
 
 interface ButtonProps extends ComponentProps<'button'> {
   children: React.ReactNode;
+  variant?: 'primary' | 'gray';
   size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
 }
 
 /**
@@ -75,16 +100,22 @@ interface ButtonProps extends ComponentProps<'button'> {
  *
  * @example
  * ```tsx
- * <Button size="sm">Column</Button>
- * <Button size="md">Column</Button>
- * <Button size="lg">Column</Button>
+ * <Button variant="primary" size="md">Column</Button>
+ * <Button variant="gray" size="md">Column</Button>
+ * <Button fullWidth>Column</Button>
  * <Button disabled>Column</Button>
  * ```
  */
-export function Button({ children, size, ...props }: ButtonProps) {
+export function Button({
+  children,
+  variant,
+  size,
+  fullWidth,
+  ...props
+}: ButtonProps) {
   return (
     <button
-      className={buttonVariants({ size })}
+      className={buttonVariants({ variant, size, fullWidth })}
       {...props}
     >
       {children}
