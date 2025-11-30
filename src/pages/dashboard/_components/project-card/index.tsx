@@ -116,6 +116,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             gap: '0.125rem',
           })}
         >
+          {/* TODO: Hover시 수정 Input으로 변경할 수 있음 */}
           <p
             className={css({
               padding: '0.125rem 0.375rem',
