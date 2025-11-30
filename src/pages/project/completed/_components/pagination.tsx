@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 
 import ChevronDoubleLeft from '../_assets/chevron-double-left.svg';
 import ChevronDoubleRight from '../_assets/chevron-double-right.svg';
@@ -12,6 +12,69 @@ interface PaginationProps {
   currentPage?: number;
   onPageChange?: (page: number) => void;
 }
+
+const navigationButton = cva({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '1.5rem',
+    height: '1.5rem',
+    padding: 0,
+    border: 'none',
+    bg: 'none',
+    transition: 'opacity 0.2s',
+  },
+  variants: {
+    disabled: {
+      true: {
+        opacity: 0.5,
+        cursor: '',
+      },
+      false: {
+        opacity: 1,
+        cursor: 'pointer',
+      },
+    },
+  },
+});
+
+const pageButton = cva({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '1.5rem',
+    height: '1.5rem',
+    padding: 0,
+    border: 'none',
+    borderRadius: 'sm',
+    fontSize: '1rem',
+    outline: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    _hover: {
+      bg: 'button.pressed',
+      color: 'button.text.pressed',
+    },
+    _active: {
+      bg: 'button.pressed',
+      color: 'button.text.pressed',
+    },
+  },
+  variants: {
+    isSelected: {
+      true: {
+        bg: 'button.primary',
+        color: 'button.text.primary',
+      },
+      false: {
+        bg: 'transparent',
+        color: 'inherit',
+      },
+    },
+  },
+});
 
 const Pagination = ({
   totalItems,
@@ -48,8 +111,8 @@ const Pagination = ({
     <div
       className={css({
         display: 'flex',
-        gap: '12px',
         alignItems: 'center',
+        gap: '.75rem',
       })}
     >
       {/* 처음 페이지, 이전 페이지로 */}
@@ -59,43 +122,23 @@ const Pagination = ({
         })}
       >
         <button
-          className={css({
-            width: '24px',
-            height: '24px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            cursor: startPage === 1 ? '' : 'pointer',
-            opacity: startPage === 1 ? 0.5 : 1,
-            background: 'none',
-            border: 'none',
-          })}
+          className={navigationButton({ disabled: page === 1 })}
           onClick={goToFirstPage}
-          disabled={startPage === 1}
+          disabled={page === 1}
         >
           <img
             src={ChevronDoubleLeft}
-            alt='처음으로'
+            alt='첫 번째 페이지로'
           />
         </button>
         <button
-          className={css({
-            width: '24px',
-            height: '24px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            cursor: page === 1 ? '' : 'pointer',
-            opacity: page === 1 ? 0.5 : 1,
-            background: 'none',
-            border: 'none',
-          })}
+          className={navigationButton({ disabled: page === 1 })}
           onClick={goToPrevPage}
           disabled={page === 1}
         >
           <img
             src={ChevronLeft}
-            alt='이전'
+            alt='이전 페이지로'
           />
         </button>
       </div>
@@ -104,37 +147,14 @@ const Pagination = ({
       <div
         className={css({
           display: 'flex',
-          gap: '4px',
+          gap: '.25rem',
         })}
       >
         {pageButtons.map(pageNum => (
           <button
             key={pageNum}
             onClick={() => handlePageChange(pageNum)}
-            className={css({
-              width: '24px',
-              height: '24px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '16px',
-              cursor: 'pointer',
-              borderRadius: '4px',
-              border: 'none',
-              outline: 'none',
-              transition: 'all 0.2s',
-              backgroundColor:
-                page === pageNum ? 'button.primary' : 'transparent',
-              color: page === pageNum ? 'button.text.primary' : 'inherit',
-              _hover: {
-                backgroundColor: 'button.pressed',
-                color: 'button.text.pressed',
-              },
-              _active: {
-                backgroundColor: 'button.pressed',
-                color: 'button.text.pressed',
-              },
-            })}
+            className={pageButton({ isSelected: page === pageNum })}
           >
             {pageNum}
           </button>
@@ -148,43 +168,23 @@ const Pagination = ({
         })}
       >
         <button
-          className={css({
-            width: '24px',
-            height: '24px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            cursor: page === totalPages ? '' : 'pointer',
-            opacity: page === totalPages ? 0.5 : 1,
-            background: 'none',
-            border: 'none',
-          })}
+          className={navigationButton({ disabled: page === totalPages })}
           onClick={goToNextPage}
           disabled={page === totalPages}
         >
           <img
             src={ChevronRight}
-            alt='다음'
+            alt='다음 페이지로'
           />
         </button>
         <button
-          className={css({
-            width: '24px',
-            height: '24px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            cursor: endPage === totalPages ? '' : 'pointer',
-            opacity: endPage === totalPages ? 0.5 : 1,
-            background: 'none',
-            border: 'none',
-          })}
+          className={navigationButton({ disabled: page === totalPages })}
           onClick={goToLastPage}
-          disabled={endPage === totalPages}
+          disabled={page === totalPages}
         >
           <img
             src={ChevronDoubleRight}
-            alt='마지막으로'
+            alt='마지막 페이지로'
           />
         </button>
       </div>
