@@ -30,29 +30,34 @@ export const router = createBrowserRouter([
         },
         handle: {
           breadcrumb: (
-            match: { params: { projectId: string } },
-            location: { search: string }
+            match: {
+              params: { projectId: string };
+              location: { state?: { projectName?: string }; search: string };
+            },
+            location: { search: string; state?: { projectName?: string } }
           ) => {
-            // URL에서 store 파라미터 확인
+            // Link의 state에서 프로젝트 이름 가져오기
+            // 없으면 projectId를 fallback으로 사용
+            const projectName =
+              location.state?.projectName || match.params.projectId;
+
             const searchParams = new URLSearchParams(location.search);
             const hasStore = searchParams.has('store');
 
-            // store가 있으면 "장소 검수"까지 표시
             if (hasStore) {
               return [
                 { label: '프로젝트 목록', path: '/' },
                 {
-                  label: match.params.projectId,
+                  label: projectName, // 프로젝트 이름 표시
                   path: `/project/${match.params.projectId}`,
                 },
                 { label: '장소 검수' },
               ];
             }
 
-            // store가 없으면 프로젝트 이름만
             return [
               { label: '프로젝트 목록', path: '/' },
-              { label: match.params.projectId },
+              { label: projectName },
             ];
           },
         },
