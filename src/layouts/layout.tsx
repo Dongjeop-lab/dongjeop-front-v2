@@ -7,7 +7,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
  * 메인 레이아웃
  * Figma 디자인 기반
  */
-export default function Layout() {
+const Layout = () => {
   return (
     <div
       className={css({
@@ -41,4 +41,6 @@ export default function Layout() {
       </div>
     </div>
   );
-}
+};
+
+export default Layout;

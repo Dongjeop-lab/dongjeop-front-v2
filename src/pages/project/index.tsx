@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from 'react-router';
  * Path: /project/{project-id}
  * Query Params: store (optional)
  */
-export default function ProjectPage() {
+const ProjectPage = () => {
   const { projectId } = useParams();
   const [searchParams] = useSearchParams();
 
@@ -19,4 +19,6 @@ export default function ProjectPage() {
       {/* TODO: 식당 검수 기능 구현 */}
     </div>
   );
-}
+};
+
+export default ProjectPage;
