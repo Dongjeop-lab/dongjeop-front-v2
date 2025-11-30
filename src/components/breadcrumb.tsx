@@ -20,7 +20,7 @@ interface RouteHandle {
  * Breadcrumb 컴포넌트
  * Figma 디자인 기반
  */
-export function Breadcrumb() {
+const Breadcrumb = () => {
   const matches = useMatches();
   const location = useLocation();
 
@@ -98,4 +98,6 @@ export function Breadcrumb() {
       ))}
     </nav>
   );
-}
+};
+
+export default Breadcrumb;

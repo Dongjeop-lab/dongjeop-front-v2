@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import { css } from 'styled-system/css';
 
-import { Breadcrumb } from '@/components/breadcrumb';
+import Breadcrumb from '@/components/breadcrumb';
 
 /**
  * 메인 레이아웃
