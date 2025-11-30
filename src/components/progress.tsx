@@ -18,7 +18,7 @@ export const Progress = ({
         position: 'relative',
         overflow: 'hidden',
         background: '#3182F712',
-        borderRadius: '9999px',
+        borderRadius: '3xl',
         transform: 'translateZ(0)',
       })}
       value={value}
