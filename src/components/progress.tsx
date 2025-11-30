@@ -30,6 +30,7 @@ export const Progress = ({
           width: '100%',
           height: '100%',
           transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
+          borderRadius: '3xl',
         })}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
