@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { CreateProjectModal } from './_components/create-project-modal';
 
 /**
- * 대시보드 페이지
+ * 대시보드 페이지 (프로젝트 목록)
  * Path: /
  */
-const DashboardPage = () => {
+export default function DashboardPage() {
   const [open, setOpen] = useState(true);
 
   return (
@@ -18,6 +18,4 @@ const DashboardPage = () => {
       />
     </div>
   );
-};
-
-export default DashboardPage;
+}
