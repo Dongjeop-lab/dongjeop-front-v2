@@ -3,6 +3,7 @@ import { css } from 'styled-system/css';
 import type { Project } from '@/types/project';
 
 import { CreateProjectButton } from './_components/create-project-button';
+import { ProjectCard } from './_components/project-card';
 
 const DUMMY_PROJECTS: Project[] = [
   {
@@ -10,15 +11,21 @@ const DUMMY_PROJECTS: Project[] = [
     name: '강남구 맛집 분석',
     reviewer: '김철수',
     csv_file_name: 'gangnam_food.csv',
-    created_at: '2023-11-01',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'ANALYZING',
+    progress_info: {
+      ai_analyzing_progress: 40,
+      ai_analyzing_duration: 120,
+      eviewing_store_total_count: 50,
+      reviewing_store_completed_count: 10,
+    },
   },
   {
     id: '2',
     name: '서초구 카페 리스트',
     reviewer: '이영희',
     csv_file_name: 'seocho_cafe.csv',
-    created_at: '2023-11-05',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
       ai_analyzing_progress: 100,
@@ -32,7 +39,7 @@ const DUMMY_PROJECTS: Project[] = [
     name: '송파구 편의점 현황',
     reviewer: '박지성',
     csv_file_name: 'songpa_cvs.csv',
-    created_at: '2023-11-10',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'COMPLETED',
     progress_info: {
       ai_analyzing_progress: 100,
@@ -46,15 +53,21 @@ const DUMMY_PROJECTS: Project[] = [
     name: '마포구 식당 데이터',
     reviewer: '손흥민',
     csv_file_name: 'mapo_restaurant.csv',
-    created_at: '2023-11-12',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'ANALYZING',
+    progress_info: {
+      ai_analyzing_progress: 100,
+      ai_analyzing_duration: 120,
+      eviewing_store_total_count: 50,
+      reviewing_store_completed_count: 10,
+    },
   },
   {
     id: '5',
     name: '용산구 핫플레이스',
     reviewer: '아이유',
     csv_file_name: 'yongsan_hotplace.csv',
-    created_at: '2023-11-15',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
       ai_analyzing_progress: 100,
@@ -68,7 +81,7 @@ const DUMMY_PROJECTS: Project[] = [
     name: '성동구 카페 거리',
     reviewer: '유재석',
     csv_file_name: 'seongdong_cafe.csv',
-    created_at: '2023-11-20',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'COMPLETED',
     progress_info: {
       ai_analyzing_progress: 100,
@@ -82,7 +95,7 @@ const DUMMY_PROJECTS: Project[] = [
     name: '종로구 노포 식당',
     reviewer: '강호동',
     csv_file_name: 'jongno_nopo.csv',
-    created_at: '2023-11-25',
+    created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
       ai_analyzing_progress: 100,
@@ -122,15 +135,17 @@ const DashboardPage = () => {
         <main
           className={css({
             padding: '3.75rem 7.5rem',
+            display: 'flex',
+            gap: '1rem',
+            flexWrap: 'wrap',
           })}
         >
           <CreateProjectButton />
           {DUMMY_PROJECTS.map(project => (
-            // <ProjectCard
-            //   key={project.id}
-            //   project={project}
-            // />
-            <div key={project.id}>{project.name}</div>
+            <ProjectCard
+              key={project.id}
+              project={project}
+            />
           ))}
         </main>
       </div>
