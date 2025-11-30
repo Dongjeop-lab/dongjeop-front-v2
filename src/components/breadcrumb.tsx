@@ -1,5 +1,4 @@
-import { Link, useMatches } from 'react-router';
-
+import { Link, useLocation, useMatches } from 'react-router';
 import { css } from 'styled-system/css';
 
 /**
@@ -10,23 +9,30 @@ export interface BreadcrumbItem {
   path?: string;
 }
 
+interface RouteHandle {
+  breadcrumb?: (
+    match: unknown,
+    location: ReturnType<typeof useLocation>
+  ) => BreadcrumbItem | BreadcrumbItem[];
+}
+
 /**
  * Breadcrumb 컴포넌트
- * 현재 경로를 기반으로 네비게이션 경로 표시
- *
- * @example
- * ```tsx
- * <Breadcrumb />
- * ```
+ * Figma 디자인 기반
  */
 export function Breadcrumb() {
   const matches = useMatches();
+  const location = useLocation();
 
   const breadcrumbs = matches
-    .filter((match) => match.handle?.breadcrumb)
-    .map((match) => {
-      const breadcrumb = match.handle?.breadcrumb(match);
-      return breadcrumb;
+    .filter(match => {
+      const handle = match.handle as RouteHandle | undefined;
+      return handle?.breadcrumb;
+    })
+    .flatMap(match => {
+      const handle = match.handle as RouteHandle;
+      const result = handle.breadcrumb?.(match, location);
+      return result ? (Array.isArray(result) ? result : [result]) : [];
     })
     .filter(Boolean) as BreadcrumbItem[];
 
@@ -37,10 +43,12 @@ export function Breadcrumb() {
       className={css({
         display: 'flex',
         alignItems: 'center',
-        gap: '2',
-        padding: '4',
-        fontSize: '14px',
-        color: 'gray.600',
+        gap: '3',
+        height: '70px',
+        paddingX: '6',
+        paddingY: '24px',
+        backgroundColor: 'white',
+        fontSize: '16px',
       })}
     >
       {breadcrumbs.map((item, index) => (
@@ -49,13 +57,14 @@ export function Breadcrumb() {
           className={css({
             display: 'flex',
             alignItems: 'center',
-            gap: '2',
+            gap: '3',
           })}
         >
           {index > 0 && (
             <span
               className={css({
-                color: 'gray.400',
+                color: '#9CA3AF',
+                fontSize: '16px',
               })}
             >
               /
@@ -65,11 +74,11 @@ export function Breadcrumb() {
             <Link
               to={item.path}
               className={css({
-                color: 'gray.600',
+                color: '#697077',
                 textDecoration: 'none',
+                fontWeight: '500',
                 _hover: {
                   color: 'button.primary',
-                  textDecoration: 'underline',
                 },
               })}
             >
@@ -78,8 +87,8 @@ export function Breadcrumb() {
           ) : (
             <span
               className={css({
-                color: 'gray.900',
-                fontWeight: '500',
+                color: '#374151',
+                fontWeight: '700',
               })}
             >
               {item.label}
@@ -90,4 +99,3 @@ export function Breadcrumb() {
     </nav>
   );
 }
-

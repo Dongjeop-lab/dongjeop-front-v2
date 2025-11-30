@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
           return { Component };
         },
         handle: {
-          breadcrumb: () => ({ label: '프로젝트 목록', path: '/' }),
+          breadcrumb: () => ({ label: '프로젝트 목록' }),
         },
       },
       {
@@ -29,9 +29,32 @@ export const router = createBrowserRouter([
           return { Component };
         },
         handle: {
-          breadcrumb: (match: { params: { projectId: string } }) => ({
-            label: match.params.projectId,
-          }),
+          breadcrumb: (
+            match: { params: { projectId: string } },
+            location: { search: string }
+          ) => {
+            // URL에서 store 파라미터 확인
+            const searchParams = new URLSearchParams(location.search);
+            const hasStore = searchParams.has('store');
+
+            // store가 있으면 "장소 검수"까지 표시
+            if (hasStore) {
+              return [
+                { label: '프로젝트 목록', path: '/' },
+                {
+                  label: match.params.projectId,
+                  path: `/project/${match.params.projectId}`,
+                },
+                { label: '장소 검수' },
+              ];
+            }
+
+            // store가 없으면 프로젝트 이름만
+            return [
+              { label: '프로젝트 목록', path: '/' },
+              { label: match.params.projectId },
+            ];
+          },
         },
       },
     ],
