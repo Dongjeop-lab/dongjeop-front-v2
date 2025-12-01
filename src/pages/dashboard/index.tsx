@@ -16,6 +16,14 @@ const DashboardPage = () => {
     { id: '2', name: '동집LAB_성수동' },
   ];
 
+  // 임시: 첫 번째 프로젝트는 장소 검수 페이지로 바로 이동
+  const getProjectLink = (projectId: string) => {
+    if (projectId === '1') {
+      return `/project/${projectId}?store=1`; // 장소 검수 페이지로 직접 이동
+    }
+    return `/project/${projectId}`; // 프로젝트 상세 페이지
+  };
+
   return (
     <div>
       <h1>프로젝트 목록</h1>
@@ -25,7 +33,7 @@ const DashboardPage = () => {
         {projects.map(project => (
           <Link
             key={project.id}
-            to={`/project/${project.id}`}
+            to={getProjectLink(project.id)}
             state={{ projectName: project.name }} // 👈 프로젝트 이름 전달
             style={{
               padding: '20px',
@@ -37,6 +45,11 @@ const DashboardPage = () => {
           >
             <h3>{project.name}</h3>
             <p>프로젝트 ID: {project.id}</p>
+            <p style={{ fontSize: '12px', color: '#6B7280', marginTop: '8px' }}>
+              {project.id === '1'
+                ? '→ 장소 검수 페이지로 이동'
+                : '→ 프로젝트 상세 페이지로 이동'}
+            </p>
           </Link>
         ))}
       </div>
