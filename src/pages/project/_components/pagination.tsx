@@ -76,28 +76,32 @@ const pageButton = cva({
   },
 });
 
+const PAGES_PER_GROUP = 10; // 페이지 번호 그룹당 표시 개수 (1~10, 11~20, ...)
+const DEFAULT_ITEMS_PER_PAGE = 10; // 페이지당 기본 아이템 개수
+const FIRST_PAGE = 1;
+
 const Pagination = ({
   totalItems,
-  itemsPerPage = 10,
-  currentPage = 1,
+  itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
+  currentPage = FIRST_PAGE,
   onPageChange,
 }: PaginationProps) => {
   const [page, setPage] = useState(currentPage);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // 현재 페이지 그룹 계산 (1~10, 11~20, ...)
-  const currentGroup = Math.ceil(page / 10);
-  const startPage = (currentGroup - 1) * 10 + 1;
-  const endPage = Math.min(currentGroup * 10, totalPages);
+  // 현재 페이지 그룹 계산
+  const currentGroup = Math.ceil(page / PAGES_PER_GROUP);
+  const startPage = (currentGroup - 1) * PAGES_PER_GROUP + FIRST_PAGE;
+  const endPage = Math.min(currentGroup * PAGES_PER_GROUP, totalPages);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     onPageChange?.(newPage);
   };
 
-  const goToFirstPage = () => handlePageChange(1);
-  const goToPrevPage = () => handlePageChange(Math.max(page - 1, 1));
+  const goToFirstPage = () => handlePageChange(FIRST_PAGE);
+  const goToPrevPage = () => handlePageChange(Math.max(page - 1, FIRST_PAGE));
   const goToNextPage = () => handlePageChange(Math.min(page + 1, totalPages));
   const goToLastPage = () => handlePageChange(totalPages);
 
@@ -122,9 +126,9 @@ const Pagination = ({
         })}
       >
         <button
-          className={navigationButton({ disabled: page === 1 })}
+          className={navigationButton({ disabled: page === FIRST_PAGE })}
           onClick={goToFirstPage}
-          disabled={page === 1}
+          disabled={page === FIRST_PAGE}
         >
           <img
             src={ChevronDoubleLeft}
@@ -132,9 +136,9 @@ const Pagination = ({
           />
         </button>
         <button
-          className={navigationButton({ disabled: page === 1 })}
+          className={navigationButton({ disabled: page === FIRST_PAGE })}
           onClick={goToPrevPage}
-          disabled={page === 1}
+          disabled={page === FIRST_PAGE}
         >
           <img
             src={ChevronLeft}
