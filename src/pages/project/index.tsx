@@ -1,29 +1,33 @@
-import { useLocation, useParams, useSearchParams } from 'react-router';
+import { useSearchParams } from 'react-router';
+
+import { AsyncBoundary } from '@/components';
+
+import { ProjectDetailView } from './_components/project-detail-view';
+import { StoreReviewView } from './_components/store-review-view';
 
 /**
- * 프로젝트 페이지 (레이블링 - 식당 검수)
+ * 프로젝트 페이지
  * Path: /project/{project-id}
- * Query Params: store (optional)
- * State: projectName (from Link)
+ *
+ * Query Params에 따라 다른 화면 표시:
+ * - ?store가 없으면 → 프로젝트 상세 화면 (다른 팀원)
+ * - ?store가 있으면 → 장소 검수 화면 (우리)
  */
 const ProjectPage = () => {
-  const { projectId } = useParams();
   const [searchParams] = useSearchParams();
-  const location = useLocation();
+  const hasStore = searchParams.has('store');
 
-  // Link의 state에서 프로젝트 이름 가져오기
-  const projectName = location.state?.projectName || projectId;
-  const store = searchParams.get('store');
+  // ?store가 있으면 장소 검수 화면
+  if (hasStore) {
+    return (
+      <AsyncBoundary>
+        <StoreReviewView />
+      </AsyncBoundary>
+    );
+  }
 
-  return (
-    <div>
-      <h1>레이블링 - 식당 검수</h1>
-      <p>프로젝트: {projectName}</p>
-      <p>ID: {projectId}</p>
-      {store && <p>식당: {store}</p>}
-      {/* TODO: 식당 검수 기능 구현 */}
-    </div>
-  );
+  // ?store가 없으면 프로젝트 상세 화면 (임시)
+  return <ProjectDetailView />;
 };
 
 export default ProjectPage;
