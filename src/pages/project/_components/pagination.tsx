@@ -23,7 +23,7 @@ const navigationButton = cva({
     padding: 0,
     border: 'none',
     bg: 'none',
-    transition: 'opacity 0.2s',
+    transition: 'opacity 0.2s ease-out',
   },
   variants: {
     disabled: {
@@ -52,7 +52,7 @@ const pageButton = cva({
     fontSize: '1rem',
     outline: 'none',
     cursor: 'pointer',
-    transition: 'all 0.2s',
+    transition: 'all 0.2s ease-out',
     _hover: {
       bg: 'button.pressed',
       color: 'button.text.pressed',
