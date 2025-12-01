@@ -30,20 +30,20 @@ export const getStores = (
 
   const query = searchParams.toString();
   return api.get<StoreListResponse>(
-    `/v1/projects/${projectId}/stores${query ? `?${query}` : ''}`
+    `/projects/${projectId}/stores${query ? `?${query}` : ''}`
   );
 };
 
 /** 검수 화면 상점 목록 조회 (간단 정보) */
 export const getStoresSimple = (projectId: number) => {
   return api.get<StoreSimpleListResponse>(
-    `/v1/reviews/stores?project_id=${projectId}`
+    `/reviews/stores?project_id=${projectId}`
   );
 };
 
 /** 검수 화면 상점 상세 정보 조회 */
 export const getStoreDetail = (storeId: number) => {
-  return api.get<StoreReviewDetailResponse>(`/v1/reviews/stores/${storeId}`);
+  return api.get<StoreReviewDetailResponse>(`/reviews/stores/${storeId}`);
 };
 
 /** 상점 검수 라벨 등록/수정 */
@@ -52,8 +52,7 @@ export const createOrUpdateStoreLabel = (
   data: StoreReviewLabelRequest
 ) => {
   return api.post<StoreReviewLabelResponse>(
-    `/v1/reviews/stores/${storeId}/label`,
+    `/reviews/stores/${storeId}/label`,
     data
   );
 };
-
