@@ -122,24 +122,16 @@ export const dashboardHandlers = [
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '1');
     const size = parseInt(url.searchParams.get('size') || '10');
-    const status = url.searchParams.get('status');
-
-    // 필터링
-    let filtered = [...mockProjects.projects];
-
-    if (status) {
-      filtered = filtered.filter(project => project.status === status);
-    }
 
     // 페이지네이션
     const start = (page - 1) * size;
     const end = start + size;
-    const projects = filtered.slice(start, end);
+    const projects = mockProjects.projects.slice(start, end);
 
     const response: ProjectListResponse = {
       projects,
       page_info: {
-        total_pages: Math.ceil(filtered.length / size),
+        total_pages: Math.ceil(mockProjects.projects.length / size),
         current_page: page,
         size,
       },
