@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { css } from 'styled-system/css';
 
@@ -6,6 +5,7 @@ import Badge from '@/components/badge';
 import { PROJECT_STATUS } from '@/constants/project';
 import type { Project } from '@/pages/dashboard/_types/project';
 
+import { useUpdateProjectInfo } from '../../hooks/useUpdateProjectInfo';
 import { Card } from '../card';
 import { AnalyzeStatus } from './AnalyzeStatus';
 import { ProjectInfo } from './ProjectInfo';
@@ -17,13 +17,17 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const navigate = useNavigate();
-  // TODO: API 연동 후 삭제
-  const [name, setName] = useState(project.name);
-  const [reviewer, setReviewer] = useState(project.reviewer);
+
+  const { mutate } = useUpdateProjectInfo();
 
   const handleUpdateInfo = (newName: string, newReviewer: string) => {
-    setName(newName);
-    setReviewer(newReviewer);
+    mutate({
+      projectId: project.id,
+      body: {
+        name: newName,
+        reviewer: newReviewer,
+      },
+    });
   };
 
   const formatDate = (dateString: string) => {
@@ -131,8 +135,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           </span>
         </div>
         <ProjectInfo
-          initialName={name}
-          initialReviewer={reviewer}
+          initialName={project.name}
+          initialReviewer={project.reviewer}
           onUpdate={handleUpdateInfo}
         />
         {renderProjectStatus()}
