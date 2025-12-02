@@ -100,10 +100,12 @@ const Pagination = ({
     onPageChange?.(newPage);
   };
 
-  const goToFirstPage = () => handlePageChange(FIRST_PAGE);
   const goToPrevPage = () => handlePageChange(Math.max(page - 1, FIRST_PAGE));
   const goToNextPage = () => handlePageChange(Math.min(page + 1, totalPages));
-  const goToLastPage = () => handlePageChange(totalPages);
+  const goToPrevGroup = () =>
+    handlePageChange(Math.max(startPage - PAGES_PER_GROUP, FIRST_PAGE));
+  const goToNextGroup = () =>
+    handlePageChange(Math.min(endPage + 1, totalPages));
 
   // 페이지 버튼 배열 생성
   const pageButtons = Array.from(
@@ -119,20 +121,20 @@ const Pagination = ({
         gap: '.75rem',
       })}
     >
-      {/* 처음 페이지, 이전 페이지로 */}
+      {/* 이전 그룹, 이전 페이지로 */}
       <div
         className={css({
           display: 'flex',
         })}
       >
         <button
-          className={navigationButton({ disabled: page === FIRST_PAGE })}
-          onClick={goToFirstPage}
-          disabled={page === FIRST_PAGE}
+          className={navigationButton({ disabled: startPage === FIRST_PAGE })}
+          onClick={goToPrevGroup}
+          disabled={startPage === FIRST_PAGE}
         >
           <img
             src={ChevronDoubleLeft}
-            alt='첫 번째 페이지로'
+            alt='이전 그룹으로'
           />
         </button>
         <button
@@ -165,7 +167,7 @@ const Pagination = ({
         ))}
       </div>
 
-      {/* 다음 페이지, 마지막 페이지로 */}
+      {/* 다음 페이지, 다음 그룹으로 */}
       <div
         className={css({
           display: 'flex',
@@ -182,9 +184,9 @@ const Pagination = ({
           />
         </button>
         <button
-          className={navigationButton({ disabled: page === totalPages })}
-          onClick={goToLastPage}
-          disabled={page === totalPages}
+          className={navigationButton({ disabled: endPage === totalPages })}
+          onClick={goToNextGroup}
+          disabled={endPage === totalPages}
         >
           <img
             src={ChevronDoubleRight}
