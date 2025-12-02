@@ -74,7 +74,7 @@ export const AnalyzeStatus = ({
               fontSize: '0.75rem',
               fontWeight: 'medium',
               color: '#4E5968',
-              paddingBottom: '4.5px',
+              paddingBottom: '0.28125rem',
             })}
           >
             {aiAnalyzingDuration}분 예정
@@ -82,7 +82,7 @@ export const AnalyzeStatus = ({
         </div>
         <div
           className={css({
-            paddingBottom: '4.5px',
+            paddingBottom: '0.28125rem',
           })}
         >
           <Progress
