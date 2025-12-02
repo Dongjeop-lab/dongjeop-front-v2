@@ -1,0 +1,5 @@
+export const PROJECT_STATUS = {
+  ANALYZING: 'ANALYZING',
+  REVIEWING: 'REVIEWING',
+  COMPLETED: 'COMPLETED',
+} as const;
