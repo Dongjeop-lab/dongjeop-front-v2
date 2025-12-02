@@ -73,6 +73,7 @@ const Breadcrumb = () => {
           {item.path ? (
             <Link
               to={item.path}
+              state={location.state}
               className={css({
                 color: '#697077',
                 textDecoration: 'none',
