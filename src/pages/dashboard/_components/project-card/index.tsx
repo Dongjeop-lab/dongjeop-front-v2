@@ -38,12 +38,19 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   const renderProjectStatus = () => {
     if (project.status === PROJECT_STATUS.ANALYZING) {
-      const { ai_analyzing_progress, ai_analyzing_duration } =
-        project.progress_info;
+      const {
+        images_total_count,
+        images_finished_count,
+        ai_analyzing_duration,
+      } = project.progress_info;
+
+      const aiAnalyzingProgress = Math.round(
+        (images_finished_count / images_total_count) * 100
+      );
 
       return (
         <AnalyzeStatus
-          aiAnalyzingProgress={ai_analyzing_progress}
+          aiAnalyzingProgress={aiAnalyzingProgress}
           aiAnalyzingDuration={ai_analyzing_duration}
         />
       );
@@ -53,13 +60,13 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       project.status === PROJECT_STATUS.REVIEWING ||
       project.status === PROJECT_STATUS.COMPLETED
     ) {
-      const { eviewing_store_total_count, reviewing_store_completed_count } =
+      const { stores_total_count, stores_completed_count } =
         project.progress_info;
 
       return (
         <ReviewStatus
-          reviewingStoreTotalCount={eviewing_store_total_count}
-          reviewingStoreCompletedCount={reviewing_store_completed_count}
+          reviewingStoreTotalCount={stores_total_count}
+          reviewingStoreCompletedCount={stores_completed_count}
         />
       );
     }

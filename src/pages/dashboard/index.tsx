@@ -14,10 +14,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'ANALYZING',
     progress_info: {
-      ai_analyzing_progress: 40,
+      images_total_count: 40,
+      images_finished_count: 10,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
-      reviewing_store_completed_count: 10,
+      stores_total_count: 50,
+      stores_completed_count: 10,
     },
   },
   {
@@ -28,10 +29,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 80,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
-      reviewing_store_completed_count: 10,
+      stores_total_count: 50,
+      stores_completed_count: 10,
     },
   },
   {
@@ -42,10 +44,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'COMPLETED',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 100,
       ai_analyzing_duration: 90,
-      eviewing_store_total_count: 30,
-      reviewing_store_completed_count: 30,
+      stores_total_count: 30,
+      stores_completed_count: 30,
     },
   },
   {
@@ -56,10 +59,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'ANALYZING',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 10,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
-      reviewing_store_completed_count: 10,
+      stores_total_count: 50,
+      stores_completed_count: 10,
     },
   },
   {
@@ -70,10 +74,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 80,
       ai_analyzing_duration: 150,
-      eviewing_store_total_count: 80,
-      reviewing_store_completed_count: 45,
+      stores_total_count: 80,
+      stores_completed_count: 45,
     },
   },
   {
@@ -84,10 +89,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'COMPLETED',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 100,
       ai_analyzing_duration: 110,
-      eviewing_store_total_count: 40,
-      reviewing_store_completed_count: 40,
+      stores_total_count: 40,
+      stores_completed_count: 40,
     },
   },
   {
@@ -98,10 +104,11 @@ const DUMMY_PROJECTS: Project[] = [
     created_at: '2024-06-27T11:41:32.311141Z',
     status: 'REVIEWING',
     progress_info: {
-      ai_analyzing_progress: 100,
+      images_total_count: 100,
+      images_finished_count: 80,
       ai_analyzing_duration: 130,
-      eviewing_store_total_count: 60,
-      reviewing_store_completed_count: 5,
+      stores_total_count: 60,
+      stores_completed_count: 5,
     },
   },
 ];
