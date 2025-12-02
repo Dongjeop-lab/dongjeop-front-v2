@@ -63,7 +63,7 @@ export const AnalyzeStatus = ({
             className={css({
               fontSize: '1.875rem',
               fontWeight: 'bold',
-              color: '#374151',
+              color: 'text.dashboard.secondary',
               lineHeight: '116.2%',
             })}
           >

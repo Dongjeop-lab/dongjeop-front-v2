@@ -81,7 +81,7 @@ export const ReviewStatus = ({
             className={css({
               fontSize: '30px',
               fontWeight: 'bold',
-              color: '#374151',
+              color: 'text.dashboard.secondary',
               lineHeight: '1',
               marginBottom: '2px',
             })}
@@ -92,7 +92,7 @@ export const ReviewStatus = ({
             className={css({
               fontSize: '12.5px',
               fontWeight: 'medium',
-              color: '#6B7280',
+              color: 'text.dashboard.sub',
             })}
           >
             {reviewingStoreCompletedCount} /{reviewingStoreTotalCount}
