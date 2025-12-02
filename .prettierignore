@@ -29,3 +29,6 @@ pnpm-lock.yaml
 
 # Documentation
 *.md
+
+# MSW
+public/mockServiceWorker.js
