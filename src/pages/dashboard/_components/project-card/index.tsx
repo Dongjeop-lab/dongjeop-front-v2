@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router';
 import { css } from 'styled-system/css';
 
 import Badge from '@/components/badge';
+import { PROJECT_STATUS } from '@/constants/project';
 import type { Project } from '@/types/project';
 
 import { Card } from '../card';
@@ -26,17 +27,17 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   const formatStatus = (status: Project['status']) => {
     switch (status) {
-      case 'ANALYZING':
+      case PROJECT_STATUS.ANALYZING:
         return '분석중';
-      case 'REVIEWING':
+      case PROJECT_STATUS.REVIEWING:
         return '검수중';
-      case 'COMPLETED':
+      case PROJECT_STATUS.COMPLETED:
         return '검수완료';
     }
   };
 
   const renderProjectStatus = () => {
-    if (project.status === 'ANALYZING') {
+    if (project.status === PROJECT_STATUS.ANALYZING) {
       const { ai_analyzing_progress, ai_analyzing_duration } =
         project.progress_info;
 
@@ -48,7 +49,10 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       );
     }
 
-    if (project.status === 'REVIEWING' || project.status === 'COMPLETED') {
+    if (
+      project.status === PROJECT_STATUS.REVIEWING ||
+      project.status === PROJECT_STATUS.COMPLETED
+    ) {
       const { eviewing_store_total_count, reviewing_store_completed_count } =
         project.progress_info;
 
