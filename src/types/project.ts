@@ -10,7 +10,7 @@ export interface Project {
   progress_info: {
     ai_analyzing_progress: number;
     ai_analyzing_duration: number;
-    eviewing_store_total_count: number;
+    reviewing_store_total_count: number;
     reviewing_store_completed_count: number;
   };
 }

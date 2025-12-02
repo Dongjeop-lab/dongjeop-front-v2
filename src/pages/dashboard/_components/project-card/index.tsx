@@ -53,12 +53,12 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       project.status === PROJECT_STATUS.REVIEWING ||
       project.status === PROJECT_STATUS.COMPLETED
     ) {
-      const { eviewing_store_total_count, reviewing_store_completed_count } =
+      const { reviewing_store_total_count, reviewing_store_completed_count } =
         project.progress_info;
 
       return (
         <ReviewStatus
-          reviewingStoreTotalCount={eviewing_store_total_count}
+          reviewingStoreTotalCount={reviewing_store_total_count}
           reviewingStoreCompletedCount={reviewing_store_completed_count}
         />
       );
