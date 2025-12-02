@@ -23,7 +23,12 @@ const navigationButton = cva({
     padding: 0,
     border: 'none',
     bg: 'none',
-    transition: 'opacity 0.2s ease-out',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-out',
+    _hover: {
+      bg: '#0000000D',
+      borderRadius: 'full',
+    },
   },
   variants: {
     disabled: {
@@ -190,7 +195,7 @@ const Pagination = ({
         >
           <img
             src={ChevronDoubleRight}
-            alt='마지막 페이지로'
+            alt='다음 그룹으로'
           />
         </button>
       </div>
