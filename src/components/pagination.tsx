@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { css, cva } from 'styled-system/css';
 
-import ChevronDoubleLeft from '../_assets/chevron-double-left.svg';
-import ChevronDoubleRight from '../_assets/chevron-double-right.svg';
-import ChevronLeft from '../_assets/chevron-left.svg';
-import ChevronRight from '../_assets/chevron-right.svg';
+import ChevronDoubleLeft from '../assets/chevron-double-left.svg';
+import ChevronDoubleRight from '../assets/chevron-double-right.svg';
+import ChevronLeft from '../assets/chevron-left.svg';
+import ChevronRight from '../assets/chevron-right.svg';
 
 interface PaginationProps {
   totalItems: number;
