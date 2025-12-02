@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 
 import Badge from '@/components/badge';
 import { PROJECT_STATUS } from '@/constants/project';
-import type { Project } from '@/types/project';
+import type { Project } from '@/pages/dashboard/_types/project';
 
 import { Card } from '../card';
 import { AnalyzeStatus } from './AnalyzeStatus';

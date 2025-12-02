@@ -18,3 +18,14 @@ export interface Project {
 
 export type ProjectStatus =
   (typeof PROJECT_STATUS)[keyof typeof PROJECT_STATUS];
+
+export type PageInfo = {
+  total_pages: number;
+  current_page: number;
+  size: number;
+};
+
+export type ProjectListResponse = {
+  projects: Project[];
+  page_info: PageInfo;
+};
