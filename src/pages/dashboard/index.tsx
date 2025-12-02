@@ -16,7 +16,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 40,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
+      reviewing_store_total_count: 50,
       reviewing_store_completed_count: 10,
     },
   },
@@ -30,7 +30,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
+      reviewing_store_total_count: 50,
       reviewing_store_completed_count: 10,
     },
   },
@@ -44,7 +44,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 90,
-      eviewing_store_total_count: 30,
+      reviewing_store_total_count: 30,
       reviewing_store_completed_count: 30,
     },
   },
@@ -58,7 +58,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 120,
-      eviewing_store_total_count: 50,
+      reviewing_store_total_count: 50,
       reviewing_store_completed_count: 10,
     },
   },
@@ -72,7 +72,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 150,
-      eviewing_store_total_count: 80,
+      reviewing_store_total_count: 80,
       reviewing_store_completed_count: 45,
     },
   },
@@ -86,7 +86,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 110,
-      eviewing_store_total_count: 40,
+      reviewing_store_total_count: 40,
       reviewing_store_completed_count: 40,
     },
   },
@@ -100,7 +100,7 @@ const DUMMY_PROJECTS: Project[] = [
     progress_info: {
       ai_analyzing_progress: 100,
       ai_analyzing_duration: 130,
-      eviewing_store_total_count: 60,
+      reviewing_store_total_count: 60,
       reviewing_store_completed_count: 5,
     },
   },
