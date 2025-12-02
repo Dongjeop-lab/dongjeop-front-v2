@@ -112,44 +112,21 @@ const DUMMY_PROJECTS: Project[] = [
  */
 const DashboardPage = () => {
   return (
-    <>
-      <div>
-        {/* TODO: 헤더 컴포넌트 확정 시 반영 */}
-        <header
-          className={css({
-            width: '100%',
-            padding: '1.5rem 7.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'white',
-          })}
-        >
-          <h1
-            className={css({
-              fontWeight: 'bold',
-            })}
-          >
-            프로젝트 목록
-          </h1>
-        </header>
-        <main
-          className={css({
-            padding: '3.75rem 7.5rem',
-            display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap',
-          })}
-        >
-          <CreateProjectButton />
-          {DUMMY_PROJECTS.map(project => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-            />
-          ))}
-        </main>
-      </div>
-    </>
+    <div
+      className={css({
+        display: 'flex',
+        gap: '1rem',
+        flexWrap: 'wrap',
+      })}
+    >
+      <CreateProjectButton />
+      {DUMMY_PROJECTS.map(project => (
+        <ProjectCard
+          key={project.id}
+          project={project}
+        />
+      ))}
+    </div>
   );
 };
 
