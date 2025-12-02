@@ -107,7 +107,7 @@ const DUMMY_PROJECTS: Project[] = [
 ];
 
 /**
- * 대시보드 페이지
+ * 대시보드 페이지 (프로젝트 목록)
  * Path: /
  */
 const DashboardPage = () => {
