@@ -17,7 +17,7 @@ const List = styled(RadixTabs.List, {
 
 const Trigger = styled(RadixTabs.Trigger, {
   base: {
-    paddingY: '8xpx',
+    paddingY: '.5rem',
     fontSize: '1rem',
     fontWeight: '500',
     color: 'text.sub',
