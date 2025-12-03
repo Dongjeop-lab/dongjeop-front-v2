@@ -90,67 +90,49 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
               </p>
             </Table.Cell>
             <Table.Cell>
-              <div
-                className={css({
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '.375rem',
-                  lineHeight: '1.0625rem',
-                })}
-              >
-                <StatusDot
-                  variant='normal'
-                  label='정상'
-                  labelClassName={css({
-                    color: 'text.sub',
-                    fontSize: '.75rem',
-                  })}
-                />
-                <hr
+              {[
+                {
+                  variant: 'normal' as const,
+                  label: '정상',
+                  count: store.total_image_count - store.ignored_image_count,
+                },
+                {
+                  variant: 'error' as const,
+                  label: '삭제',
+                  count: store.ignored_image_count,
+                },
+              ].map(({ variant, label, count }) => (
+                <div
+                  key={variant}
                   className={css({
-                    width: '1px',
-                    height: '10px',
-                    border: 'none',
-                    backgroundColor: '#DDE1E6',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '.375rem',
+                    lineHeight: '1.0625rem',
                   })}
-                />
-                <span className={css({ fontSize: '.75rem' })}>
-                  {store.total_image_count - store.ignored_image_count > 0
-                    ? `${store.total_image_count - store.ignored_image_count}장`
-                    : '-'}
-                </span>
-              </div>
-              <div
-                className={css({
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '.375rem',
-                  lineHeight: '1.0625rem',
-                })}
-              >
-                <StatusDot
-                  variant='error'
-                  label='삭제'
-                  labelClassName={css({
-                    color: 'text.sub',
-                    fontSize: '.75rem',
-                  })}
-                />
-                <hr
-                  className={css({
-                    width: '1px',
-                    height: '10px',
-                    margin: 0,
-                    border: 'none',
-                    backgroundColor: '#DDE1E6',
-                  })}
-                />
-                <span className={css({ fontSize: '.75rem' })}>
-                  {store.ignored_image_count > 0
-                    ? `${store.ignored_image_count}장`
-                    : '-'}
-                </span>
-              </div>
+                >
+                  <StatusDot
+                    variant={variant}
+                    label={label}
+                    labelClassName={css({
+                      color: 'text.sub',
+                      fontSize: '.75rem',
+                    })}
+                  />
+                  <hr
+                    className={css({
+                      width: '1px',
+                      height: '10px',
+                      margin: 0,
+                      border: 'none',
+                      backgroundColor: '#DDE1E6',
+                    })}
+                  />
+                  <span className={css({ fontSize: '.75rem' })}>
+                    {count > 0 ? `${count}장` : '-'}
+                  </span>
+                </div>
+              ))}
             </Table.Cell>
             <Table.Cell>
               {store.access_level ? <Badge level={store.access_level} /> : '-'}
