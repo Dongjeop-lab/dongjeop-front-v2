@@ -13,7 +13,7 @@ import {
 } from '../_utils/format-label-base';
 
 interface StoreListTableProps {
-  filteredStores: StoreResponse[];
+  stores: StoreResponse[];
 }
 
 const TEXT_STYLES = {
@@ -27,7 +27,7 @@ const TEXT_STYLES = {
   },
 } as const;
 
-const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
+const StoreListTable = ({ stores }: StoreListTableProps) => {
   return (
     <Table.Root>
       <Table.Head>
@@ -45,7 +45,7 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
       </Table.Head>
 
       <Table.Body>
-        {filteredStores.map(store => (
+        {stores.map(store => (
           <Table.Row key={store.id}>
             <Table.Cell>
               {/* XXX: 뱃지 변경 가능성 있음 (피그마에 질문 남긴 상태) */}

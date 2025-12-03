@@ -5,7 +5,7 @@ import { css } from 'styled-system/css';
 import Pagination from '@/components/pagination';
 import Tabs from '@/components/tabs';
 
-import type { StoreResponse } from '../_types/store';
+import type { StoreResponse, StoreReviewStatusType } from '../_types/store';
 import StoreListTable from './store-list-table';
 
 /**
@@ -19,6 +19,14 @@ const TAB_VALUES = {
   COMPLETED: 'completed',
 } as const;
 
+type TabValue = (typeof TAB_VALUES)[keyof typeof TAB_VALUES];
+
+const STATUS_MAP: Record<string, StoreReviewStatusType | 0> = {
+  [TAB_VALUES.ALL]: 0, // 전체 (필터 없음)
+  [TAB_VALUES.REVIEWING]: 1, // 검수 대기
+  [TAB_VALUES.COMPLETED]: 2, // 검수 완료
+} as const;
+
 export const ProjectDetailView = () => {
   const { projectId } = useParams();
   const location = useLocation();
@@ -28,14 +36,28 @@ export const ProjectDetailView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
+
   useEffect(() => {
-    fetch(`/api/v1/projects/${projectId}/stores?page=${currentPage}&size=10`)
+    const reviewStatus =
+      STATUS_MAP[currentTab] === 0
+        ? ''
+        : `&review_status=${STATUS_MAP[currentTab]}`;
+
+    fetch(
+      `/api/v1/projects/${projectId}/stores?page=${currentPage}&size=10${reviewStatus}`
+    )
       .then(res => res.json())
       .then(data => {
         setStores(data.stores);
         setTotalPages(data.page_info.total_pages);
       });
-  }, [projectId, currentPage]);
+  }, [projectId, currentPage, currentTab]);
+
+  const handleTabChange = (value: string) => {
+    setCurrentTab(value as TabValue);
+    setCurrentPage(1); // 탭 변경 시 페이지 초기화
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -65,7 +87,6 @@ export const ProjectDetailView = () => {
         {projectName}
       </header>
 
-      {/* 테이블 영역 */}
       <div
         className={css({
           display: 'flex',
@@ -98,9 +119,11 @@ export const ProjectDetailView = () => {
           </p>
         </div>
 
-        {/* tab */}
         <div>
-          <Tabs.Root defaultValue={TAB_VALUES.ALL}>
+          <Tabs.Root
+            defaultValue={TAB_VALUES.ALL}
+            onValueChange={handleTabChange}
+          >
             <Tabs.List>
               <Tabs.Trigger value={TAB_VALUES.ALL}>전체</Tabs.Trigger>
               <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
@@ -110,15 +133,14 @@ export const ProjectDetailView = () => {
                 검수 완료
               </Tabs.Trigger>
             </Tabs.List>
-            <Tabs.Content value={TAB_VALUES.ALL}>
-              <StoreListTable filteredStores={stores} />
-            </Tabs.Content>
-            <Tabs.Content value={TAB_VALUES.REVIEWING}>
-              <StoreListTable filteredStores={stores} />
-            </Tabs.Content>
-            <Tabs.Content value={TAB_VALUES.COMPLETED}>
-              <StoreListTable filteredStores={stores} />
-            </Tabs.Content>
+            {Object.values(TAB_VALUES).map(tab => (
+              <Tabs.Content
+                key={tab}
+                value={tab}
+              >
+                <StoreListTable stores={stores} />
+              </Tabs.Content>
+            ))}
           </Tabs.Root>
         </div>
       </div>
