@@ -16,6 +16,17 @@ interface StoreListTableProps {
   filteredStores: StoreResponse[];
 }
 
+const TEXT_STYLES = {
+  sub: {
+    color: 'text.sub',
+    fontSize: '.75rem',
+  },
+  lineHeight: {
+    sm: { lineHeight: '1.0625rem' },
+    md: { lineHeight: '1.25rem' },
+  },
+} as const;
+
 const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
   return (
     <Table.Root>
@@ -44,12 +55,11 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
               />
             </Table.Cell>
             <Table.Cell>
-              <p className={css({ lineHeight: '1.25rem' })}>{store.name}</p>
+              <p className={css(TEXT_STYLES.lineHeight.md)}>{store.name}</p>
               <p
                 className={css({
-                  color: 'text.sub',
-                  fontSize: '.75rem',
-                  lineHeight: '1.0625rem',
+                  ...TEXT_STYLES.sub,
+                  ...TEXT_STYLES.lineHeight.sm,
                 })}
               >
                 {store.address}
@@ -75,17 +85,17 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
               </div>
             </Table.Cell>
             <Table.Cell>
-              <p className={css({ lineHeight: '1.25rem' })}>
+              <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatStepLabel(store.label_info?.has_step || null)}
               </p>
             </Table.Cell>
             <Table.Cell>
-              <p className={css({ lineHeight: '1.25rem' })}>
+              <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatWidthLabel(store.label_info?.width_class || null)}
               </p>
             </Table.Cell>
             <Table.Cell>
-              <p className={css({ lineHeight: '1.25rem' })}>
+              <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatChairTypes(store.label_info)}
               </p>
             </Table.Cell>
@@ -108,16 +118,13 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '.375rem',
-                    lineHeight: '1.0625rem',
+                    ...TEXT_STYLES.lineHeight.sm,
                   })}
                 >
                   <StatusDot
                     variant={variant}
                     label={label}
-                    labelClassName={css({
-                      color: 'text.sub',
-                      fontSize: '.75rem',
-                    })}
+                    labelClassName={css(TEXT_STYLES.sub)}
                   />
                   <hr
                     className={css({
@@ -141,17 +148,16 @@ const StoreListTable = ({ filteredStores }: StoreListTableProps) => {
               {store.review_finished_at ? (
                 <p
                   className={css({
-                    color: 'text.sub',
-                    fontSize: '.75rem',
+                    ...TEXT_STYLES.sub,
+                    ...TEXT_STYLES.lineHeight.sm,
                     fontWeight: '400',
-                    lineHeight: '1.0625rem',
                     whiteSpace: 'pre-line',
                   })}
                 >
                   {formatReviewDate(store.review_finished_at)}
                 </p>
               ) : (
-                <p className={css({ lineHeight: '1.25rem' })}>-</p>
+                <p className={css(TEXT_STYLES.lineHeight.md)}>-</p>
               )}
             </Table.Cell>
           </Table.Row>
