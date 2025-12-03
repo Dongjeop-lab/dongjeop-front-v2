@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { css, cva } from 'styled-system/css';
 
-import ChevronDoubleLeft from '../_assets/chevron-double-left.svg';
-import ChevronDoubleRight from '../_assets/chevron-double-right.svg';
-import ChevronLeft from '../_assets/chevron-left.svg';
-import ChevronRight from '../_assets/chevron-right.svg';
+import ChevronDoubleLeft from '../assets/chevron-double-left.svg';
+import ChevronDoubleRight from '../assets/chevron-double-right.svg';
+import ChevronLeft from '../assets/chevron-left.svg';
+import ChevronRight from '../assets/chevron-right.svg';
 
 interface PaginationProps {
   totalItems: number;
@@ -23,7 +23,12 @@ const navigationButton = cva({
     padding: 0,
     border: 'none',
     bg: 'none',
-    transition: 'opacity 0.2s ease-out',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-out',
+    _hover: {
+      bg: '#0000000D',
+      borderRadius: 'full',
+    },
   },
   variants: {
     disabled: {
@@ -53,14 +58,6 @@ const pageButton = cva({
     outline: 'none',
     cursor: 'pointer',
     transition: 'all 0.2s ease-out',
-    _hover: {
-      bg: 'button.pressed',
-      color: 'button.text.pressed',
-    },
-    _active: {
-      bg: 'button.pressed',
-      color: 'button.text.pressed',
-    },
   },
   variants: {
     isSelected: {
@@ -71,6 +68,9 @@ const pageButton = cva({
       false: {
         bg: 'transparent',
         color: 'inherit',
+        _hover: {
+          bg: '#0000000D',
+        },
       },
     },
   },
@@ -190,7 +190,7 @@ const Pagination = ({
         >
           <img
             src={ChevronDoubleRight}
-            alt='마지막 페이지로'
+            alt='다음 그룹으로'
           />
         </button>
       </div>
