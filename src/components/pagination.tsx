@@ -58,14 +58,6 @@ const pageButton = cva({
     outline: 'none',
     cursor: 'pointer',
     transition: 'all 0.2s ease-out',
-    _hover: {
-      bg: 'button.pressed',
-      color: 'button.text.pressed',
-    },
-    _active: {
-      bg: 'button.pressed',
-      color: 'button.text.pressed',
-    },
   },
   variants: {
     isSelected: {
@@ -76,6 +68,9 @@ const pageButton = cva({
       false: {
         bg: 'transparent',
         color: 'inherit',
+        _hover: {
+          bg: '#0000000D',
+        },
       },
     },
   },
