@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { css, cva } from 'styled-system/css';
 
 import ChevronDoubleLeft from '../assets/chevron-double-left.svg';
@@ -86,7 +85,7 @@ const Pagination = ({
   currentPage = FIRST_PAGE,
   onPageChange,
 }: PaginationProps) => {
-  const [page, setPage] = useState(currentPage);
+  const page = currentPage;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -96,7 +95,6 @@ const Pagination = ({
   const endPage = Math.min(currentGroup * PAGES_PER_GROUP, totalPages);
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage);
     onPageChange?.(newPage);
   };
 
