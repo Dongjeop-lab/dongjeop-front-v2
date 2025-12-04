@@ -85,12 +85,10 @@ const Pagination = ({
   currentPage = FIRST_PAGE,
   onPageChange,
 }: PaginationProps) => {
-  const page = currentPage;
-
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // 현재 페이지 그룹 계산
-  const currentGroup = Math.ceil(page / PAGES_PER_GROUP);
+  const currentGroup = Math.ceil(currentPage / PAGES_PER_GROUP);
   const startPage = (currentGroup - 1) * PAGES_PER_GROUP + FIRST_PAGE;
   const endPage = Math.min(currentGroup * PAGES_PER_GROUP, totalPages);
 
@@ -98,8 +96,10 @@ const Pagination = ({
     onPageChange?.(newPage);
   };
 
-  const goToPrevPage = () => handlePageChange(Math.max(page - 1, FIRST_PAGE));
-  const goToNextPage = () => handlePageChange(Math.min(page + 1, totalPages));
+  const goToPrevPage = () =>
+    handlePageChange(Math.max(currentPage - 1, FIRST_PAGE));
+  const goToNextPage = () =>
+    handlePageChange(Math.min(currentPage + 1, totalPages));
   const goToPrevGroup = () =>
     handlePageChange(Math.max(startPage - PAGES_PER_GROUP, FIRST_PAGE));
   const goToNextGroup = () =>
@@ -136,9 +136,9 @@ const Pagination = ({
           />
         </button>
         <button
-          className={navigationButton({ disabled: page === FIRST_PAGE })}
+          className={navigationButton({ disabled: currentPage === FIRST_PAGE })}
           onClick={goToPrevPage}
-          disabled={page === FIRST_PAGE}
+          disabled={currentPage === FIRST_PAGE}
         >
           <img
             src={ChevronLeft}
@@ -158,7 +158,7 @@ const Pagination = ({
           <button
             key={pageNum}
             onClick={() => handlePageChange(pageNum)}
-            className={pageButton({ isSelected: page === pageNum })}
+            className={pageButton({ isSelected: currentPage === pageNum })}
           >
             {pageNum}
           </button>
@@ -172,9 +172,9 @@ const Pagination = ({
         })}
       >
         <button
-          className={navigationButton({ disabled: page === totalPages })}
+          className={navigationButton({ disabled: currentPage === totalPages })}
           onClick={goToNextPage}
-          disabled={page === totalPages}
+          disabled={currentPage === totalPages}
         >
           <img
             src={ChevronRight}
