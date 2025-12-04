@@ -36,6 +36,8 @@ const HeaderCell = styled('th', {
   base: {
     padding: '10px 12px',
     color: '#121619',
+    fontWeight: '600',
+    lineHeight: '1.25rem',
     whiteSpace: 'nowrap',
   },
   variants: {
@@ -56,6 +58,7 @@ const HeaderCell = styled('th', {
 const Cell = styled('td', {
   base: {
     padding: '12px',
+    height: '84px',
     color: '#121619',
     verticalAlign: 'middle',
   },
