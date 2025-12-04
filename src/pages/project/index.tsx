@@ -10,8 +10,8 @@ import { StoreReviewView } from './_components/store-review-view';
  * Path: /project/{project-id}
  *
  * Query Params에 따라 다른 화면 표시:
- * - ?store가 없으면 → 프로젝트 상세 화면 (다른 팀원)
- * - ?store가 있으면 → 장소 검수 화면 (우리)
+ * - ?store가 없으면 → 프로젝트 상세 화면 (장소 목록 화면, 전체 / 검수 대기 / 검수 완료)
+ * - ?store가 있으면 → 장소 검수 화면
  */
 const ProjectPage = () => {
   const [searchParams] = useSearchParams();
@@ -26,7 +26,7 @@ const ProjectPage = () => {
     );
   }
 
-  // ?store가 없으면 프로젝트 상세 화면 (임시)
+  // ?store가 없으면 프로젝트 상세 화면 (장소 검수 목록 화면)
   return <ProjectDetailView />;
 };
 
