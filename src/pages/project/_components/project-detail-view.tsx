@@ -137,6 +137,9 @@ export const ProjectDetailView = () => {
               <Tabs.Content
                 key={tab}
                 value={tab}
+                className={css({
+                  overflowX: 'auto',
+                })}
               >
                 <StoreListTable stores={stores} />
               </Tabs.Content>

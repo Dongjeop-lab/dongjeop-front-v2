@@ -27,34 +27,64 @@ const TEXT_STYLES = {
   },
 } as const;
 
+const COLUMN_WIDTHS = {
+  status: css({ width: '100px', minWidth: '100px' }),
+  name: css({ width: '200px', minWidth: '200px' }),
+  totalImageCount: css({ width: '120px', minWidth: '120px' }),
+  hasStep: css({ width: '80px', minWidth: '80px' }),
+  widthClass: css({ width: '80px', minWidth: '80px' }),
+  chairTypes: css({ width: '172px', minWidth: '172px' }),
+  ignoredImageCount: css({ width: '145px', minWidth: '145px' }),
+  accessLevel: css({ width: '100px', minWidth: '100px' }),
+  reviewFinishedAt: css({ width: '145px', minWidth: '145px' }),
+} as const;
+
 const StoreListTable = ({ stores }: StoreListTableProps) => {
   return (
     <Table.Root>
       <Table.Head>
         <Table.Row>
-          <Table.HeaderCell>진행 상황</Table.HeaderCell>
-          <Table.HeaderCell>장소 정보</Table.HeaderCell>
-          <Table.HeaderCell>사진</Table.HeaderCell>
-          <Table.HeaderCell>계단/턱</Table.HeaderCell>
-          <Table.HeaderCell>통로</Table.HeaderCell>
-          <Table.HeaderCell>의자유형</Table.HeaderCell>
-          <Table.HeaderCell>데이터 판정</Table.HeaderCell>
-          <Table.HeaderCell>접근성 레벨</Table.HeaderCell>
-          <Table.HeaderCell>검수일시</Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.status}>
+            진행 상황
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.name}>
+            장소 정보
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.totalImageCount}>
+            사진
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.hasStep}>
+            계단/턱
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.widthClass}>
+            통로
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.chairTypes}>
+            의자유형
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.ignoredImageCount}>
+            데이터 판정
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.accessLevel}>
+            접근성 레벨
+          </Table.HeaderCell>
+          <Table.HeaderCell className={COLUMN_WIDTHS.reviewFinishedAt}>
+            검수일시
+          </Table.HeaderCell>
         </Table.Row>
       </Table.Head>
 
       <Table.Body>
         {stores.map(store => (
           <Table.Row key={store.id}>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.status}>
               {/* XXX: 뱃지 변경 가능성 있음 (피그마에 질문 남긴 상태) */}
               <Badge
                 label={store.status === 1 ? '검수중' : '검수완료'}
                 variant={store.status === 1 ? 'primary' : 'gray'}
               />
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.name}>
               <p className={css(TEXT_STYLES.lineHeight.md)}>{store.name}</p>
               <p
                 className={css({
@@ -65,7 +95,7 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
                 {store.address}
               </p>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.totalImageCount}>
               {/* TODO: 대표사진 띄우고, 장수 div는 우측 하단에 */}
               <div
                 className={css({
@@ -84,22 +114,22 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
                 +{store.total_image_count}
               </div>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.hasStep}>
               <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatStepLabel(store.label_info?.has_step || null)}
               </p>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.widthClass}>
               <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatWidthLabel(store.label_info?.width_class || null)}
               </p>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.chairTypes}>
               <p className={css(TEXT_STYLES.lineHeight.md)}>
                 {formatChairTypes(store.label_info)}
               </p>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.ignoredImageCount}>
               {[
                 {
                   variant: 'normal' as const,
@@ -141,10 +171,10 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
                 </div>
               ))}
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.accessLevel}>
               {store.access_level ? <Badge level={store.access_level} /> : '-'}
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell className={COLUMN_WIDTHS.reviewFinishedAt}>
               {store.review_finished_at ? (
                 <p
                   className={css({
