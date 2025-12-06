@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
 
 import Badge from '@/components/badge';
@@ -40,6 +41,14 @@ const COLUMN_WIDTHS = {
 } as const;
 
 const StoreListTable = ({ stores }: StoreListTableProps) => {
+  const [_, setSearchParams] = useSearchParams();
+  const handleClickStore = (storeId: number) => {
+    setSearchParams(prev => {
+      prev.set('store', storeId.toString());
+      return prev;
+    });
+  };
+
   return (
     <Table.Root>
       <Table.Head>
@@ -76,7 +85,13 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
 
       <Table.Body>
         {stores.map(store => (
-          <Table.Row key={store.id}>
+          <Table.Row
+            key={store.id}
+            onClick={() => handleClickStore(store.id)}
+            className={css({
+              cursor: 'pointer',
+            })}
+          >
             <Table.Cell className={COLUMN_WIDTHS.status}>
               {/* XXX: 뱃지 변경 가능성 있음 (피그마에 질문 남긴 상태) */}
               <Badge
