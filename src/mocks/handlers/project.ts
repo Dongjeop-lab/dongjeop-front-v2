@@ -348,9 +348,21 @@ export const projectHandlers = [
       },
       label_info: store.label_info,
       images: [
-        { id: 1, image_url: 'https://via.placeholder.com/400x300?text=Image+1', ignored: false },
-        { id: 2, image_url: 'https://via.placeholder.com/400x300?text=Image+2', ignored: false },
-        { id: 3, image_url: 'https://via.placeholder.com/400x300?text=Image+3', ignored: true },
+        {
+          id: 1,
+          image_url: 'https://via.placeholder.com/400x300?text=Image+1',
+          ignored: false,
+        },
+        {
+          id: 2,
+          image_url: 'https://via.placeholder.com/400x300?text=Image+2',
+          ignored: false,
+        },
+        {
+          id: 3,
+          image_url: 'https://via.placeholder.com/400x300?text=Image+3',
+          ignored: true,
+        },
       ],
     };
 
