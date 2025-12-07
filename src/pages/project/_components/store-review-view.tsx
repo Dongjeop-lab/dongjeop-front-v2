@@ -87,10 +87,9 @@ const StoreReviewContent = ({ stores }: { stores: StoreSimpleResponse[] }) => {
       className={css({
         display: 'flex',
         flexDir: 'column',
-        alignItems: 'center',
         gap: '1.875rem',
         width: '100%',
-        height: '100%',
+        height: 'calc(100vh - 70px - 120px)',
       })}
     >
       <header
@@ -108,8 +107,10 @@ const StoreReviewContent = ({ stores }: { stores: StoreSimpleResponse[] }) => {
       <div
         className={css({
           display: 'flex',
-          height: 'calc(100vh - 70px)',
-          backgroundColor: '#F4F6F8',
+          flex: 1,
+          width: 'full',
+          gap: '1.875rem',
+          overflow: 'hidden',
         })}
       >
         {/* 좌측 사이드바 */}
