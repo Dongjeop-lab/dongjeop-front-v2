@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
@@ -20,6 +21,7 @@ export const StoreReviewContent = ({
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const queryClient = useQueryClient();
 
   const storeIdFromQuery = searchParams.get('store');
   const selectedStoreId = storeIdFromQuery ? parseInt(storeIdFromQuery) : null;
@@ -45,14 +47,13 @@ export const StoreReviewContent = ({
       { storeId: currentStoreId, data },
       {
         onSuccess: () => {
+          // 상점 목록 및 상세 정보 새로고침
+          queryClient.invalidateQueries({ queryKey: ['stores'] });
+          queryClient.invalidateQueries({
+            queryKey: ['store', currentStoreId],
+          });
+
           alert('검수가 완료되었습니다!');
-          // 다음 미완료 상점으로 이동
-          const nextStore = stores.find(
-            s => s.id > currentStoreId && s.status === 1
-          );
-          if (nextStore) {
-            handleSelectStore(nextStore.id);
-          }
         },
       }
     );

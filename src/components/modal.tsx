@@ -9,6 +9,7 @@ interface ModalProps extends PropsWithChildren {
   width?: string | number;
   height?: string | number;
   gap?: string | number;
+  showCloseIcon?: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -19,6 +20,7 @@ const Modal = ({
   width = 'auto',
   height = 'auto',
   gap = '2rem',
+  showCloseIcon = true,
   onOpenChange,
 }: ModalProps) => {
   return (
@@ -66,25 +68,29 @@ const Modal = ({
                 fontSize: '1.25rem',
                 fontWeight: 'bold',
                 color: '#333',
+                whiteSpace: 'pre-line',
+                lineHeight: '140%',
               })}
             >
               {title}
             </Dialog.Title>
-            <Dialog.Close asChild>
-              <button
-                className={css({
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                })}
-              >
-                <img
-                  src='/icons/clear.svg'
-                  alt='Close'
-                />
-              </button>
-            </Dialog.Close>
+            {showCloseIcon && (
+              <Dialog.Close asChild>
+                <button
+                  className={css({
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  })}
+                >
+                  <img
+                    src='/icons/clear.svg'
+                    alt='Close'
+                  />
+                </button>
+              </Dialog.Close>
+            )}
           </div>
           <div>{children}</div>
         </Dialog.Content>
