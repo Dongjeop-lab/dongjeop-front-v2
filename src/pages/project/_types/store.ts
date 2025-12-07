@@ -66,6 +66,13 @@ export interface StoreSimpleListResponse {
   stores: StoreSimpleResponse[];
 }
 
+/** 이미지 표시 정보 */
+export interface ImageDisplayInfo {
+  id: number;
+  image_url: string;
+  ignored: boolean;
+}
+
 /** 상점 검수 상세 응답 */
 export interface StoreReviewDetailResponse {
   name: string;
@@ -73,7 +80,7 @@ export interface StoreReviewDetailResponse {
   status: StoreReviewStatusType;
   image_analysis_result: LabelBase;
   label_info: LabelBase | null;
-  images_urls: string[];
+  images: ImageDisplayInfo[];
 }
 
 /** 상점 검수 라벨 요청 */

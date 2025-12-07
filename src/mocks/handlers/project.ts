@@ -347,10 +347,10 @@ export const projectHandlers = [
         is_not_sure_chair: false,
       },
       label_info: store.label_info,
-      images_urls: [
-        'https://via.placeholder.com/400x300?text=Image+1',
-        'https://via.placeholder.com/400x300?text=Image+2',
-        'https://via.placeholder.com/400x300?text=Image+3',
+      images: [
+        { id: 1, image_url: 'https://via.placeholder.com/400x300?text=Image+1', ignored: false },
+        { id: 2, image_url: 'https://via.placeholder.com/400x300?text=Image+2', ignored: false },
+        { id: 3, image_url: 'https://via.placeholder.com/400x300?text=Image+3', ignored: true },
       ],
     };
 
@@ -389,4 +389,11 @@ export const projectHandlers = [
       return HttpResponse.json(response);
     }
   ),
+
+  // PUT /api/v1/reviews/images/{image_id}/ignore - 이미지 무시 처리
+  http.put('/api/v1/reviews/images/:imageId/ignore', ({ params }) => {
+    const { imageId } = params;
+    console.log(`[MSW] 이미지 ${imageId} 무시 처리`);
+    return HttpResponse.json({});
+  }),
 ];

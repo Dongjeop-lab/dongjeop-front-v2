@@ -56,3 +56,8 @@ export const createOrUpdateStoreLabel = (
     data
   );
 };
+
+/** 이미지 무시 처리 */
+export const ignoreImage = (imageId: number) => {
+  return api.put<void>(`/reviews/images/${imageId}/ignore`);
+};

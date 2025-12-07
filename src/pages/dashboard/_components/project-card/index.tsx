@@ -77,7 +77,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         flexDirection: 'column',
         gap: '1.25rem',
       })}
-      onClick={() => navigate(`/project/${project.id}`)}
+      onClick={() =>
+        navigate(`/project/${project.id}`, {
+          state: { projectName: project.name },
+        })
+      }
     >
       <div
         className={css({

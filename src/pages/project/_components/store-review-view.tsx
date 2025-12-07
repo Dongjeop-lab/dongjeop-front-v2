@@ -86,25 +86,49 @@ const StoreReviewContent = ({ stores }: { stores: StoreSimpleResponse[] }) => {
     <div
       className={css({
         display: 'flex',
-        height: 'calc(100vh - 70px)',
-        backgroundColor: '#F4F6F8',
+        flexDir: 'column',
+        alignItems: 'center',
+        gap: '1.875rem',
+        width: '100%',
+        height: '100%',
       })}
     >
-      {/* 좌측 사이드바 */}
-      <StoreSidebar
-        stores={stores}
-        selectedStoreId={currentStoreId}
-        onSelectStore={handleSelectStore}
-        isCollapsed={isCollapsed}
-        onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
-      />
+      <header
+        className={css({
+          width: 'full',
+          color: '#000000',
+          fontSize: '4xl',
+          fontWeight: '700',
+          lineHeight: '1.75rem',
+          textAlign: 'left',
+        })}
+      >
+        장소 검수
+      </header>
+      <div
+        className={css({
+          display: 'flex',
+          height: 'calc(100vh - 70px)',
+          backgroundColor: '#F4F6F8',
+        })}
+      >
+        {/* 좌측 사이드바 */}
+        <StoreSidebar
+          stores={stores}
+          selectedStoreId={currentStoreId}
+          onSelectStore={handleSelectStore}
+          isCollapsed={isCollapsed}
+          onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
+        />
 
-      {/* 우측 메인 영역 */}
-      <StoreDetailPanel
-        store={storeDetail}
-        onSubmit={handleSubmit}
-        isSubmitting={isPending}
-      />
+        {/* 우측 메인 영역 */}
+        <StoreDetailPanel
+          store={storeDetail}
+          storeId={currentStoreId}
+          onSubmit={handleSubmit}
+          isSubmitting={isPending}
+        />
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { css } from 'styled-system/css';
 
 import { Button } from '@/components/button';
 
+import { useIgnoreImage } from '../_hooks';
 import type {
   HasStepType,
   StoreReviewDetailResponse,
@@ -12,6 +13,7 @@ import type {
 
 interface StoreDetailPanelProps {
   store: StoreReviewDetailResponse;
+  storeId: number;
   onSubmit: (data: StoreReviewLabelRequest) => void;
   isSubmitting?: boolean;
 }
@@ -22,10 +24,11 @@ interface StoreDetailPanelProps {
  */
 export const StoreDetailPanel = ({
   store,
+  storeId,
   onSubmit,
   isSubmitting = false,
 }: StoreDetailPanelProps) => {
-  const [excludedImages, setExcludedImages] = useState<Set<number>>(new Set());
+  const { mutate: ignoreImageMutate } = useIgnoreImage(storeId);
   const [formData, setFormData] = useState<StoreReviewLabelRequest>({
     has_step: store.label_info?.has_step ?? null,
     width_class: store.label_info?.width_class ?? null,
@@ -36,16 +39,8 @@ export const StoreDetailPanel = ({
     is_not_sure_chair: store.label_info?.is_not_sure_chair ?? null,
   });
 
-  const toggleImageExclusion = (index: number) => {
-    setExcludedImages(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
+  const handleIgnoreImage = (imageId: number) => {
+    ignoreImageMutate(imageId);
   };
 
   const handleSubmit = () => {
@@ -97,22 +92,22 @@ export const StoreDetailPanel = ({
           marginBottom: '40px',
         })}
       >
-        {store.images_urls.slice(0, 4).map((url, index) => (
+        {store.images.slice(0, 4).map(image => (
           <div
-            key={index}
+            key={image.id}
             className={css({
               position: 'relative',
               aspectRatio: '4/3',
               borderRadius: '8px',
               overflow: 'hidden',
               backgroundColor: '#F3F4F6',
-              opacity: excludedImages.has(index) ? 0.4 : 1,
+              opacity: image.ignored ? 0.4 : 1,
               transition: 'opacity 0.2s',
             })}
           >
             <img
-              src={url}
-              alt={`${store.name} 이미지 ${index + 1}`}
+              src={image.image_url}
+              alt={`${store.name} 이미지`}
               className={css({
                 width: '100%',
                 height: '100%',
@@ -121,7 +116,7 @@ export const StoreDetailPanel = ({
             />
             {/* X 버튼 */}
             <button
-              onClick={() => toggleImageExclusion(index)}
+              onClick={() => handleIgnoreImage(image.id)}
               className={css({
                 position: 'absolute',
                 top: '12px',
@@ -131,7 +126,7 @@ export const StoreDetailPanel = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: excludedImages.has(index)
+                backgroundColor: image.ignored
                   ? '#EF4444'
                   : 'rgba(0, 0, 0, 0.5)',
                 color: 'white',
@@ -141,7 +136,7 @@ export const StoreDetailPanel = ({
                 fontSize: '18px',
                 transition: 'all 0.2s',
                 _hover: {
-                  backgroundColor: excludedImages.has(index)
+                  backgroundColor: image.ignored
                     ? '#DC2626'
                     : 'rgba(0, 0, 0, 0.7)',
                 },
