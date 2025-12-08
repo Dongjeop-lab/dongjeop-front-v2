@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
 
 import AiAutoSelectIcon from '@/assets/ai-auto-select.svg';
+import CheckIcon from '@/assets/check.svg';
 import { Button } from '@/components/button';
 
 import type { StoreReviewLabelRequest } from '../_types/store';
@@ -96,9 +97,25 @@ export const LabelingForm = ({
     setIsCompleted(true);
   };
 
-  // 검수중(status=1) 상태인 경우: 변경사항 있으면 활성화
-  // 검수완료(status=2) 또는 제출 후: disabled
-  const isButtonDisabled = isCompleted || !isChanged || isSubmitting;
+  // 버튼 상태 계산
+  // 검수중(status=1): 항상 활성화 (제출 중에만 disabled)
+  // 검수완료(status=2): 변경사항 없으면 disabled, 변경사항 있으면 활성화
+  const isButtonDisabled = isSubmitting || (isCompleted && !isChanged);
+
+  // 버튼 variant 계산
+  // 검수완료 상태에서 변경사항이 없으면 gray, 그 외에는 primary
+  const buttonVariant = isCompleted && !isChanged ? 'gray' : 'primary';
+
+  // 버튼 텍스트 계산
+  const getButtonText = () => {
+    if (isSubmitting) return '제출 중...';
+    if (isCompleted && isChanged) return '업데이트';
+    return '장소 검수 완료';
+  };
+
+  // 체크 아이콘 표시 여부
+  // 검수완료 상태에서 변경사항이 없을 때만 표시
+  const showCheckIcon = isCompleted && !isChanged && !isSubmitting;
 
   return (
     <div
@@ -112,14 +129,11 @@ export const LabelingForm = ({
         flexShrink: 0,
         paddingRight: '24px',
         paddingBottom: '24px',
+        gap: '32px',
       })}
     >
       {/* AI 자동 선택 버튼 */}
-      <div
-        className={css({
-          marginBottom: '20px',
-        })}
-      >
+      <div>
         <LabelButton
           size='large'
           selected={isAiEnabled}
@@ -168,13 +182,22 @@ export const LabelingForm = ({
         })}
       >
         <Button
-          variant={isCompleted ? 'gray' : 'primary'}
+          variant={buttonVariant}
           size='lg'
           fullWidth
           onClick={handleSubmit}
           disabled={isButtonDisabled}
+          style={buttonVariant === 'gray' ? { color: '#495058' } : undefined}
         >
-          {isSubmitting ? '제출 중...' : '장소 검수 완료'}
+          {getButtonText()}
+          {showCheckIcon && (
+            <img
+              src={CheckIcon}
+              alt='체크 아이콘'
+              width={13}
+              height={14}
+            />
+          )}
         </Button>
       </div>
     </div>

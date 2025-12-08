@@ -28,18 +28,14 @@ export const StepSelector = ({ value, onChange }: StepSelectorProps) => {
   };
 
   return (
-    <div
-      className={css({
-        marginBottom: '24px',
-      })}
-    >
+    <div>
       <label
         className={css({
           display: 'block',
           fontSize: '0.875rem',
           fontWeight: 'semibold',
-          color: 'text.base',
-          marginBottom: '8px',
+          color: 'text.dashboard.secondary',
+          marginBottom: '16px',
         })}
       >
         계단/턱

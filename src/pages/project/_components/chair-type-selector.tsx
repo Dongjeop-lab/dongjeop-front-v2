@@ -45,21 +45,20 @@ export const ChairTypeSelector = ({
   };
 
   return (
-    <div
-      className={css({
-        marginBottom: '24px',
-      })}
-    >
+    <div>
       <label
         className={css({
           display: 'block',
           fontSize: '0.875rem',
           fontWeight: 'semibold',
-          color: 'text.base',
-          marginBottom: '8px',
+          color: 'text.dashboard.secondary',
+          marginBottom: '16px',
         })}
       >
-        의자 유형 (중복 선택 가능)
+        의자 유형{' '}
+        <span className={css({ color: 'text.dashboard.sub' })}>
+          (중복 선택 가능)
+        </span>
       </label>
       <div
         className={css({

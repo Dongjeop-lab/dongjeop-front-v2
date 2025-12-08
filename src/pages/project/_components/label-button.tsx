@@ -33,7 +33,7 @@ export const LabelButton = ({
         justifyContent: 'center',
         borderRadius: '100px',
         fontSize: size === 'large' ? '0.9375rem' : '0.8125rem',
-        fontWeight: size === 'large' ? '600' : '500',
+        fontWeight: size === 'large' ? 'semibold' : 'medium',
         lineHeight: '140%',
         border: 'none',
         cursor: 'pointer',
