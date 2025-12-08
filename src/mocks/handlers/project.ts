@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
 import type {
+  ImageDetailResponse,
   StoreListResponse,
   StoreResponse,
   StoreReviewDetailResponse,
@@ -23,6 +24,7 @@ const mockStores: StoreResponse[] = [
     access_level: 1,
     total_image_count: 15,
     ignored_image_count: 2,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+1',
     label_info: {
       has_step: 1,
       width_class: 5,
@@ -44,6 +46,7 @@ const mockStores: StoreResponse[] = [
     access_level: 2,
     total_image_count: 12,
     ignored_image_count: 1,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+2',
     label_info: {
       has_step: 2,
       width_class: 3,
@@ -65,6 +68,7 @@ const mockStores: StoreResponse[] = [
     access_level: 3,
     total_image_count: 20,
     ignored_image_count: 3,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+3',
     label_info: {
       has_step: 3,
       width_class: 1,
@@ -86,6 +90,7 @@ const mockStores: StoreResponse[] = [
     access_level: 4,
     total_image_count: 8,
     ignored_image_count: 0,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+4',
     label_info: {
       has_step: 1,
       width_class: 4,
@@ -107,6 +112,7 @@ const mockStores: StoreResponse[] = [
     access_level: 5,
     total_image_count: 18,
     ignored_image_count: 5,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+5',
     label_info: {
       has_step: 2,
       width_class: 2,
@@ -128,6 +134,7 @@ const mockStores: StoreResponse[] = [
     access_level: null,
     total_image_count: 5,
     ignored_image_count: 0,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+6',
     label_info: null,
     review_finished_at: '2024-11-29T16:20:00Z',
     created_at: '2024-11-27T14:00:00Z',
@@ -141,6 +148,7 @@ const mockStores: StoreResponse[] = [
     access_level: 2,
     total_image_count: 10,
     ignored_image_count: 1,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+7',
     label_info: {
       has_step: 1,
       width_class: 4,
@@ -162,6 +170,7 @@ const mockStores: StoreResponse[] = [
     access_level: null,
     total_image_count: 7,
     ignored_image_count: 0,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+8',
     label_info: null,
     review_finished_at: null,
     created_at: '2024-12-01T08:30:00Z',
@@ -175,6 +184,7 @@ const mockStores: StoreResponse[] = [
     access_level: 3,
     total_image_count: 14,
     ignored_image_count: 2,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+9',
     label_info: {
       has_step: 2,
       width_class: 3,
@@ -196,6 +206,7 @@ const mockStores: StoreResponse[] = [
     access_level: 1,
     total_image_count: 22,
     ignored_image_count: 4,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+10',
     label_info: {
       has_step: 1,
       width_class: 5,
@@ -217,6 +228,7 @@ const mockStores: StoreResponse[] = [
     access_level: 4,
     total_image_count: 9,
     ignored_image_count: 0,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+11',
     label_info: {
       has_step: 3,
       width_class: 2,
@@ -238,6 +250,7 @@ const mockStores: StoreResponse[] = [
     access_level: null,
     total_image_count: 11,
     ignored_image_count: 1,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+12',
     label_info: null,
     review_finished_at: null,
     created_at: '2024-12-02T07:00:00Z',
@@ -251,6 +264,7 @@ const mockStores: StoreResponse[] = [
     access_level: 5,
     total_image_count: 25,
     ignored_image_count: 6,
+    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+13',
     label_info: {
       has_step: 1,
       width_class: 4,
@@ -337,6 +351,7 @@ export const projectHandlers = [
       name: store.name,
       address: store.address,
       status: store.status,
+      access_level: store.access_level,
       image_analysis_result: {
         has_step: 2,
         width_class: 3,
@@ -407,5 +422,27 @@ export const projectHandlers = [
     const { imageId } = params;
     console.log(`[MSW] 이미지 ${imageId} 무시 처리`);
     return HttpResponse.json({});
+  }),
+
+  // GET /api/v1/reviews/images/{image_id} - 이미지 상세 정보 조회
+  http.get('/api/v1/reviews/images/:imageId', ({ params }) => {
+    const { imageId } = params;
+
+    const response: ImageDetailResponse = {
+      image_url: `https://via.placeholder.com/800x600?text=Image+${imageId}`,
+      source_url: 'https://example.com/original-image-url',
+      address: '서울특별시 강남구 테헤란로 123',
+      label_info: {
+        has_step: 1,
+        width_class: 3,
+        has_movable_chair: true,
+        has_high_chair: false,
+        has_fixed_chair: true,
+        has_floor_chair: false,
+        is_not_sure_chair: false,
+      },
+    };
+
+    return HttpResponse.json(response);
   }),
 ];
