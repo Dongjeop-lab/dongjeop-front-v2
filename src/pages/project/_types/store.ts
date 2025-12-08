@@ -3,7 +3,7 @@
  */
 
 /** 접근성 레벨 */
-export type AccessLevelType = 1 | 2 | 3 | 4 | 5;
+export type AccessLevelType = 0 | 1 | 2 | 3 | 4 | 5;
 
 /** 계단 유무 */
 export type HasStepType = 1 | 2 | 3;
@@ -41,6 +41,7 @@ export interface StoreResponse {
   access_level: AccessLevelType | null;
   total_image_count: number;
   ignored_image_count: number;
+  thumbnail_url: string;
   label_info: LabelBase | null;
   review_finished_at: string | null;
   created_at: string;
@@ -78,9 +79,18 @@ export interface StoreReviewDetailResponse {
   name: string;
   address: string;
   status: StoreReviewStatusType;
+  access_level: AccessLevelType | null;
   image_analysis_result: LabelBase;
   label_info: LabelBase | null;
   images: ImageDisplayInfo[];
+}
+
+/** 이미지 상세 정보 응답 */
+export interface ImageDetailResponse {
+  image_url: string;
+  source_url: string;
+  address: string;
+  label_info: LabelBase | null;
 }
 
 /** 상점 검수 라벨 요청 */

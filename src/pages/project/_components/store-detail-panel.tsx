@@ -80,7 +80,9 @@ export const StoreDetailPanel = ({
           >
             {store.name}
           </h1>
-          {store.status === 2 && <Badge level={store.status} />}
+          {store.status === 2 && store.access_level && (
+            <Badge level={store.access_level} />
+          )}
         </div>
         <p
           className={css({
