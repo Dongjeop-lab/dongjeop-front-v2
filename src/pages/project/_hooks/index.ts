@@ -4,6 +4,7 @@
  */
 
 export * from './useCreateOrUpdateStoreLabel';
+export * from './useIgnoreImage';
 export * from './useStoreDetail';
 export * from './useStores';
 export * from './useStoresSimple';

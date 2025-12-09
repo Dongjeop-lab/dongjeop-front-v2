@@ -1,6 +1,7 @@
 import { api } from '@/lib/api-client';
 
 import type {
+  ImageDetailResponse,
   StoreListResponse,
   StoreReviewDetailResponse,
   StoreReviewLabelRequest,
@@ -55,4 +56,14 @@ export const createOrUpdateStoreLabel = (
     `/reviews/stores/${storeId}/label`,
     data
   );
+};
+
+/** 이미지 상세 정보 조회 */
+export const getImageDetail = (imageId: number) => {
+  return api.get<ImageDetailResponse>(`/reviews/images/${imageId}`);
+};
+
+/** 이미지 무시 처리 */
+export const ignoreImage = (imageId: number) => {
+  return api.put<void>(`/reviews/images/${imageId}/ignore`);
 };
