@@ -3,10 +3,12 @@ import { css } from 'styled-system/css';
 
 import Badge from '@/components/badge';
 import { PROJECT_STATUS } from '@/constants/project';
-import type { Project } from '@/types/project';
+import type { Project } from '@/pages/dashboard/_types/project';
 
+import { useUpdateProjectInfo } from '../../_hooks/useUpdateProjectInfo';
 import { Card } from '../card';
 import { AnalyzeStatus } from './AnalyzeStatus';
+import { ProjectInfo } from './ProjectInfo';
 import { ReviewStatus } from './ReviewStatus';
 
 interface ProjectCardProps {
@@ -15,6 +17,18 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const navigate = useNavigate();
+
+  const { mutate } = useUpdateProjectInfo();
+
+  const handleUpdateInfo = (newName: string, newReviewer: string) => {
+    mutate({
+      projectId: project.id,
+      body: {
+        name: newName,
+        reviewer: newReviewer,
+      },
+    });
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -38,12 +52,19 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   const renderProjectStatus = () => {
     if (project.status === PROJECT_STATUS.ANALYZING) {
-      const { ai_analyzing_progress, ai_analyzing_duration } =
-        project.progress_info;
+      const {
+        images_total_count,
+        images_finished_count,
+        ai_analyzing_duration,
+      } = project.progress_info;
+
+      const aiAnalyzingProgress = Math.round(
+        (images_finished_count / images_total_count) * 100
+      );
 
       return (
         <AnalyzeStatus
-          aiAnalyzingProgress={ai_analyzing_progress}
+          aiAnalyzingProgress={aiAnalyzingProgress}
           aiAnalyzingDuration={ai_analyzing_duration}
         />
       );
@@ -53,13 +74,13 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       project.status === PROJECT_STATUS.REVIEWING ||
       project.status === PROJECT_STATUS.COMPLETED
     ) {
-      const { reviewing_store_total_count, reviewing_store_completed_count } =
+      const { stores_total_count, stores_completed_count } =
         project.progress_info;
 
       return (
         <ReviewStatus
-          reviewingStoreTotalCount={reviewing_store_total_count}
-          reviewingStoreCompletedCount={reviewing_store_completed_count}
+          reviewingStoreTotalCount={stores_total_count}
+          reviewingStoreCompletedCount={stores_completed_count}
         />
       );
     }
@@ -69,13 +90,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   return (
     <Card
-      as='button'
+      as='div'
       className={css({
         width: '386px',
         height: '302px',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
+        cursor: 'pointer',
       })}
       onClick={() => {
         // localStorage에 프로젝트 이름 저장 (새로고침 시에도 사용 가능)
@@ -118,36 +140,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             {formatDate(project.created_at)}
           </span>
         </div>
-        <div
-          className={css({
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '0.125rem',
-          })}
-        >
-          {/* TODO: Hover시 수정 Input으로 변경할 수 있음 */}
-          <p
-            className={css({
-              padding: '0.125rem 0.375rem',
-              color: 'text.dashboard.sub',
-              fontSize: '0.875rem',
-              fontWeight: 'medium',
-            })}
-          >
-            {project.reviewer}
-          </p>
-          <h2
-            className={css({
-              padding: '0.125rem 0.375rem',
-              color: 'text.dashboard.secondary',
-              fontSize: '1.25rem',
-              fontWeight: 'bold',
-            })}
-          >
-            {project.name}
-          </h2>
-        </div>
+        <ProjectInfo
+          initialName={project.name}
+          initialReviewer={project.reviewer}
+          onUpdate={handleUpdateInfo}
+        />
         {renderProjectStatus()}
       </div>
 
