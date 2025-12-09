@@ -5,7 +5,7 @@ import Badge from '@/components/badge';
 import { PROJECT_STATUS } from '@/constants/project';
 import type { Project } from '@/pages/dashboard/_types/project';
 
-import { useUpdateProjectInfo } from '../../hooks/useUpdateProjectInfo';
+import { useUpdateProjectInfo } from '../../_hooks/useUpdateProjectInfo';
 import { Card } from '../card';
 import { AnalyzeStatus } from './AnalyzeStatus';
 import { ProjectInfo } from './ProjectInfo';

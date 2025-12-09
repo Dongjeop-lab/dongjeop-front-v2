@@ -2,7 +2,7 @@ import { css } from 'styled-system/css';
 
 import { CreateProjectButton } from './_components/create-project-button';
 import { ProjectCard } from './_components/project-card';
-import { useSuspenseProjects } from './hooks/useSuspenseProjects';
+import { useSuspenseProjects } from './_hooks/useSuspenseProjects';
 
 /**
  * 대시보드 페이지 (프로젝트 목록)
