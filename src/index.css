@@ -15,3 +15,12 @@ body {
   line-height: 140%;
   color: var(--colors-text-base);
 }
+
+/* 스크롤바 숨김 (스크롤 기능은 유지) */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

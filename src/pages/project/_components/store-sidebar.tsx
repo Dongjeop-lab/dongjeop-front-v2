@@ -1,5 +1,8 @@
 import { css } from 'styled-system/css';
 
+import StoreListIcon from '@/assets/store-list.svg';
+import Badge from '@/components/badge';
+
 import type { StoreSimpleResponse } from '../_types/store';
 
 interface StoreSidebarProps {
@@ -27,50 +30,23 @@ export const StoreSidebar = ({
     <aside
       className={css({
         position: 'relative',
-        width: isCollapsed ? '60px' : '360px',
-        height: 'calc(100vh - 70px)',
-        backgroundColor: '#F9FAFB',
-        borderRight: '1px solid #E5E7EB',
+        width: isCollapsed ? '40px' : '277px',
+        height: 'full',
+        backgroundColor: isCollapsed ? 'transparent' : 'white',
         transition: 'width 0.3s ease',
         overflow: 'hidden',
         flexShrink: 0,
+        boxShadow: isCollapsed ? 'none' : '0px 4px 24px 0px #0000000A',
+        borderRadius: isCollapsed ? '0' : '12px',
       })}
     >
-      {/* 접기/펼치기 버튼 */}
-      <button
-        onClick={onToggleCollapse}
-        className={css({
-          position: 'absolute',
-          top: '20px',
-          right: isCollapsed ? '10px' : '20px',
-          width: '32px',
-          height: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'white',
-          border: '1px solid #E5E7EB',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          zIndex: 10,
-          transition: 'all 0.2s',
-          fontSize: '14px',
-          _hover: {
-            backgroundColor: '#F9FAFB',
-          },
-        })}
-      >
-        {isCollapsed ? '▶' : '◀'}
-      </button>
-
       {/* 상점 목록 */}
       {!isCollapsed && (
         <div
           className={css({
-            paddingTop: '24px',
-            paddingX: '20px',
             height: '100%',
-            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
           })}
         >
           {/* 헤더 */}
@@ -79,32 +55,39 @@ export const StoreSidebar = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '16px',
+              padding: '24px',
+              flexShrink: 0,
             })}
           >
             <h2
               className={css({
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#374151',
+                fontSize: '1.25rem',
+                fontWeight: 'medium',
+                lineHeight: '140%',
+                color: 'text.dashboard.secondary',
               })}
             >
               총 {totalCount}개 장소
             </h2>
             <button
+              onClick={onToggleCollapse}
               className={css({
-                padding: '4px 8px',
-                fontSize: '12px',
-                border: '1px solid #E5E7EB',
-                borderRadius: '4px',
-                backgroundColor: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '12px 10px',
                 cursor: 'pointer',
                 _hover: {
-                  backgroundColor: '#F9FAFB',
+                  opacity: 0.7,
                 },
               })}
             >
-              ☰
+              <img
+                src={StoreListIcon}
+                alt='접기'
+                width={19}
+                height={16}
+              />
             </button>
           </div>
 
@@ -113,7 +96,10 @@ export const StoreSidebar = ({
             className={css({
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px',
+              padding: '0 24px 24px',
+              gap: '16px',
+              flex: 1,
+              overflowY: 'auto',
             })}
           >
             {stores.map(store => (
@@ -121,69 +107,45 @@ export const StoreSidebar = ({
                 key={store.id}
                 onClick={() => onSelectStore(store.id)}
                 className={css({
-                  padding: '16px',
+                  padding: '12px 15px',
                   textAlign: 'left',
                   backgroundColor:
-                    selectedStoreId === store.id ? 'white' : 'white',
+                    selectedStoreId === store.id ? '#E8F6FF' : '#F7F9FB',
                   border: '2px solid',
                   borderColor:
-                    selectedStoreId === store.id ? '#3182F7' : 'transparent',
+                    selectedStoreId === store.id
+                      ? 'button.primary'
+                      : 'transparent',
                   borderRadius: '8px',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
-                  position: 'relative',
                   _hover: {
-                    borderColor:
-                      selectedStoreId === store.id ? '#3182F7' : '#E5E7EB',
+                    borderColor: 'button.primary',
                   },
                 })}
               >
-                {/* 검수중 뱃지 */}
+                {/* 상태 뱃지 */}
                 {store.status === 1 && (
-                  <div
-                    className={css({
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      padding: '4px 8px',
-                      fontSize: '12px',
-                      fontWeight: '500',
-                      borderRadius: '4px',
-                      backgroundColor: '#3182F7',
-                      color: 'white',
-                    })}
-                  >
-                    검수중
-                  </div>
+                  <Badge
+                    variant='primary'
+                    label='검수중'
+                  />
                 )}
-
-                {/* 검수완료 뱃지 */}
                 {store.status === 2 && (
-                  <div
-                    className={css({
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      padding: '4px 8px',
-                      fontSize: '12px',
-                      fontWeight: '500',
-                      borderRadius: '4px',
-                      backgroundColor: '#10B981',
-                      color: 'white',
-                    })}
-                  >
-                    검수완료
-                  </div>
+                  <Badge
+                    variant='gray'
+                    label='검수완료'
+                  />
                 )}
 
                 {/* 상점명 */}
                 <div
                   className={css({
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#111827',
-                    marginBottom: '8px',
-                    paddingRight: '60px',
+                    fontSize: '0.875rem',
+                    fontWeight: 'medium',
+                    color: 'text.base',
+                    marginBottom: '2px',
+                    marginTop: '16px',
                   })}
                 >
                   {store.name}
@@ -192,9 +154,10 @@ export const StoreSidebar = ({
                 {/* 주소 */}
                 <div
                   className={css({
-                    fontSize: '14px',
-                    color: '#6B7280',
-                    lineHeight: '1.5',
+                    fontSize: '0.75rem',
+                    fontWeight: 'regular',
+                    color: 'text.sub',
+                    lineHeight: '140%',
                   })}
                 >
                   {store.address}
@@ -209,27 +172,38 @@ export const StoreSidebar = ({
       {isCollapsed && (
         <div
           className={css({
-            paddingTop: '80px',
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            paddingY: '19px',
           })}
         >
-          <div
+          <button
+            onClick={onToggleCollapse}
             className={css({
               width: '40px',
               height: '40px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              cursor: 'pointer',
               backgroundColor: 'white',
-              border: '1px solid #E5E7EB',
-              borderRadius: '8px',
-              fontSize: '20px',
+              borderRadius: '20px',
+              border: 'none',
+              boxShadow: '0px 4px 24px 0px #0000000A',
+              _hover: {
+                backgroundColor: '#F9FAFB',
+              },
             })}
           >
-            ☰
-          </div>
+            <img
+              src={StoreListIcon}
+              alt='상점 목록'
+              width={19}
+              height={16}
+            />
+          </button>
         </div>
       )}
     </aside>

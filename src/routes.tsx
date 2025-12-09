@@ -39,9 +39,11 @@ export const router = createBrowserRouter([
             },
             location: { search: string; state?: { projectName?: string } }
           ) => {
-            // Link의 state에서 프로젝트 이름 가져오기
+            // Link의 state 또는 localStorage에서 프로젝트 이름 가져오기
             const projectName =
-              location.state?.projectName || match.params.projectId;
+              location.state?.projectName ||
+              localStorage.getItem(`project_${match.params.projectId}_name`) ||
+              `프로젝트 ${match.params.projectId}`;
 
             const searchParams = new URLSearchParams(location.search);
             const hasStore = searchParams.has('store');
