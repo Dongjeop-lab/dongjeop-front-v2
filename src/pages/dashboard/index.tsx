@@ -22,6 +22,8 @@ const DashboardPage = () => {
     setPage(newPage);
   };
 
+  if (!projects) return null;
+
   return (
     <>
       <div
