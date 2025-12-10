@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { css } from 'styled-system/css';
+
+import Pagination from '@/components/pagination';
 
 import { CreateProjectButton } from './_components/create-project-button';
 import { ProjectCard } from './_components/project-card';
@@ -9,26 +12,49 @@ import { useSuspenseProjects } from './_hooks/useSuspenseProjects';
  * Path: /
  */
 const DashboardPage = () => {
-  const { data } = useSuspenseProjects();
+  const [page, setPage] = useState(1);
+  const { data } = useSuspenseProjects(page);
 
-  const projects = data.projects;
+  const projects = data?.projects;
+  const pageInfo = data?.page_info;
+
+  const handleUpdatePage = (newPage: number) => {
+    setPage(newPage);
+  };
 
   return (
-    <div
-      className={css({
-        display: 'flex',
-        gap: '1rem',
-        flexWrap: 'wrap',
-      })}
-    >
-      <CreateProjectButton />
-      {projects.map(project => (
-        <ProjectCard
-          key={project.id}
-          project={project}
+    <>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '5rem',
+        })}
+      >
+        <div
+          className={css({
+            display: 'flex',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          })}
+        >
+          <CreateProjectButton />
+          {projects?.map(project => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+            />
+          ))}
+        </div>
+        <Pagination
+          totalItems={pageInfo.size * pageInfo.total_pages}
+          currentPage={page}
+          itemsPerPage={pageInfo.size}
+          onPageChange={handleUpdatePage}
         />
-      ))}
-    </div>
+      </div>
+    </>
   );
 };
 
