@@ -15,8 +15,8 @@ const DashboardPage = () => {
   const [page, setPage] = useState(1);
   const { data } = useSuspenseProjects(page);
 
-  const projects = data.projects;
-  const pageInfo = data.page_info;
+  const projects = data?.projects;
+  const pageInfo = data?.page_info;
 
   const handleUpdatePage = (newPage: number) => {
     setPage(newPage);
