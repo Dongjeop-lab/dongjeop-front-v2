@@ -22,8 +22,6 @@ const DashboardPage = () => {
     setPage(newPage);
   };
 
-  if (!projects) return null;
-
   return (
     <>
       <div
@@ -42,7 +40,7 @@ const DashboardPage = () => {
           })}
         >
           <CreateProjectButton />
-          {projects.map(project => (
+          {projects?.map(project => (
             <ProjectCard
               key={project.id}
               project={project}
