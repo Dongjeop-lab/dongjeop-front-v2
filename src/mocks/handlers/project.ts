@@ -281,6 +281,23 @@ const mockStores: StoreResponse[] = [
 ];
 
 export const projectHandlers = [
+  // POST /api/v1/projects - 프로젝트 생성
+  http.post<never, FormData, { project_id: string }>(
+    '/api/v1/projects',
+    async ({ request }) => {
+      const formData = await request.formData();
+      const name = formData.get('name');
+      const reviewer = formData.get('reviewer');
+      const csvFile = formData.get('csv_file');
+
+      if (!name || !reviewer || !csvFile) {
+        return new HttpResponse(null, { status: 400 });
+      }
+
+      return HttpResponse.json({ project_id: '1' }, { status: 201 });
+    }
+  ),
+
   // GET /api/v1/projects/{project_id}/stores - 상태별 검수 목록 조회
   http.get('/api/v1/projects/:projectId/stores', ({ request }) => {
     const url = new URL(request.url);

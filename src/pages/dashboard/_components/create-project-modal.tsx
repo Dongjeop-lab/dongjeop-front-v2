@@ -4,6 +4,7 @@ import { css } from 'styled-system/css';
 import { Button } from '@/components/button';
 import Modal from '@/components/modal';
 
+import { useCreateProject } from '../_hooks/useCreateProject';
 import { CSVUploader } from './csv-uploader';
 import { TextField } from './text-field';
 
@@ -22,14 +23,20 @@ export const CreateProjectModal = ({
   const [projectName, setProjectName] = useState('');
   const [reviewerName, setReviewerName] = useState('');
   const [csvFile, setCsvFile] = useState<File | null>(null);
+  const { mutate } = useCreateProject({
+    onSuccess: () => {
+      onOpenChange(false);
+    },
+  });
 
   const handleCreateProject = () => {
-    console.log({
+    if (!projectName.length || !reviewerName.length || !csvFile) return;
+
+    mutate({
       name: projectName,
       reviewer: reviewerName,
       csv_file: csvFile,
     });
-    onOpenChange(false);
   };
 
   const isButtonEnabled = projectName && reviewerName && csvFile;
