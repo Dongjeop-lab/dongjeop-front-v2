@@ -3,11 +3,13 @@ import { css } from 'styled-system/css';
 interface ReviewStatusProps {
   reviewingStoreTotalCount: number;
   reviewingStoreCompletedCount: number;
+  totalImageCount: number;
 }
 
 export const ReviewStatus = ({
   reviewingStoreTotalCount,
   reviewingStoreCompletedCount,
+  totalImageCount,
 }: ReviewStatusProps) => {
   const percentage = Math.round(
     (reviewingStoreCompletedCount / reviewingStoreTotalCount) * 100
@@ -22,8 +24,10 @@ export const ReviewStatus = ({
       className={css({
         height: '94px',
         display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '0.75rem',
         overflow: 'hidden',
         position: 'relative',
       })}
@@ -99,6 +103,18 @@ export const ReviewStatus = ({
           </span>
         </div>
       </div>
+      <span
+        className={css({
+          padding: '0.25rem 0.75rem',
+          fontSize: '12.51px',
+          fontWeight: 'medium',
+          color: 'text.dashboard.sub',
+          background: '#F2F4F8',
+          borderRadius: 'full',
+        })}
+      >
+        장소 {reviewingStoreTotalCount}개 · 이미지 {totalImageCount}장
+      </span>
     </div>
   );
 };
