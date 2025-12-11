@@ -22,7 +22,6 @@ export const ReviewStatus = ({
   return (
     <div
       className={css({
-        height: '94px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -36,7 +35,7 @@ export const ReviewStatus = ({
         className={css({
           position: 'relative',
           width: '168px',
-          height: '84px',
+          height: '94px',
           display: 'flex',
           justifyContent: 'center',
         })}
@@ -96,7 +95,7 @@ export const ReviewStatus = ({
               fontWeight: 'bold',
               color: 'text.dashboard.secondary',
               lineHeight: '1',
-              marginBottom: '2px',
+              marginBottom: '7px',
             })}
           >
             {percentage}%

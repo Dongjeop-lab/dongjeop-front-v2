@@ -86,7 +86,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       as='div'
       className={css({
         width: '386px',
-        height: '302px',
+        height: '340px',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
