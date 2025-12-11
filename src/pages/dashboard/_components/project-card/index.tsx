@@ -52,22 +52,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   const renderProjectStatus = () => {
     if (project.status === PROJECT_STATUS.ANALYZING) {
-      const {
-        images_total_count,
-        images_finished_count,
-        ai_analyzing_duration,
-      } = project.progress_info;
+      const { images_total_count, images_finished_count } =
+        project.progress_info;
 
       const aiAnalyzingProgress = Math.round(
         (images_finished_count / images_total_count) * 100
       );
 
-      return (
-        <AnalyzeStatus
-          aiAnalyzingProgress={aiAnalyzingProgress}
-          aiAnalyzingDuration={ai_analyzing_duration}
-        />
-      );
+      return <AnalyzeStatus aiAnalyzingProgress={aiAnalyzingProgress} />;
     }
 
     if (
