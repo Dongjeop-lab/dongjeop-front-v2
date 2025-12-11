@@ -26,7 +26,7 @@ export const ReviewStatus = ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        gap: '0.75rem',
+        gap: '0.5rem',
         overflow: 'hidden',
         position: 'relative',
       })}
