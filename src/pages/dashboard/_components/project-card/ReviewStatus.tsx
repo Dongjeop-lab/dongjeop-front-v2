@@ -79,6 +79,15 @@ export const ReviewStatus = ({
         >
           <span
             className={css({
+              fontSize: '12.5px',
+              fontWeight: 'medium',
+              color: 'text.dashboard.sub',
+            })}
+          >
+            진행률
+          </span>
+          <span
+            className={css({
               fontSize: '30px',
               fontWeight: 'bold',
               color: 'text.dashboard.secondary',
@@ -87,15 +96,6 @@ export const ReviewStatus = ({
             })}
           >
             {percentage}%
-          </span>
-          <span
-            className={css({
-              fontSize: '12.5px',
-              fontWeight: 'medium',
-              color: 'text.dashboard.sub',
-            })}
-          >
-            {reviewingStoreCompletedCount} /{reviewingStoreTotalCount}
           </span>
         </div>
       </div>
