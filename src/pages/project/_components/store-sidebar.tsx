@@ -127,8 +127,8 @@ export const StoreSidebar = ({
                 {/* 상태 뱃지 */}
                 {store.status === 1 && (
                   <Badge
-                    variant='primary'
-                    label='검수중'
+                    variant='blue'
+                    label='검수대기'
                   />
                 )}
                 {store.status === 2 && (

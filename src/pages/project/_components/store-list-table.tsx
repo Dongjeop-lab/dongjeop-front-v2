@@ -93,10 +93,9 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
             })}
           >
             <Table.Cell className={COLUMN_WIDTHS.status}>
-              {/* XXX: 뱃지 변경 가능성 있음 (피그마에 질문 남긴 상태) */}
               <Badge
-                label={store.status === 1 ? '검수중' : '검수완료'}
-                variant={store.status === 1 ? 'primary' : 'gray'}
+                label={store.status === 1 ? '검수대기' : '검수완료'}
+                variant={store.status === 1 ? 'blue' : 'gray'}
               />
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.name}>
@@ -111,22 +110,42 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
               </p>
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.totalImageCount}>
-              {/* TODO: 대표사진 띄우고, 장수 div는 우측 하단에 */}
               <div
                 className={css({
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1px 5px 1px 4px',
+                  position: 'relative',
+                  height: '100%',
                   width: 'fit-content',
-                  bg: '#292929CC',
-                  borderRadius: '50px',
-                  color: '#ffffff',
-                  fontSize: '.625rem',
-                  lineHeight: '.875rem',
                 })}
               >
-                +{store.total_image_count}
+                <img
+                  src={store.thumbnail_url}
+                  className={css({
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    borderRadius: '4px',
+                  })}
+                  alt={`${store.name} 썸네일 이미지`}
+                />
+                <div
+                  className={css({
+                    position: 'absolute',
+                    right: '4px',
+                    bottom: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1px 5px 1px 4px',
+                    width: 'fit-content',
+                    bg: '#292929CC',
+                    borderRadius: '50px',
+                    color: '#ffffff',
+                    fontSize: '.625rem',
+                    lineHeight: '.875rem',
+                  })}
+                >
+                  +{store.total_image_count}
+                </div>
               </div>
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.hasStep}>

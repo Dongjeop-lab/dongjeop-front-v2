@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { css } from 'styled-system/css';
 
 import Pagination from '@/components/pagination';
 import Tabs from '@/components/tabs';
 
-import type { StoreResponse, StoreReviewStatusType } from '../_types/store';
+import { useSuspenseStores } from '../_hooks/useSuspenseStores';
+import type { StoreReviewStatusType } from '../_types/store';
 import StoreListTable from './store-list-table';
 
 /**
@@ -21,8 +22,8 @@ const TAB_VALUES = {
 
 type TabValue = (typeof TAB_VALUES)[keyof typeof TAB_VALUES];
 
-const STATUS_MAP: Record<string, StoreReviewStatusType | 0> = {
-  [TAB_VALUES.ALL]: 0, // 전체 (필터 없음)
+const STATUS_MAP: Record<string, StoreReviewStatusType | undefined> = {
+  [TAB_VALUES.ALL]: undefined, // 전체 (필터 없음)
   [TAB_VALUES.REVIEWING]: 1, // 검수 대기
   [TAB_VALUES.COMPLETED]: 2, // 검수 완료
 } as const;
@@ -30,29 +31,42 @@ const STATUS_MAP: Record<string, StoreReviewStatusType | 0> = {
 export const ProjectDetailView = () => {
   const { projectId } = useParams();
   const location = useLocation();
-  const projectName = location.state?.projectName || `프로젝트 ${projectId}`;
 
-  const [stores, setStores] = useState<StoreResponse[]>([]);
+  const projectName =
+    location.state?.projectName ||
+    localStorage.getItem(`project_${projectId}_name`) ||
+    `프로젝트 ${projectId}`;
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
 
-  useEffect(() => {
-    const reviewStatus =
-      STATUS_MAP[currentTab] === 0
-        ? ''
-        : `&review_status=${STATUS_MAP[currentTab]}`;
+  // 프로젝트 내 총 장소 수 조회
+  const { data: allStoresData } = useSuspenseStores(parseInt(projectId!), {
+    page: 1,
+    size: 1,
+  });
 
-    fetch(
-      `/api/v1/projects/${projectId}/stores?page=${currentPage}&size=10${reviewStatus}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setStores(data.stores);
-        setTotalPages(data.page_info.total_pages);
-      });
-  }, [projectId, currentPage, currentTab]);
+  // 검수 완료 장소 수 조회
+  const { data: completedStoresData } = useSuspenseStores(
+    parseInt(projectId!),
+    {
+      page: 1,
+      size: 1,
+      review_status: 2,
+    }
+  );
+
+  // 현재 탭 데이터
+  const { data } = useSuspenseStores(parseInt(projectId!), {
+    page: currentPage,
+    size: 10,
+    review_status: STATUS_MAP[currentTab],
+  });
+
+  // 탭에 표시할 장소 개수
+  const storeTotal = allStoresData.page_info.total_pages;
+  const storeCompleted = completedStoresData.page_info.total_pages;
+  const reviewingCount = storeTotal - storeCompleted;
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value as TabValue);
@@ -92,7 +106,6 @@ export const ProjectDetailView = () => {
           display: 'flex',
           flex: 1,
           flexDir: 'column',
-          gap: '1.5rem',
           width: 'full',
           padding: '1.5rem',
           bg: '#ffffff',
@@ -100,56 +113,37 @@ export const ProjectDetailView = () => {
           boxShadow: '0px 4px 24px 0px #0000000A',
         })}
       >
-        <div
-          className={css({
-            display: 'flex',
-            gap: '1rem',
-            color: 'text.dashboard.secondary',
-            fontSize: '1.25rem',
-          })}
+        <Tabs.Root
+          defaultValue={TAB_VALUES.ALL}
+          onValueChange={handleTabChange}
         >
-          <span className={css({ fontWeight: '600' })}>전체 장소</span>
-          <p>
-            <span
-              className={css({ color: 'button.primary', fontWeight: '700' })}
+          <Tabs.List>
+            <Tabs.Trigger value={TAB_VALUES.ALL}>
+              전체 {storeTotal}
+            </Tabs.Trigger>
+            <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
+              검수 대기 {reviewingCount}
+            </Tabs.Trigger>
+            <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
+              검수 완료 {storeCompleted}
+            </Tabs.Trigger>
+          </Tabs.List>
+          {Object.values(TAB_VALUES).map(tab => (
+            <Tabs.Content
+              key={tab}
+              value={tab}
+              className={css({
+                overflowX: 'auto',
+              })}
             >
-              500
-            </span>
-            <span className={css({ fontWeight: '500' })}> / 700</span>
-          </p>
-        </div>
-
-        <div>
-          <Tabs.Root
-            defaultValue={TAB_VALUES.ALL}
-            onValueChange={handleTabChange}
-          >
-            <Tabs.List>
-              <Tabs.Trigger value={TAB_VALUES.ALL}>전체</Tabs.Trigger>
-              <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
-                검수 대기
-              </Tabs.Trigger>
-              <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
-                검수 완료
-              </Tabs.Trigger>
-            </Tabs.List>
-            {Object.values(TAB_VALUES).map(tab => (
-              <Tabs.Content
-                key={tab}
-                value={tab}
-                className={css({
-                  overflowX: 'auto',
-                })}
-              >
-                <StoreListTable stores={stores} />
-              </Tabs.Content>
-            ))}
-          </Tabs.Root>
-        </div>
+              <StoreListTable stores={data.stores} />
+            </Tabs.Content>
+          ))}
+        </Tabs.Root>
       </div>
 
       <Pagination
-        totalItems={totalPages * 10}
+        totalItems={data.page_info.total_pages * 10}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />
