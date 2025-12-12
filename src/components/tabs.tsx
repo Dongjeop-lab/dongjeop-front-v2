@@ -19,7 +19,7 @@ const Trigger = styled(RadixTabs.Trigger, {
   base: {
     paddingY: '.5rem',
     fontSize: '1rem',
-    fontWeight: '500',
+    fontWeight: '600',
     lineHeight: '1.375rem',
     color: 'text.sub',
     bg: 'transparent',

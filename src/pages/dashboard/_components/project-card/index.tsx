@@ -97,7 +97,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         // localStorage에 프로젝트 이름 저장 (새로고침 시에도 사용 가능)
         localStorage.setItem(`project_${project.id}_name`, project.name);
         navigate(`/project/${project.id}`, {
-          state: { projectName: project.name },
+          state: {
+            projectName: project.name,
+          },
         });
       }}
     >
