@@ -30,13 +30,23 @@ const STATUS_MAP: Record<string, StoreReviewStatusType | 0> = {
 export const ProjectDetailView = () => {
   const { projectId } = useParams();
   const location = useLocation();
-  const projectName = location.state?.projectName || `프로젝트 ${projectId}`;
+
+  const projectName =
+    location.state?.projectName ||
+    localStorage.getItem(`project_${projectId}_name`) ||
+    `프로젝트 ${projectId}`;
+  const progressInfo = location.state?.progressInfo;
 
   const [stores, setStores] = useState<StoreResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
+
+  const [storeCounts, setStoreCounts] = useState({
+    total: progressInfo?.stores_total_count || 0,
+    completed: progressInfo?.stores_completed_count || 0,
+  });
+  const reviewingCount = storeCounts.total - storeCounts.completed;
 
   useEffect(() => {
     const reviewStatus =
@@ -104,15 +114,14 @@ export const ProjectDetailView = () => {
           onValueChange={handleTabChange}
         >
           <Tabs.List>
-            {/* TODO: 실제 장소 수로 대체 */}
-            <Tabs.Trigger value={TAB_VALUES.ALL}>전체 46</Tabs.Trigger>
-            {/* TODO: 실제 검수 대기 장소 수로 대체 */}
-            <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
-              검수 대기 16
+            <Tabs.Trigger value={TAB_VALUES.ALL}>
+              전체 {storeCounts.total}
             </Tabs.Trigger>
-            {/* TODO: 실제 검수 완료 장소 수로 대체 */}
+            <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
+              검수 대기 {reviewingCount}
+            </Tabs.Trigger>
             <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
-              검수 완료 30
+              검수 완료 {storeCounts.completed}
             </Tabs.Trigger>
           </Tabs.List>
           {Object.values(TAB_VALUES).map(tab => (
