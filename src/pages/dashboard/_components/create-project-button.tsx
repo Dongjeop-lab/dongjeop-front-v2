@@ -13,7 +13,7 @@ export const CreateProjectButton = () => {
         as='button'
         className={css({
           width: '246px',
-          height: '302px',
+          height: '340px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

@@ -4,13 +4,9 @@ import { Progress } from '@/components/progress';
 
 interface AnalyzeStatusProps {
   aiAnalyzingProgress: number;
-  aiAnalyzingDuration: number;
 }
 
-export const AnalyzeStatus = ({
-  aiAnalyzingDuration,
-  aiAnalyzingProgress,
-}: AnalyzeStatusProps) => {
+export const AnalyzeStatus = ({ aiAnalyzingProgress }: AnalyzeStatusProps) => {
   return (
     <div
       className={css({
@@ -69,16 +65,6 @@ export const AnalyzeStatus = ({
           >
             {aiAnalyzingProgress}%
           </span>
-          <span
-            className={css({
-              fontSize: '0.75rem',
-              fontWeight: 'medium',
-              color: '#4E5968',
-              paddingBottom: '0.28125rem',
-            })}
-          >
-            {aiAnalyzingDuration}분 예정
-          </span>
         </div>
         <div
           className={css({
@@ -87,7 +73,7 @@ export const AnalyzeStatus = ({
         >
           <Progress
             value={aiAnalyzingProgress}
-            width='120px'
+            width='220px'
             height='8px'
           />
         </div>
