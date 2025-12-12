@@ -92,7 +92,6 @@ export const ProjectDetailView = () => {
           display: 'flex',
           flex: 1,
           flexDir: 'column',
-          gap: '1.5rem',
           width: 'full',
           padding: '1.5rem',
           bg: '#ffffff',
@@ -100,52 +99,34 @@ export const ProjectDetailView = () => {
           boxShadow: '0px 4px 24px 0px #0000000A',
         })}
       >
-        <div
-          className={css({
-            display: 'flex',
-            gap: '1rem',
-            color: 'text.dashboard.secondary',
-            fontSize: '1.25rem',
-          })}
+        <Tabs.Root
+          defaultValue={TAB_VALUES.ALL}
+          onValueChange={handleTabChange}
         >
-          <span className={css({ fontWeight: '600' })}>전체 장소</span>
-          <p>
-            <span
-              className={css({ color: 'button.primary', fontWeight: '700' })}
+          <Tabs.List>
+            {/* TODO: 실제 장소 수로 대체 */}
+            <Tabs.Trigger value={TAB_VALUES.ALL}>전체 46</Tabs.Trigger>
+            {/* TODO: 실제 검수 대기 장소 수로 대체 */}
+            <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
+              검수 대기 16
+            </Tabs.Trigger>
+            {/* TODO: 실제 검수 완료 장소 수로 대체 */}
+            <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
+              검수 완료 30
+            </Tabs.Trigger>
+          </Tabs.List>
+          {Object.values(TAB_VALUES).map(tab => (
+            <Tabs.Content
+              key={tab}
+              value={tab}
+              className={css({
+                overflowX: 'auto',
+              })}
             >
-              500
-            </span>
-            <span className={css({ fontWeight: '500' })}> / 700</span>
-          </p>
-        </div>
-
-        <div>
-          <Tabs.Root
-            defaultValue={TAB_VALUES.ALL}
-            onValueChange={handleTabChange}
-          >
-            <Tabs.List>
-              <Tabs.Trigger value={TAB_VALUES.ALL}>전체</Tabs.Trigger>
-              <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
-                검수 대기
-              </Tabs.Trigger>
-              <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
-                검수 완료
-              </Tabs.Trigger>
-            </Tabs.List>
-            {Object.values(TAB_VALUES).map(tab => (
-              <Tabs.Content
-                key={tab}
-                value={tab}
-                className={css({
-                  overflowX: 'auto',
-                })}
-              >
-                <StoreListTable stores={stores} />
-              </Tabs.Content>
-            ))}
-          </Tabs.Root>
-        </div>
+              <StoreListTable stores={stores} />
+            </Tabs.Content>
+          ))}
+        </Tabs.Root>
       </div>
 
       <Pagination
