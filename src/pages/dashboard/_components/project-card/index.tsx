@@ -105,7 +105,6 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         navigate(`/project/${project.id}`, {
           state: {
             projectName: project.name,
-            progressInfo: project.progress_info,
           },
         });
       }}
