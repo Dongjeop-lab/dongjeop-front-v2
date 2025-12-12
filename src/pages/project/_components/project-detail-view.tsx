@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { css } from 'styled-system/css';
 
 import Pagination from '@/components/pagination';
 import Tabs from '@/components/tabs';
 
-import type { StoreResponse, StoreReviewStatusType } from '../_types/store';
+import { useSuspenseStores } from '../_hooks/useSuspenseStores';
+import type { StoreReviewStatusType } from '../_types/store';
 import StoreListTable from './store-list-table';
 
 /**
@@ -21,8 +22,8 @@ const TAB_VALUES = {
 
 type TabValue = (typeof TAB_VALUES)[keyof typeof TAB_VALUES];
 
-const STATUS_MAP: Record<string, StoreReviewStatusType | 0> = {
-  [TAB_VALUES.ALL]: 0, // 전체 (필터 없음)
+const STATUS_MAP: Record<string, StoreReviewStatusType | undefined> = {
+  [TAB_VALUES.ALL]: undefined, // 전체 (필터 없음)
   [TAB_VALUES.REVIEWING]: 1, // 검수 대기
   [TAB_VALUES.COMPLETED]: 2, // 검수 완료
 } as const;
@@ -37,9 +38,7 @@ export const ProjectDetailView = () => {
     `프로젝트 ${projectId}`;
   const progressInfo = location.state?.progressInfo;
 
-  const [stores, setStores] = useState<StoreResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
 
   const [storeCounts, setStoreCounts] = useState({
@@ -48,21 +47,11 @@ export const ProjectDetailView = () => {
   });
   const reviewingCount = storeCounts.total - storeCounts.completed;
 
-  useEffect(() => {
-    const reviewStatus =
-      STATUS_MAP[currentTab] === 0
-        ? ''
-        : `&review_status=${STATUS_MAP[currentTab]}`;
-
-    fetch(
-      `/api/v1/projects/${projectId}/stores?page=${currentPage}&size=10${reviewStatus}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setStores(data.stores);
-        setTotalPages(data.page_info.total_pages);
-      });
-  }, [projectId, currentPage, currentTab]);
+  const { data } = useSuspenseStores(parseInt(projectId!), {
+    page: currentPage,
+    size: 10,
+    review_status: STATUS_MAP[currentTab],
+  });
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value as TabValue);
@@ -132,14 +121,14 @@ export const ProjectDetailView = () => {
                 overflowX: 'auto',
               })}
             >
-              <StoreListTable stores={stores} />
+              <StoreListTable stores={data.stores} />
             </Tabs.Content>
           ))}
         </Tabs.Root>
       </div>
 
       <Pagination
-        totalItems={totalPages * 10}
+        totalItems={data.page_info.total_pages * 10}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />

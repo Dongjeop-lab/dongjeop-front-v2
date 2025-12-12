@@ -27,7 +27,11 @@ const ProjectPage = () => {
   }
 
   // ?store가 없으면 프로젝트 상세 화면 (장소 검수 목록 화면)
-  return <ProjectDetailView />;
+  return (
+    <AsyncBoundary>
+      <ProjectDetailView />
+    </AsyncBoundary>
+  );
 };
 
 export default ProjectPage;
