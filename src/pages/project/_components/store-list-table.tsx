@@ -93,10 +93,9 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
             })}
           >
             <Table.Cell className={COLUMN_WIDTHS.status}>
-              {/* XXX: 뱃지 변경 가능성 있음 (피그마에 질문 남긴 상태) */}
               <Badge
-                label={store.status === 1 ? '검수중' : '검수완료'}
-                variant={store.status === 1 ? 'primary' : 'gray'}
+                label={store.status === 1 ? '검수대기' : '검수완료'}
+                variant={store.status === 1 ? 'blue' : 'gray'}
               />
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.name}>
