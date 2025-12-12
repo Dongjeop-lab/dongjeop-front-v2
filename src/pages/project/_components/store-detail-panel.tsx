@@ -102,6 +102,7 @@ export const StoreDetailPanel = ({
           display: 'flex',
           flex: 1,
           marginTop: '24px',
+          minHeight: 0,
         })}
       >
         {/* 이미지 갤러리 */}
