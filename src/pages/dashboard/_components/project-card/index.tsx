@@ -52,35 +52,28 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
   const renderProjectStatus = () => {
     if (project.status === PROJECT_STATUS.ANALYZING) {
-      const {
-        images_total_count,
-        images_finished_count,
-        ai_analyzing_duration,
-      } = project.progress_info;
+      const { images_total_count, images_finished_count } =
+        project.progress_info;
 
       const aiAnalyzingProgress = Math.round(
         (images_finished_count / images_total_count) * 100
       );
 
-      return (
-        <AnalyzeStatus
-          aiAnalyzingProgress={aiAnalyzingProgress}
-          aiAnalyzingDuration={ai_analyzing_duration}
-        />
-      );
+      return <AnalyzeStatus aiAnalyzingProgress={aiAnalyzingProgress} />;
     }
 
     if (
       project.status === PROJECT_STATUS.REVIEWING ||
       project.status === PROJECT_STATUS.COMPLETED
     ) {
-      const { stores_total_count, stores_completed_count } =
+      const { stores_total_count, stores_completed_count, images_total_count } =
         project.progress_info;
 
       return (
         <ReviewStatus
           reviewingStoreTotalCount={stores_total_count}
           reviewingStoreCompletedCount={stores_completed_count}
+          totalImageCount={images_total_count}
         />
       );
     }
@@ -93,13 +86,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       as='div'
       className={css({
         width: '386px',
-        height: '302px',
+        height: '340px',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
         cursor: 'pointer',
       })}
       onClick={() => {
+        if (project.status === PROJECT_STATUS.ANALYZING) return;
         // localStorage에 프로젝트 이름 저장 (새로고침 시에도 사용 가능)
         localStorage.setItem(`project_${project.id}_name`, project.name);
         navigate(`/project/${project.id}`, {
