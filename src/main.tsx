@@ -25,12 +25,12 @@ async function enableMocking() {
 enableMocking().then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <QueryProvider>
-        <ToastProvider>
+      <ToastProvider>
+        <QueryProvider>
           <RouterProvider router={router} />
-          <Toast />
-        </ToastProvider>
-      </QueryProvider>
+        </QueryProvider>
+        <Toast />
+      </ToastProvider>
     </StrictMode>
   );
 });

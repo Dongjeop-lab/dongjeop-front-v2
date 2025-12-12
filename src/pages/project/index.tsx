@@ -17,7 +17,6 @@ const ProjectPage = () => {
   const [searchParams] = useSearchParams();
   const hasStore = searchParams.has('store');
 
-  // ?store가 있으면 장소 검수 화면
   if (hasStore) {
     return (
       <AsyncBoundary>
@@ -26,7 +25,6 @@ const ProjectPage = () => {
     );
   }
 
-  // ?store가 없으면 프로젝트 상세 화면 (장소 검수 목록 화면)
   return <ProjectDetailView />;
 };
 

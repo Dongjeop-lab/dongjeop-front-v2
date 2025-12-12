@@ -1,4 +1,4 @@
-import { type ReactNode, useContext, useEffect } from 'react';
+import { type ReactNode, useCallback, useContext, useEffect } from 'react';
 
 import { ToastContext } from '@/contexts/toast';
 
@@ -9,16 +9,21 @@ export const useToast = () => {
     throw new Error('useToast must be used within a ToastProvider');
   }
 
-  const openToast = (message: ReactNode) => {
-    context.setOpen(true);
-    context.setContent(message);
-  };
+  const { setOpen, setContent, open } = context;
+
+  const openToast = useCallback(
+    (message: ReactNode) => {
+      setOpen(true);
+      setContent(message);
+    },
+    [setOpen, setContent]
+  );
 
   useEffect(() => {
-    if (!context.open) {
-      context.setContent(null);
+    if (!open) {
+      setContent(null);
     }
-  }, [context]);
+  }, [open, setContent]);
 
   return {
     openToast,

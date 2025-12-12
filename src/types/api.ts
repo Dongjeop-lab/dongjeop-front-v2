@@ -9,12 +9,22 @@ export interface ApiResponse<T = unknown> {
   status: number;
 }
 
+export interface ValidationError {
+  loc: (string | number)[];
+  msg: string;
+  type: string;
+}
+export interface HTTPValidationError {
+  detail: ValidationError[];
+}
+
 /** API 에러 응답 구조 */
 export interface ApiErrorResponse {
-  message: string;
+  message?: string;
   code?: string;
-  status: number;
+  status?: number;
   errors?: Record<string, string[]>;
+  detail?: ValidationError[] | string;
 }
 
 /** 페이지네이션 요청 파라미터 */

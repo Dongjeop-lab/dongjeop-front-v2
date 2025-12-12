@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
 
+import { useToast } from '@/hooks/use-toast';
+
 import { useCreateOrUpdateStoreLabel, useStoreDetail } from '../_hooks';
 import type {
   StoreReviewLabelRequest,
@@ -22,6 +24,7 @@ export const StoreReviewContent = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const queryClient = useQueryClient();
+  const { openToast } = useToast();
 
   const storeIdFromQuery = searchParams.get('store');
   const selectedStoreId = storeIdFromQuery ? parseInt(storeIdFromQuery) : null;
@@ -53,7 +56,7 @@ export const StoreReviewContent = ({
             queryKey: ['store', currentStoreId],
           });
 
-          alert('검수가 완료되었습니다!');
+          openToast('검수가 완료되었습니다!');
         },
       }
     );

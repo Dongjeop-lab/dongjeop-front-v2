@@ -1,6 +1,23 @@
 import type { AxiosError } from 'axios';
 
-import type { ApiErrorResponse } from '@/types/api';
+import type { ApiErrorResponse, ValidationError } from '@/types/api';
+
+/**
+ * FastAPI ValidationError 배열에서 사용자 친화적 메시지 추출
+ */
+function extractValidationMessage(detail: ValidationError[]): string {
+  if (!detail || detail.length === 0) {
+    return '입력값을 확인해주세요.';
+  }
+
+  // 첫 번째 에러 메시지를 반환하거나, 여러 개일 경우 결합
+  const messages = detail.map(error => {
+    const field = error.loc.slice(1).join('.') || '입력값';
+    return `${field}: ${error.msg}`;
+  });
+
+  return messages.length === 1 ? messages[0] : messages.join(', ');
+}
 
 /**
  * API 에러 클래스
@@ -9,18 +26,21 @@ export class ApiError extends Error {
   status: number;
   code?: string;
   errors?: Record<string, string[]>;
+  validationErrors?: ValidationError[];
 
   constructor(
     message: string,
     status: number,
     code?: string,
-    errors?: Record<string, string[]>
+    errors?: Record<string, string[]>,
+    validationErrors?: ValidationError[]
   ) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
     this.code = code;
     this.errors = errors;
+    this.validationErrors = validationErrors;
   }
 
   /** 서버 에러인지 확인 */
@@ -36,6 +56,11 @@ export class ApiError extends Error {
   /** 네트워크 에러인지 확인 */
   isNetworkError(): boolean {
     return this.status === 0;
+  }
+
+  /** 검증 에러인지 확인 (422) */
+  isValidationError(): boolean {
+    return this.status === 422;
   }
 
   /** 사용자에게 보여줄 에러 메시지 */
@@ -66,6 +91,22 @@ export function handleApiError(error: unknown): ApiError {
     // 응답이 있는 경우 (4xx, 5xx)
     if (axiosError.response) {
       const { data, status } = axiosError.response;
+
+      if (status === 422 && data?.detail && Array.isArray(data.detail)) {
+        const validationErrors = data.detail as ValidationError[];
+        return new ApiError(
+          extractValidationMessage(validationErrors),
+          status,
+          undefined,
+          undefined,
+          validationErrors
+        );
+      }
+
+      if (typeof data?.detail === 'string') {
+        return new ApiError(data.detail, status, data?.code, data?.errors);
+      }
+
       return new ApiError(
         data?.message || '요청을 처리할 수 없습니다.',
         status,
