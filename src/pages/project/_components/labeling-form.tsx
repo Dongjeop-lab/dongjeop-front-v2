@@ -79,6 +79,7 @@ export const LabelingForm = ({
 
   const handleStepChange = (value: 1 | 2 | 3 | null) => {
     setFormData(prev => ({ ...prev, has_step: value }));
+    setIsAiEnabled(false);
   };
 
   const handleChairChange = (key: string, value: boolean) => {
@@ -86,10 +87,12 @@ export const LabelingForm = ({
       ...prev,
       [key]: value,
     }));
+    setIsAiEnabled(false);
   };
 
   const handleWidthChange = (value: 1 | 2 | 3 | 4 | 5 | null) => {
     setFormData(prev => ({ ...prev, width_class: value }));
+    setIsAiEnabled(false);
   };
 
   const handleSubmit = () => {
