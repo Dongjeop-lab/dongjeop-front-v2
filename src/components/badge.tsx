@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 interface BadgeProps {
   variant?: 'primary' | 'gray' | 'red' | 'orange' | 'green' | 'blue' | 'purple';
   label?: ReactNode;
-  level?: 1 | 2 | 3 | 4 | 5;
+  level?: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
 const variantStyles = {
@@ -18,6 +18,7 @@ const variantStyles = {
 };
 
 const levelToVariant = {
+  0: 'gray',
   1: 'red',
   2: 'orange',
   3: 'green',
@@ -26,9 +27,10 @@ const levelToVariant = {
 } as const;
 
 const Badge = ({ variant = 'primary', label, level }: BadgeProps) => {
-  const colorVariant = level ? levelToVariant[level] : variant;
+  const colorVariant = level !== undefined ? levelToVariant[level] : variant;
   const { color, backgroundColor } = variantStyles[colorVariant];
-  const displayLabel = label ?? (level ? `Lv.${level}` : undefined);
+  const displayLabel =
+    label ?? (level !== undefined ? `Lv.${level}` : undefined);
 
   return (
     <p
