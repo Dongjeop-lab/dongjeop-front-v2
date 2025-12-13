@@ -206,7 +206,11 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
               ))}
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.accessLevel}>
-              {store.access_level ? <Badge level={store.access_level} /> : '-'}
+              {store.access_level !== null ? (
+                <Badge level={store.access_level} />
+              ) : (
+                '-'
+              )}
             </Table.Cell>
             <Table.Cell className={COLUMN_WIDTHS.reviewFinishedAt}>
               {store.review_finished_at ? (
