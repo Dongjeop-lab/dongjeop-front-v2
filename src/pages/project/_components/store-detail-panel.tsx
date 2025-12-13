@@ -35,13 +35,13 @@ export const StoreDetailPanel = ({
   };
 
   const initialFormData: StoreReviewLabelRequest = {
-    has_step: store.label_info?.has_step ?? null,
-    width_class: store.label_info?.width_class ?? null,
-    has_movable_chair: store.label_info?.has_movable_chair ?? null,
-    has_high_chair: store.label_info?.has_high_chair ?? null,
-    has_fixed_chair: store.label_info?.has_fixed_chair ?? null,
-    has_floor_chair: store.label_info?.has_floor_chair ?? null,
-    is_not_sure_chair: store.label_info?.is_not_sure_chair ?? null,
+    has_step: store.image_analysis_result?.has_step ?? null,
+    width_class: store.image_analysis_result?.width_class ?? null,
+    has_movable_chair: store.image_analysis_result?.has_movable_chair ?? null,
+    has_high_chair: store.image_analysis_result?.has_high_chair ?? null,
+    has_fixed_chair: store.image_analysis_result?.has_fixed_chair ?? null,
+    has_floor_chair: store.image_analysis_result?.has_floor_chair ?? null,
+    is_not_sure_chair: store.image_analysis_result?.is_not_sure_chair ?? null,
   };
 
   return (
