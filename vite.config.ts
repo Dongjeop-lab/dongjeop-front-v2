@@ -1,9 +1,9 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, type ConfigEnv } from 'vite';
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }: ConfigEnv) => ({
   plugins: [
     react({
       babel: {
@@ -17,4 +17,15 @@ export default defineConfig({
       'styled-system': path.resolve(__dirname, './styled-system'),
     },
   },
-});
+  server: {
+    proxy:
+      mode === 'production'
+        ? {
+            '/api': {
+              target: 'http://host.docker.internal:6061',
+              changeOrigin: true,
+            },
+          }
+        : undefined,
+  },
+}));
