@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig, type ConfigEnv } from 'vite';
+import { type ConfigEnv, defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }: ConfigEnv) => ({
