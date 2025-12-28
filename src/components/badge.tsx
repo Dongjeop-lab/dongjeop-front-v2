@@ -18,12 +18,12 @@ const variantStyles = {
 };
 
 const levelToVariant = {
-  0: 'gray',
-  1: 'red',
+  0: 'green',
+  1: 'green',
   2: 'orange',
-  3: 'green',
-  4: 'blue',
-  5: 'purple',
+  3: 'orange',
+  4: 'red',
+  5: 'red',
 } as const;
 
 const Badge = ({ variant = 'primary', label, level }: BadgeProps) => {
