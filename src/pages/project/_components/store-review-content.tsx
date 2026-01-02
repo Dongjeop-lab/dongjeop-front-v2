@@ -53,7 +53,28 @@ export const StoreReviewContent = ({
             queryKey: ['store', currentStoreId],
           });
 
-          alert('검수가 완료되었습니다!');
+          // 1.5초 후 다음 검수 대기 장소로 자동 이동
+          setTimeout(() => {
+            // 현재 장소의 인덱스 찾기
+            const currentIndex = stores.findIndex(
+              store => store.id === currentStoreId
+            );
+
+            // 현재 장소 다음부터 검수 대기(status === 1) 장소 찾기
+            let nextStore = stores
+              .slice(currentIndex + 1)
+              .find(store => store.status === 1);
+
+            // 없으면 처음부터 다시 찾기
+            if (!nextStore) {
+              nextStore = stores.find(store => store.status === 1);
+            }
+
+            // 다음 검수 대기 장소가 있으면 이동
+            if (nextStore) {
+              handleSelectStore(nextStore.id);
+            }
+          }, 1500); // 1.5초 대기
         },
       }
     );
