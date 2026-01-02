@@ -10,6 +10,7 @@ interface ModalProps extends PropsWithChildren {
   height?: string | number;
   gap?: string | number;
   showCloseIcon?: boolean;
+  onInteractOutside?: (event: Event) => void;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -22,6 +23,7 @@ const Modal = ({
   gap = '2rem',
   showCloseIcon = true,
   onOpenChange,
+  onInteractOutside,
 }: ModalProps) => {
   return (
     <Dialog.Root
@@ -55,6 +57,7 @@ const Modal = ({
             overflow: 'auto',
           })}
           style={{ width, height, gap }}
+          onInteractOutside={onInteractOutside}
         >
           <div
             className={css({

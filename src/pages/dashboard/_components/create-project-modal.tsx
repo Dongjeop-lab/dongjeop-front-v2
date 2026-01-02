@@ -47,6 +47,9 @@ export const CreateProjectModal = ({
       onOpenChange={onOpenChange}
       title='새 프로젝트 만들기'
       width={500}
+      onInteractOutside={e => {
+        e.preventDefault();
+      }}
     >
       <div
         className={css({

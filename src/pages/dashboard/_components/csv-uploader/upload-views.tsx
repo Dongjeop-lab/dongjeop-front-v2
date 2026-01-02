@@ -104,6 +104,7 @@ export const UploadProgressView = ({
       >
         <span
           className={css({
+            maxWidth: '344px',
             fontSize: '0.875rem',
             fontWeight: 500,
             color: '#374151',
@@ -124,6 +125,7 @@ export const UploadProgressView = ({
       <button
         onClick={onCancel}
         className={css({
+          flexShrink: 0,
           cursor: 'pointer',
           padding: '0.25rem',
           borderRadius: '0.25rem',
@@ -188,6 +190,9 @@ export const UploadCompletedView = ({
       <Button
         variant='gray'
         size='sm'
+        className={css({
+          flexShrink: 0,
+        })}
         onClick={onEdit}
       >
         파일수정

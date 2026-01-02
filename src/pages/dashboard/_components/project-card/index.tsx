@@ -89,7 +89,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         height: '340px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1.25rem',
+        justifyContent: 'space-between',
         cursor: 'pointer',
       })}
       onClick={() => {
@@ -141,33 +141,40 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           initialReviewer={project.reviewer}
           onUpdate={handleUpdateInfo}
         />
-        {renderProjectStatus()}
       </div>
-
-      <hr
-        className={css({
-          width: '100%',
-          height: '1.2px',
-          color: '#E7EDF3',
-        })}
-      />
-
       <div
         className={css({
           display: 'flex',
-          alignItems: 'center',
-          gap: '0.25rem',
-          fontSize: '0.75rem',
-          color: 'text.dashboard.sub',
+          flexDirection: 'column',
+          gap: '1.25rem',
         })}
       >
-        <img
-          src='/icons/file.svg'
-          alt=''
-          width={14}
-          height={14}
+        {renderProjectStatus()}
+        <hr
+          className={css({
+            width: '100%',
+            height: '1.2px',
+            color: '#E7EDF3',
+          })}
         />
-        {project.csv_file_name}
+
+        <div
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            fontSize: '0.75rem',
+            color: 'text.dashboard.sub',
+          })}
+        >
+          <img
+            src='/icons/file.svg'
+            alt=''
+            width={14}
+            height={14}
+          />
+          {project.csv_file_name}
+        </div>
       </div>
     </Card>
   );
