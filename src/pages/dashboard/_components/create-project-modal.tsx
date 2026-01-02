@@ -43,6 +43,7 @@ export const CreateProjectModal = ({
 
   return (
     <Modal
+      preventDimClick
       open={open}
       onOpenChange={onOpenChange}
       title='새 프로젝트 만들기'
