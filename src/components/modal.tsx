@@ -10,7 +10,7 @@ interface ModalProps extends PropsWithChildren {
   height?: string | number;
   gap?: string | number;
   showCloseIcon?: boolean;
-  preventDimClick?: boolean;
+  onInteractOutside?: (event: Event) => void;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -22,8 +22,8 @@ const Modal = ({
   height = 'auto',
   gap = '2rem',
   showCloseIcon = true,
-  preventDimClick = false,
   onOpenChange,
+  onInteractOutside,
 }: ModalProps) => {
   return (
     <Dialog.Root
@@ -57,11 +57,7 @@ const Modal = ({
             overflow: 'auto',
           })}
           style={{ width, height, gap }}
-          onInteractOutside={e => {
-            if (preventDimClick) {
-              e.preventDefault();
-            }
-          }}
+          onInteractOutside={onInteractOutside}
         >
           <div
             className={css({
