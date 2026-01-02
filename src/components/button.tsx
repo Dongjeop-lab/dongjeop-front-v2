@@ -111,11 +111,12 @@ export function Button({
   variant,
   size,
   fullWidth,
+  className,
   ...props
 }: ButtonProps) {
   return (
     <button
-      className={buttonVariants({ variant, size, fullWidth })}
+      className={`${buttonVariants({ variant, size, fullWidth })} ${className}`}
       {...props}
     >
       {children}

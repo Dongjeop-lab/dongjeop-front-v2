@@ -190,6 +190,9 @@ export const UploadCompletedView = ({
       <Button
         variant='gray'
         size='sm'
+        className={css({
+          flexShrink: 0,
+        })}
         onClick={onEdit}
       >
         파일수정
