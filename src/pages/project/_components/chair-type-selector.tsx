@@ -11,12 +11,29 @@ interface ChairTypeSelectorProps {
   onChange: (key: string, value: boolean) => void;
 }
 
+// 의자 유형 키 상수
+const CHAIR_KEYS = {
+  MOVABLE: 'has_movable_chair',
+  HIGH: 'has_high_chair',
+  FIXED: 'has_fixed_chair',
+  FLOOR: 'has_floor_chair',
+  NOT_SURE: 'is_not_sure_chair',
+} as const;
+
+// 일반 의자 유형 키 목록 (불확실 제외)
+const NORMAL_CHAIR_KEYS = [
+  CHAIR_KEYS.MOVABLE,
+  CHAIR_KEYS.HIGH,
+  CHAIR_KEYS.FIXED,
+  CHAIR_KEYS.FLOOR,
+] as const;
+
 const CHAIR_OPTIONS = [
-  { key: 'has_movable_chair', label: '낮은 이동식 의자' },
-  { key: 'has_high_chair', label: '높은 이동식 의자' },
-  { key: 'has_fixed_chair', label: '고정식 의자' },
-  { key: 'has_floor_chair', label: '좌식 의자' },
-  { key: 'is_not_sure_chair', label: '불확실' },
+  { key: CHAIR_KEYS.MOVABLE, label: '낮은 이동식 의자' },
+  { key: CHAIR_KEYS.HIGH, label: '높은 이동식 의자' },
+  { key: CHAIR_KEYS.FIXED, label: '고정식 의자' },
+  { key: CHAIR_KEYS.FLOOR, label: '좌식 의자' },
+  { key: CHAIR_KEYS.NOT_SURE, label: '불확실' },
 ];
 
 /**
@@ -41,7 +58,26 @@ export const ChairTypeSelector = ({
 
   const handleClick = (key: string) => {
     const currentValue = values[key as keyof typeof values];
-    onChange(key, !currentValue);
+    const newValue = !currentValue;
+
+    // "불확실"을 선택하는 경우
+    if (key === CHAIR_KEYS.NOT_SURE && newValue) {
+      // 다른 모든 의자 유형 선택 해제
+      NORMAL_CHAIR_KEYS.forEach(chairKey => {
+        onChange(chairKey, false);
+      });
+      onChange(CHAIR_KEYS.NOT_SURE, true);
+    }
+    // 다른 의자 유형을 선택하는 경우
+    else if (key !== CHAIR_KEYS.NOT_SURE && newValue) {
+      // "불확실" 선택 해제
+      onChange(CHAIR_KEYS.NOT_SURE, false);
+      onChange(key, true);
+    }
+    // 선택 해제하는 경우
+    else {
+      onChange(key, newValue);
+    }
   };
 
   return (
