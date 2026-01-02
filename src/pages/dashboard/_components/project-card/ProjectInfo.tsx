@@ -74,6 +74,7 @@ export const ProjectInfo = ({
             placeholder='검수자 입력'
             className={css({
               padding: '0.125rem 0.375rem',
+              paddingLeft: 0,
               color: 'text.dashboard.sub',
               fontSize: '0.875rem',
               fontWeight: 'medium',
@@ -91,6 +92,7 @@ export const ProjectInfo = ({
             placeholder='프로젝트 이름 입력'
             autoFocus
             className={css({
+              paddingLeft: 0,
               padding: '0.125rem 0.375rem',
               color: 'text.dashboard.secondary',
               fontSize: '1.25rem',
@@ -106,6 +108,7 @@ export const ProjectInfo = ({
         <>
           <p
             className={css({
+              paddingLeft: 0,
               padding: '0.125rem 0.375rem',
               color: 'text.dashboard.sub',
               fontSize: '0.875rem',
@@ -118,6 +121,7 @@ export const ProjectInfo = ({
           </p>
           <h2
             className={css({
+              paddingLeft: 0,
               padding: '0.125rem 0.375rem',
               color: 'text.dashboard.secondary',
               fontSize: '1.25rem',
