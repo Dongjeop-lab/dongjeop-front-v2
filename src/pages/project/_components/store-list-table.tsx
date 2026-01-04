@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 
 import arrowDownUrl from '@/assets/arrow-down.svg';
 import arrowUpUrl from '@/assets/arrow-up.svg';
@@ -146,21 +146,31 @@ const StoreListTable = ({
                 {store.address}
               </p>
             </Table.Cell>
-            <Table.Cell className={COLUMN_WIDTHS.totalImageCount}>
+            <Table.Cell
+              className={cx(
+                COLUMN_WIDTHS.totalImageCount,
+                css({
+                  '& > div': {
+                    maxHeight: '60px',
+                  },
+                })
+              )}
+            >
               <div
                 className={css({
                   position: 'relative',
                   height: '100%',
                   width: 'fit-content',
+                  backgroundColor: '#F3F4F6',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
                 })}
               >
                 <img
                   src={store.thumbnail_url}
                   className={css({
-                    width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    borderRadius: '4px',
                   })}
                   alt={`${store.name} 썸네일 이미지`}
                 />
@@ -173,7 +183,6 @@ const StoreListTable = ({
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: '1px 5px 1px 4px',
-                    width: 'fit-content',
                     bg: '#292929CC',
                     borderRadius: '50px',
                     color: '#ffffff',

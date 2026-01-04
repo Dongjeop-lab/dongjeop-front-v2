@@ -24,7 +24,7 @@ const mockStores: StoreResponse[] = [
     access_level: 1,
     total_image_count: 15,
     ignored_image_count: 2,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+1',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: {
       has_step: 1,
       width_class: 5,
@@ -46,7 +46,7 @@ const mockStores: StoreResponse[] = [
     access_level: 2,
     total_image_count: 12,
     ignored_image_count: 1,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+2',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: {
       has_step: 2,
       width_class: 3,
@@ -68,7 +68,7 @@ const mockStores: StoreResponse[] = [
     access_level: 3,
     total_image_count: 20,
     ignored_image_count: 3,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+3',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 3,
       width_class: 1,
@@ -90,7 +90,7 @@ const mockStores: StoreResponse[] = [
     access_level: 4,
     total_image_count: 8,
     ignored_image_count: 0,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+4',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 1,
       width_class: 4,
@@ -112,7 +112,7 @@ const mockStores: StoreResponse[] = [
     access_level: 5,
     total_image_count: 18,
     ignored_image_count: 5,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+5',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: {
       has_step: 2,
       width_class: 2,
@@ -134,7 +134,7 @@ const mockStores: StoreResponse[] = [
     access_level: 0,
     total_image_count: 5,
     ignored_image_count: 0,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+6',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: null,
     review_finished_at: '2024-11-29T16:20:00Z',
     created_at: '2024-11-27T14:00:00Z',
@@ -148,7 +148,7 @@ const mockStores: StoreResponse[] = [
     access_level: 2,
     total_image_count: 10,
     ignored_image_count: 1,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+7',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: {
       has_step: 1,
       width_class: 4,
@@ -170,7 +170,7 @@ const mockStores: StoreResponse[] = [
     access_level: 0,
     total_image_count: 7,
     ignored_image_count: 0,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+8',
+    thumbnail_url: '/images/placeholder-store-2.svg',
     label_info: null,
     review_finished_at: null,
     created_at: '2024-12-01T08:30:00Z',
@@ -184,7 +184,7 @@ const mockStores: StoreResponse[] = [
     access_level: 3,
     total_image_count: 14,
     ignored_image_count: 2,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+9',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 2,
       width_class: 3,
@@ -206,7 +206,7 @@ const mockStores: StoreResponse[] = [
     access_level: 1,
     total_image_count: 22,
     ignored_image_count: 4,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+10',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 1,
       width_class: 5,
@@ -228,7 +228,7 @@ const mockStores: StoreResponse[] = [
     access_level: 4,
     total_image_count: 9,
     ignored_image_count: 0,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+11',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 3,
       width_class: 2,
@@ -250,7 +250,7 @@ const mockStores: StoreResponse[] = [
     access_level: 0,
     total_image_count: 11,
     ignored_image_count: 1,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+12',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: null,
     review_finished_at: null,
     created_at: '2024-12-02T07:00:00Z',
@@ -264,7 +264,7 @@ const mockStores: StoreResponse[] = [
     access_level: 5,
     total_image_count: 25,
     ignored_image_count: 6,
-    thumbnail_url: 'https://via.placeholder.com/400x300?text=Store+13',
+    thumbnail_url: '/images/placeholder-store-1.svg',
     label_info: {
       has_step: 1,
       width_class: 4,
