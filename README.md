@@ -40,90 +40,81 @@ LAB 내에서 개발한 **실내 접근성 분석 AI 모델**을 실제 운영 �
 
 ### 🗂️ 프로젝트 대시보드
 
-<!-- TODO: add screenshots -->
-<!-- <div align="center">
+<div align="center">
   <table>
     <tr>
       <td align="center">
-        <img src="public/images/readme/quiz-1.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/dashboard-1.png" alt="대시보드" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-2.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/dashboard-2.png" alt="대시보드" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-3.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/dashboard-3.png" alt="대시보드" width="300">
       </td>
     </tr>
   </table>
-</div> -->
+</div>
 
 - CSV 파일 업로드로 데이터 일괄 등록
 - 프로젝트별 분석 현황 확인 (AI 분석 중 / 검수 진행 중 / 검수 완료)
 
 ### 📋 프로젝트 내부 검수 목록
 
-<!-- TODO: add screenshots -->
-<!-- <div align="center">
+<div align="center">
   <table>
     <tr>
       <td align="center">
-        <img src="public/images/readme/quiz-1.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/store-list-1.png" alt="프로젝트 내 상점 목록 화면" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-2.gif" alt="퀴즈 데모" width="200">
-      </td>
-      <td align="center">
-        <img src="public/images/readme/quiz-3.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/store-list-2.png" alt="프로젝트 내 상점 목록 화면" width="300">
       </td>
     </tr>
   </table>
-</div> -->
+</div>
 
 - 장소별 검수 상태 확인 (검수 대기 / 검수 완료)
 - 분석 결과 요약 및 접근성 수준 표시
 
 ### 📸 장소 검수
 
-<!-- TODO: add screenshots -->
-<!-- <div align="center">
+<div align="center">
   <table>
     <tr>
       <td align="center">
-        <img src="public/images/readme/quiz-1.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/store-detail-1.png" alt="장소 검수 화면" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-2.gif" alt="퀴즈 데모" width="200">
-      </td>
-      <td align="center">
-        <img src="public/images/readme/quiz-3.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/store-detail-2.png" alt="장소 검수 화면" width="300">
       </td>
     </tr>
   </table>
-</div> -->
+</div>
 
 - 한 장소의 여러 이미지에서 추출한 접근성 정보 확인
 - AI 분석 결과를 초기값으로 제공, 검수자는 필요 시만 수정
 
-### 📤 Export
+<!-- ### 📤 Export -->
 
 <!-- TODO: add screenshots -->
 <!-- <div align="center">
   <table>
     <tr>
       <td align="center">
-        <img src="public/images/readme/quiz-1.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/quiz-1.gif" alt="퀴즈 데모" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-2.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/quiz-2.gif" alt="퀴즈 데모" width="300">
       </td>
       <td align="center">
-        <img src="public/images/readme/quiz-3.gif" alt="퀴즈 데모" width="200">
+        <img src="public/images/readme/quiz-3.gif" alt="퀴즈 데모" width="300">
       </td>
     </tr>
   </table>
 </div> -->
 
-- 검수 완료 데이터를 JSON 형식으로 다운로드
+<!-- - 검수 완료 데이터를 JSON 형식으로 다운로드 -->
 
 ## 🛠️ 기술 스택
 
