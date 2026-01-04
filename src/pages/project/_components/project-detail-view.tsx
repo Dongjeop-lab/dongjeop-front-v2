@@ -29,6 +29,9 @@ const STATUS_MAP: Record<string, StoreReviewStatusType | undefined> = {
   [TAB_VALUES.COMPLETED]: 2, // 검수 완료
 } as const;
 
+const INITIAL_PAGE = 1;
+const PAGE_SIZE = 10;
+
 export const ProjectDetailView = () => {
   const { projectId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,14 +42,14 @@ export const ProjectDetailView = () => {
     localStorage.getItem(`project_${projectId}_name`) ||
     `프로젝트 ${projectId}`;
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
   const sortOrder = (searchParams.get('sort') as SortOrderType) || 'DESC';
 
   // 프로젝트 내 총 장소 수 조회
   const { data: allStoresData } = useSuspenseStores(parseInt(projectId!), {
-    page: 1,
-    size: 1,
+    page: INITIAL_PAGE,
+    size: INITIAL_PAGE,
     sort_order: sortOrder,
   });
 
@@ -54,8 +57,8 @@ export const ProjectDetailView = () => {
   const { data: completedStoresData } = useSuspenseStores(
     parseInt(projectId!),
     {
-      page: 1,
-      size: 1,
+      page: INITIAL_PAGE,
+      size: INITIAL_PAGE,
       review_status: 2,
       sort_order: sortOrder,
     }
@@ -64,7 +67,7 @@ export const ProjectDetailView = () => {
   // 현재 탭 데이터
   const { data } = useSuspenseStores(parseInt(projectId!), {
     page: currentPage,
-    size: 10,
+    size: PAGE_SIZE,
     review_status: STATUS_MAP[currentTab],
     sort_order: sortOrder,
   });
@@ -76,7 +79,7 @@ export const ProjectDetailView = () => {
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value as TabValue);
-    setCurrentPage(1); // 탭 변경 시 페이지 초기화
+    setCurrentPage(INITIAL_PAGE); // 탭 변경 시 페이지 초기화
   };
 
   const handlePageChange = (page: number) => {
@@ -89,7 +92,7 @@ export const ProjectDetailView = () => {
       prev.set('sort', newSort);
       return prev;
     });
-    setCurrentPage(1);
+    setCurrentPage(INITIAL_PAGE); // 정렬 변경 시 페이지 초기화
   };
 
   return (
@@ -162,7 +165,7 @@ export const ProjectDetailView = () => {
       </div>
 
       <Pagination
-        totalItems={data.page_info.total_pages * 10}
+        totalItems={data.page_info.total_pages * PAGE_SIZE}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />
