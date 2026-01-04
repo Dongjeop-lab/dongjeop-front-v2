@@ -2,15 +2,6 @@ import { css } from 'styled-system/css';
 
 import { LabelButton } from './label-button';
 
-interface ChairTypeSelectorProps {
-  has_movable_chair: boolean;
-  has_high_chair: boolean;
-  has_fixed_chair: boolean;
-  has_floor_chair: boolean;
-  is_not_sure_chair: boolean;
-  onChange: (key: string, value: boolean) => void;
-}
-
 // 의자 유형 키 상수
 const CHAIR_KEYS = {
   MOVABLE: 'has_movable_chair',
@@ -20,6 +11,8 @@ const CHAIR_KEYS = {
   NOT_SURE: 'is_not_sure_chair',
 } as const;
 
+type ChairKey = (typeof CHAIR_KEYS)[keyof typeof CHAIR_KEYS];
+
 // 일반 의자 유형 키 목록 (불확실 제외)
 const NORMAL_CHAIR_KEYS = [
   CHAIR_KEYS.MOVABLE,
@@ -28,7 +21,12 @@ const NORMAL_CHAIR_KEYS = [
   CHAIR_KEYS.FLOOR,
 ] as const;
 
-const CHAIR_OPTIONS = [
+interface ChairOption {
+  key: ChairKey;
+  label: string;
+}
+
+const CHAIR_OPTIONS: ChairOption[] = [
   { key: CHAIR_KEYS.MOVABLE, label: '낮은 이동식 의자' },
   { key: CHAIR_KEYS.HIGH, label: '높은 이동식 의자' },
   { key: CHAIR_KEYS.FIXED, label: '고정식 의자' },
@@ -36,28 +34,21 @@ const CHAIR_OPTIONS = [
   { key: CHAIR_KEYS.NOT_SURE, label: '불확실' },
 ];
 
+interface ChairTypeSelectorProps {
+  values: Record<ChairKey, boolean>;
+  onChange: (key: ChairKey, value: boolean) => void;
+}
+
 /**
  * 의자 유형 선택 컴포넌트 (다중 선택)
  * - 선택된 값을 다시 클릭하면 선택 해제
  */
 export const ChairTypeSelector = ({
-  has_movable_chair,
-  has_high_chair,
-  has_fixed_chair,
-  has_floor_chair,
-  is_not_sure_chair,
+  values,
   onChange,
 }: ChairTypeSelectorProps) => {
-  const values = {
-    has_movable_chair,
-    has_high_chair,
-    has_fixed_chair,
-    has_floor_chair,
-    is_not_sure_chair,
-  };
-
-  const handleClick = (key: string) => {
-    const currentValue = values[key as keyof typeof values];
+  const handleClick = (key: ChairKey) => {
+    const currentValue = values[key];
     const newValue = !currentValue;
 
     // "불확실"을 선택하는 경우
@@ -104,7 +95,7 @@ export const ChairTypeSelector = ({
         })}
       >
         {CHAIR_OPTIONS.map(option => {
-          const isSelected = values[option.key as keyof typeof values];
+          const isSelected = values[option.key];
           return (
             <LabelButton
               key={option.key}
