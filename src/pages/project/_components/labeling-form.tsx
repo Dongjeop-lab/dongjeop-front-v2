@@ -163,11 +163,13 @@ export const LabelingForm = ({
 
       {/* 의자 유형 */}
       <ChairTypeSelector
-        has_movable_chair={formData.has_movable_chair ?? false}
-        has_high_chair={formData.has_high_chair ?? false}
-        has_fixed_chair={formData.has_fixed_chair ?? false}
-        has_floor_chair={formData.has_floor_chair ?? false}
-        is_not_sure_chair={formData.is_not_sure_chair ?? false}
+        values={{
+          has_movable_chair: formData.has_movable_chair ?? false,
+          has_high_chair: formData.has_high_chair ?? false,
+          has_fixed_chair: formData.has_fixed_chair ?? false,
+          has_floor_chair: formData.has_floor_chair ?? false,
+          is_not_sure_chair: formData.is_not_sure_chair ?? false,
+        }}
         onChange={handleChairChange}
       />
 

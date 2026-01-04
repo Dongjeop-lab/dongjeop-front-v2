@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { css } from 'styled-system/css';
 
 import StoreListIcon from '@/assets/store-list.svg';
@@ -25,6 +26,22 @@ export const StoreSidebar = ({
   onToggleCollapse,
 }: StoreSidebarProps) => {
   const totalCount = stores.length;
+  const selectedStoreRef = useRef<HTMLButtonElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // 선택된 장소로 자동 스크롤
+  useEffect(() => {
+    if (
+      selectedStoreRef.current &&
+      scrollContainerRef.current &&
+      !isCollapsed
+    ) {
+      selectedStoreRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [selectedStoreId, isCollapsed]);
 
   return (
     <aside
@@ -93,6 +110,7 @@ export const StoreSidebar = ({
 
           {/* 상점 카드 목록 */}
           <div
+            ref={scrollContainerRef}
             className={css({
               display: 'flex',
               flexDirection: 'column',
@@ -105,6 +123,7 @@ export const StoreSidebar = ({
             {stores.map(store => (
               <button
                 key={store.id}
+                ref={selectedStoreId === store.id ? selectedStoreRef : null}
                 onClick={() => onSelectStore(store.id)}
                 className={css({
                   padding: '12px 15px',

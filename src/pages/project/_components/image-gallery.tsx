@@ -47,7 +47,7 @@ export const ImageGallery = ({
       <div
         className={css({
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '16px',
         })}
       >
