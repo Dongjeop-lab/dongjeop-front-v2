@@ -152,6 +152,9 @@ const StoreListTable = ({
                   position: 'relative',
                   height: '100%',
                   width: 'fit-content',
+                  backgroundColor: '#F3F4F6',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
                 })}
               >
                 <img
@@ -160,7 +163,6 @@ const StoreListTable = ({
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    borderRadius: '4px',
                   })}
                   alt={`${store.name} 썸네일 이미지`}
                 />
