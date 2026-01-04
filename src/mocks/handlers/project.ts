@@ -382,17 +382,17 @@ export const projectHandlers = [
       images: [
         {
           id: 1,
-          image_url: 'https://via.placeholder.com/400x300?text=Image+1',
+          image_url: '/images/placeholder-store-1.svg',
           ignored: false,
         },
         {
           id: 2,
-          image_url: 'https://via.placeholder.com/400x300?text=Image+2',
+          image_url: '/images/placeholder-store-2.svg',
           ignored: false,
         },
         {
           id: 3,
-          image_url: 'https://via.placeholder.com/400x300?text=Image+3',
+          image_url: '/images/placeholder-store-1.svg',
           ignored: true,
         },
       ],
@@ -446,7 +446,10 @@ export const projectHandlers = [
     const { imageId } = params;
 
     const response: ImageDetailResponse = {
-      image_url: `https://via.placeholder.com/800x600?text=Image+${imageId}`,
+      image_url:
+        parseInt(imageId as string) % 2 === 0
+          ? '/images/placeholder-store-2.svg'
+          : '/images/placeholder-store-1.svg',
       source_url: 'https://example.com/original-image-url',
       address: '서울특별시 강남구 테헤란로 123',
       label_info: {

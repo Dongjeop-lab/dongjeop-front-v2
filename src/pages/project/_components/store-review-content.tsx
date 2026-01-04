@@ -145,12 +145,20 @@ export const StoreReviewContent = ({
         />
 
         {/* 우측 메인 영역 */}
-        <StoreDetailPanel
-          store={storeDetail}
-          storeId={currentStoreId}
-          onSubmit={handleSubmit}
-          isSubmitting={isPending}
-        />
+        <div
+          className={css({
+            flex: 1,
+            overflowX: 'auto',
+            minWidth: 0,
+          })}
+        >
+          <StoreDetailPanel
+            store={storeDetail}
+            storeId={currentStoreId}
+            onSubmit={handleSubmit}
+            isSubmitting={isPending}
+          />
+        </div>
       </div>
     </div>
   );
