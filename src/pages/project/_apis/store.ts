@@ -1,12 +1,12 @@
 import { api } from '@/lib/api-client';
 
+import type { UseStoresParams } from '../_types/params';
 import type {
   ImageDetailResponse,
   StoreListResponse,
   StoreReviewDetailResponse,
   StoreReviewLabelRequest,
   StoreReviewLabelResponse,
-  StoreReviewStatusType,
   StoreSimpleListResponse,
 } from '../_types/store';
 
@@ -15,19 +15,15 @@ import type {
  */
 
 /** 상태별 검수 목록 조회 (전체/대기/완료) */
-export const getStores = (
-  projectId: number,
-  params?: {
-    page?: number;
-    size?: number;
-    review_status?: StoreReviewStatusType;
-  }
-) => {
+export const getStores = (projectId: number, params?: UseStoresParams) => {
   const searchParams = new URLSearchParams();
   if (params?.page) searchParams.append('page', params.page.toString());
   if (params?.size) searchParams.append('size', params.size.toString());
   if (params?.review_status)
     searchParams.append('review_status', params.review_status.toString());
+
+  const sortOrder = params?.sort_order || 'DESC';
+  searchParams.append('sort_order', sortOrder);
 
   const query = searchParams.toString();
   return api.get<StoreListResponse>(
