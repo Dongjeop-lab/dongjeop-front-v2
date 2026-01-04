@@ -1,10 +1,13 @@
 import { useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
 
+import arrowDownUrl from '@/assets/arrow-down.svg';
+import arrowUpUrl from '@/assets/arrow-up.svg';
 import Badge from '@/components/badge';
 import StatusDot from '@/components/status-dot';
 import Table from '@/components/table';
 
+import type { SortOrderType } from '../_types/params';
 import type { StoreResponse } from '../_types/store';
 import {
   formatChairTypes,
@@ -15,6 +18,8 @@ import {
 
 interface StoreListTableProps {
   stores: StoreResponse[];
+  sortOrder: SortOrderType;
+  onSortToggle: () => void;
 }
 
 const TEXT_STYLES = {
@@ -40,8 +45,13 @@ const COLUMN_WIDTHS = {
   reviewFinishedAt: css({ width: '145px', minWidth: '145px' }),
 } as const;
 
-const StoreListTable = ({ stores }: StoreListTableProps) => {
+const StoreListTable = ({
+  stores,
+  sortOrder,
+  onSortToggle,
+}: StoreListTableProps) => {
   const [_, setSearchParams] = useSearchParams();
+
   const handleClickStore = (storeId: number) => {
     setSearchParams(prev => {
       prev.set('store', storeId.toString());
@@ -78,7 +88,34 @@ const StoreListTable = ({ stores }: StoreListTableProps) => {
             접근성 레벨
           </Table.HeaderCell>
           <Table.HeaderCell className={COLUMN_WIDTHS.reviewFinishedAt}>
-            검수일시
+            <div
+              className={css({
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              })}
+            >
+              검수일시
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  onSortToggle();
+                }}
+                className={css({
+                  cursor: 'pointer',
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                })}
+                aria-label={`정렬 전환: ${sortOrder === 'DESC' ? '오래된 순으로' : '최신순으로'}`}
+              >
+                <img
+                  src={sortOrder === 'DESC' ? arrowUpUrl : arrowDownUrl}
+                  alt=''
+                  width={16}
+                  height={16}
+                />
+              </button>
+            </div>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Head>
