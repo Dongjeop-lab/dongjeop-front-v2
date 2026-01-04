@@ -130,6 +130,36 @@ LAB 내에서 개발한 **실내 접근성 분석 AI 모델**을 실제 운영 �
 <!-- ## 📊 시퀀스 다이어그램 -->
 <!-- TODO: 시퀀스 다이어그램 추가 -->
 
+## 🚀 실행 방법
+
+### 로컬
+
+```bash
+# 설치
+npm install
+
+# 개발 서버 실행
+npm run dev          # MSW 모킹 사용 (기본)
+npm run dev:prod     # 실제 API 연결 (환경변수 설정 필요)
+```
+
+### 도커
+
+```bash
+# 도커 이미지 빌드
+docker build -t dongjeop-front-v2 .
+
+# 도커 컨테이너 실행
+docker run -p 5173:5173 -d --add-host=host.docker.internal:host-gateway dongjeop-front-v2
+```
+
+### 환경변수 설정
+환경별 설정 파일이 필요합니다. 자세한 내용은 동접 LAB 구글 드라이브의 FE 환경변수 문서를 참고하세요.
+
+- `.env.development`: MSW 사용, 설정 불필요
+- `.env.production`: 실제 API 연결용
+- `.env.docker`: 도커 컨테이너 실행용
+
 ## 📁 프로젝트 구조
 
 **콜로케이션(Colocation) 패턴**을 사용해 기능별로 관련 파일을 한 곳에 모아 관리했습니다.
