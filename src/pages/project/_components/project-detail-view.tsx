@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useParams, useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
 
 import Pagination from '@/components/pagination';
 import Tabs from '@/components/tabs';
 
 import { useSuspenseStores } from '../_hooks/useSuspenseStores';
+import type { SortOrderType } from '../_types/params';
 import type { StoreReviewStatusType } from '../_types/store';
 import StoreListTable from './store-list-table';
 
@@ -28,39 +29,47 @@ const STATUS_MAP: Record<string, StoreReviewStatusType | undefined> = {
   [TAB_VALUES.COMPLETED]: 2, // 검수 완료
 } as const;
 
+const INITIAL_PAGE = 1;
+const PAGE_SIZE = 10;
+
 export const ProjectDetailView = () => {
   const { projectId } = useParams();
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const location = useLocation();
   const projectName =
     location.state?.projectName ||
     localStorage.getItem(`project_${projectId}_name`) ||
     `프로젝트 ${projectId}`;
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
+  const sortOrder = (searchParams.get('sort') as SortOrderType) || 'DESC';
 
   // 프로젝트 내 총 장소 수 조회
   const { data: allStoresData } = useSuspenseStores(parseInt(projectId!), {
-    page: 1,
-    size: 1,
+    page: INITIAL_PAGE,
+    size: INITIAL_PAGE,
+    sort_order: sortOrder,
   });
 
   // 검수 완료 장소 수 조회
   const { data: completedStoresData } = useSuspenseStores(
     parseInt(projectId!),
     {
-      page: 1,
-      size: 1,
+      page: INITIAL_PAGE,
+      size: INITIAL_PAGE,
       review_status: 2,
+      sort_order: sortOrder,
     }
   );
 
   // 현재 탭 데이터
   const { data } = useSuspenseStores(parseInt(projectId!), {
     page: currentPage,
-    size: 10,
+    size: PAGE_SIZE,
     review_status: STATUS_MAP[currentTab],
+    sort_order: sortOrder,
   });
 
   // 탭에 표시할 장소 개수
@@ -70,11 +79,20 @@ export const ProjectDetailView = () => {
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value as TabValue);
-    setCurrentPage(1); // 탭 변경 시 페이지 초기화
+    setCurrentPage(INITIAL_PAGE); // 탭 변경 시 페이지 초기화
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleSortToggle = () => {
+    const newSort = sortOrder === 'DESC' ? 'ASC' : 'DESC';
+    setSearchParams(prev => {
+      prev.set('sort', newSort);
+      return prev;
+    });
+    setCurrentPage(INITIAL_PAGE); // 정렬 변경 시 페이지 초기화
   };
 
   return (
@@ -136,14 +154,18 @@ export const ProjectDetailView = () => {
                 overflowX: 'auto',
               })}
             >
-              <StoreListTable stores={data.stores} />
+              <StoreListTable
+                stores={data.stores}
+                sortOrder={sortOrder}
+                onSortToggle={handleSortToggle}
+              />
             </Tabs.Content>
           ))}
         </Tabs.Root>
       </div>
 
       <Pagination
-        totalItems={data.page_info.total_pages * 10}
+        totalItems={data.page_info.total_pages * PAGE_SIZE}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />
