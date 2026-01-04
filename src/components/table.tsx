@@ -59,7 +59,6 @@ const Cell = styled('td', {
   base: {
     padding: '12px',
     height: '84px',
-    // maxHeight: '84px',
     color: '#121619',
     verticalAlign: 'middle',
   },
