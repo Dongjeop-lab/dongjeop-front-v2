@@ -5,11 +5,14 @@ import type { StoreReviewStatusType } from './store';
  * 각 hook에서 재사용 가능한 파라미터 타입
  */
 
+export type SortOrderType = 'ASC' | 'DESC'; // 정렬 순서
+
 /** 상태별 검수 목록 조회 파라미터 */
 export interface UseStoresParams extends Record<string, unknown> {
   page?: number;
   size?: number;
   review_status?: StoreReviewStatusType;
+  sort_order?: SortOrderType | null;
 }
 
 /** 검수 화면 상점 목록 조회 파라미터 (간단 정보) */
