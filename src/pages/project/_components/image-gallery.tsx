@@ -56,10 +56,8 @@ export const ImageGallery = ({
             key={image.id}
             className={css({
               position: 'relative',
-              aspectRatio: '4/3',
               borderRadius: '8px',
               overflow: 'hidden',
-              backgroundColor: '#F3F4F6',
             })}
           >
             <img
@@ -67,8 +65,8 @@ export const ImageGallery = ({
               alt={`${storeName} 이미지`}
               className={css({
                 width: '100%',
-                height: '100%',
-                objectFit: 'cover',
+                height: 'auto',
+                display: 'block',
               })}
             />
             {/* X 버튼 */}

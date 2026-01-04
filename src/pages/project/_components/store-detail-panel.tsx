@@ -51,6 +51,7 @@ export const StoreDetailPanel = ({
         flexDirection: 'column',
         height: '100%',
         width: '100%',
+        minWidth: '620px',
         backgroundColor: 'white',
         borderRadius: '12px',
         boxShadow: '0px 4px 24px 0px #0000000A',
