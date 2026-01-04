@@ -111,6 +111,7 @@ export const StoreDetailPanel = ({
             flex: 1,
             overflowY: 'auto',
             padding: '0 0 24px 24px',
+            minWidth: '180px',
           })}
         >
           <ImageGallery
