@@ -47,6 +47,7 @@ export const ProjectDetailView = () => {
   const { data: allStoresData } = useSuspenseStores(parseInt(projectId!), {
     page: 1,
     size: 1,
+    sort_order: sortOrder,
   });
 
   // 검수 완료 장소 수 조회
@@ -56,6 +57,7 @@ export const ProjectDetailView = () => {
       page: 1,
       size: 1,
       review_status: 2,
+      sort_order: sortOrder,
     }
   );
 
