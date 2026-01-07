@@ -11,10 +11,10 @@
   <table>
     <tr>
       <td align="center">
-        <img src="public/readme/poster-1.png" alt="poster-lab">
+        <img src="public/images/readme/poster-1.png" alt="poster-lab">
       </td>
       <td align="center">
-        <img src="public/readme/poster-2.png" alt="poster-service">
+        <img src="public/images/readme/poster-2.png" alt="poster-service">
       </td>
     </tr>
   </table>
