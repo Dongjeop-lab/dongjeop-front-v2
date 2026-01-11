@@ -109,3 +109,44 @@ export interface StoreReviewLabelResponse {
   id: number;
   access_level: AccessLevelType;
 }
+
+interface ProjectExportData {
+  id: number;
+  name: string;
+  reviewer: string;
+  csv_file_name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ImageExportData {
+  id: number;
+  image_url: string;
+  source_url: string;
+  analysis_status: string;
+  ignored: boolean;
+  created_at: string;
+  updated_at: string;
+  analysis_started_at?: string;
+  analysis_finished_at?: string;
+  analysis_label?: LabelBase;
+}
+
+interface StoreExportData {
+  id: number;
+  name: string;
+  address: string;
+  review_status: string;
+  total_image_count: number;
+  images: ImageExportData[];
+  created_at: string;
+  updated_at: string;
+  label?: LabelBase;
+  review_completed_at?: string;
+  access_level?: string;
+}
+
+export interface ProjectExportResponseData {
+  project: ProjectExportData;
+  stores: StoreExportData[];
+}
