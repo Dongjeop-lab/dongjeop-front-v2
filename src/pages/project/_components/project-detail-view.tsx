@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router';
 import { css } from 'styled-system/css';
 
+import { Button } from '@/components/button';
 import Pagination from '@/components/pagination';
 import Tabs from '@/components/tabs';
 
+import { useExportJSON } from '../_hooks';
 import { useSuspenseStores } from '../_hooks/useSuspenseStores';
 import type { SortOrderType } from '../_types/params';
 import type { StoreReviewStatusType } from '../_types/store';
@@ -45,6 +47,11 @@ export const ProjectDetailView = () => {
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   const [currentTab, setCurrentTab] = useState<TabValue>(TAB_VALUES.ALL);
   const sortOrder = (searchParams.get('sort') as SortOrderType) || 'DESC';
+
+  const { handleExportJSON, isLoading } = useExportJSON(
+    parseInt(projectId!),
+    projectName
+  );
 
   // 프로젝트 내 총 장소 수 조회
   const { data: allStoresData } = useSuspenseStores(parseInt(projectId!), {
@@ -135,17 +142,31 @@ export const ProjectDetailView = () => {
           defaultValue={TAB_VALUES.ALL}
           onValueChange={handleTabChange}
         >
-          <Tabs.List>
-            <Tabs.Trigger value={TAB_VALUES.ALL}>
-              전체 {storeTotal}
-            </Tabs.Trigger>
-            <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
-              검수 대기 {reviewingCount}
-            </Tabs.Trigger>
-            <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
-              검수 완료 {storeCompleted}
-            </Tabs.Trigger>
-          </Tabs.List>
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            })}
+          >
+            <Tabs.List>
+              <Tabs.Trigger value={TAB_VALUES.ALL}>
+                전체 {storeTotal}
+              </Tabs.Trigger>
+              <Tabs.Trigger value={TAB_VALUES.REVIEWING}>
+                검수 대기 {reviewingCount}
+              </Tabs.Trigger>
+              <Tabs.Trigger value={TAB_VALUES.COMPLETED}>
+                검수 완료 {storeCompleted}
+              </Tabs.Trigger>
+            </Tabs.List>
+            <Button
+              onClick={handleExportJSON}
+              disabled={isLoading}
+            >
+              JSON Export
+            </Button>
+          </div>
           {Object.values(TAB_VALUES).map(tab => (
             <Tabs.Content
               key={tab}

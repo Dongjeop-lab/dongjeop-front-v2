@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 import type {
   ImageDetailResponse,
+  ProjectExportResponseData,
   StoreListResponse,
   StoreResponse,
   StoreReviewDetailResponse,
@@ -464,5 +465,61 @@ export const projectHandlers = [
     };
 
     return HttpResponse.json(response);
+  }),
+
+  // GET /api/v1/projects/{project_id}/export - 프로젝트 JSON 데이터 Export
+  http.get('/api/v1/projects/:projectId/export', ({ params }) => {
+    const { projectId } = params;
+
+    const exportResponse: ProjectExportResponseData = {
+      project: {
+        id: parseInt(projectId as string),
+        name: '서초구 카페 리스트',
+        reviewer: '김검수',
+        csv_file_name: 'seocho_cafe_list.csv',
+        created_at: '2024-11-20T09:00:00Z',
+        updated_at: '2024-12-02T16:00:00Z',
+      },
+      stores: mockStores.slice(0, 3).map(store => ({
+        id: store.id,
+        name: store.name,
+        address: store.address,
+        review_status: store.status === 1 ? 'pending' : 'completed',
+        total_image_count: store.total_image_count,
+        images: [
+          {
+            id: 1,
+            image_url: store.thumbnail_url,
+            source_url: 'https://example.com/original-image-1',
+            analysis_status: 'completed',
+            ignored: false,
+            created_at: store.created_at,
+            updated_at: store.updated_at,
+            analysis_started_at: store.created_at,
+            analysis_finished_at: store.updated_at,
+            analysis_label: store.label_info || undefined,
+          },
+          {
+            id: 2,
+            image_url: store.thumbnail_url,
+            source_url: 'https://example.com/original-image-2',
+            analysis_status: 'completed',
+            ignored: false,
+            created_at: store.created_at,
+            updated_at: store.updated_at,
+            analysis_started_at: store.created_at,
+            analysis_finished_at: store.updated_at,
+            analysis_label: store.label_info || undefined,
+          },
+        ],
+        created_at: store.created_at,
+        updated_at: store.updated_at,
+        label: store.label_info || undefined,
+        review_completed_at: store.review_finished_at || undefined,
+        access_level: store.access_level?.toString(),
+      })),
+    };
+
+    return HttpResponse.json(exportResponse);
   }),
 ];
