@@ -171,7 +171,6 @@ const StoreListTable = ({
                   className={css({
                     height: '100%',
                     objectFit: 'contain',
-                    borderRadius: '4px',
                   })}
                   alt={`${store.name} 썸네일 이미지`}
                 />
