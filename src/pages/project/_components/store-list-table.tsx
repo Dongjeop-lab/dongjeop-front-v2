@@ -161,7 +161,7 @@ const StoreListTable = ({
                   position: 'relative',
                   height: '100%',
                   width: 'fit-content',
-                  backgroundColor: '#F3F4F6',
+                  backgroundColor: store.thumbnail_url ? '' : '#F3F4F6',
                   borderRadius: '4px',
                   overflow: 'hidden',
                 })}

@@ -1,13 +1,14 @@
 import { api } from '@/lib/api-client';
 
 import type { UseStoresParams } from '../_types/params';
-import type {
-  ImageDetailResponse,
-  StoreListResponse,
-  StoreReviewDetailResponse,
-  StoreReviewLabelRequest,
-  StoreReviewLabelResponse,
-  StoreSimpleListResponse,
+import {
+  type ImageDetailResponse,
+  type ProjectExportResponseData,
+  type StoreListResponse,
+  type StoreReviewDetailResponse,
+  type StoreReviewLabelRequest,
+  type StoreReviewLabelResponse,
+  type StoreSimpleListResponse,
 } from '../_types/store';
 
 /**
@@ -62,4 +63,9 @@ export const getImageDetail = (imageId: number) => {
 /** 이미지 무시 처리 */
 export const ignoreImage = (imageId: number) => {
   return api.put<void>(`/reviews/images/${imageId}/ignore`);
+};
+
+/** JSON Export 데이터 조회 */
+export const getExportJSONData = (projectId: number) => {
+  return api.get<ProjectExportResponseData>(`/projects/${projectId}/export`);
 };

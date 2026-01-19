@@ -67,6 +67,7 @@ export const ImageGallery = ({
                 width: '100%',
                 height: 'auto',
                 display: 'block',
+                borderRadius: '8px',
               })}
             />
             {/* X 버튼 */}

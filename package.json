@@ -2,6 +2,7 @@
   "name": "dongjeop-front-v2",
   "private": true,
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "prepare": "panda codegen",
